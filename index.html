@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Construction Cost Estimator — 2025 Altus Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c18;
+    --surface: rgba(255,255,255,0.025);
+    --surface-hover: rgba(255,255,255,0.055);
+    --border: rgba(255,255,255,0.07);
+    --border-active: rgba(79,209,197,0.3);
+    --text: #e0e3eb;
+    --text-dim: rgba(224,227,235,0.4);
+    --text-faint: rgba(224,227,235,0.22);
+    --accent: #4fd1c5;
+    --accent-dim: rgba(79,209,197,0.12);
+    --accent-glow: rgba(79,209,197,0.25);
+    --blue: #2b6cb0;
+    --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+    --sans: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    min-height: 100vh; background: var(--bg); color: var(--text);
+    font-family: var(--sans); font-size: 14px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: rgba(79,209,197,0.25); }
+  input::placeholder { color: var(--text-faint); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+
+/* Range inputs */
+input[type=range] { -webkit-appearance: none; appearance: none; background: transparent; cursor: pointer; width: 100%; }
+input[type=range]::-webkit-slider-track { height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; }
+input[type=range]::-webkit-slider-thumb {
+-webkit-appearance: none; height: 22px; width: 22px; border-radius: 50%;
+background: var(–accent); margin-top: -8px;
+box-shadow: 0 0 12px var(–accent-glow), 0 0 0 3px rgba(79,209,197,0.1);
+transition: box-shadow 0.2s;
+}
+input[type=range]::-webkit-slider-thumb:hover { box-shadow: 0 0 18px var(–accent-glow), 0 0 0 5px rgba(79,209,197,0.15); }
+input[type=range]::-moz-range-track { height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; }
+input[type=range]::-moz-range-thumb { height: 22px; width: 22px; border-radius: 50%; background: var(–accent); border: none; box-shadow: 0 0 12px var(–accent-glow); }
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+.fade-in { animation: fadeIn 0.35s ease forwards; }
+.slide-up { animation: slideUp 0.5s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+/* Layout */
+.container { max-width: 960px; margin: 0 auto; padding: 0 28px; }
+
+/* Header */
+.header {
+border-bottom: 1px solid var(–border); padding: 22px 0;
+background: linear-gradient(180deg, rgba(79,209,197,0.03) 0%, transparent 100%);
+}
+.header-inner { display: flex; align-items: center; gap: 14; }
+.logo {
+width: 40px; height: 40px; border-radius: 11px;
+background: linear-gradient(135deg, var(–accent), var(–blue));
+display: flex; align-items: center; justify-content: center;
+font-size: 20px; font-weight: 700; color: var(–bg);
+font-family: var(–mono); flex-shrink: 0;
+}
+.header h1 { font-size: 19px; font-weight: 700; letter-spacing: -0.025em; color: #fff; }
+.header p { font-size: 11.5px; color: var(–text-dim); margin-top: 1px; }
+
+/* City pills */
+.city-bar { display: flex; gap: 6px; flex-wrap: wrap; margin: 24px 0 20px; }
+.city-pill {
+padding: 8px 16px; border-radius: 9px; border: none; cursor: pointer;
+font-family: var(–sans); font-size: 13px; font-weight: 500;
+background: var(–surface); color: rgba(224,227,235,0.55);
+transition: all 0.2s;
+}
+.city-pill:hover { background: var(–surface-hover); color: var(–text); }
+.city-pill.active {
+background: linear-gradient(135deg, var(–accent), #38a89d);
+color: var(–bg); box-shadow: 0 2px 14px var(–accent-glow);
+}
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; background: var(–surface); border-radius: 12px; padding: 4px; margin-bottom: 24px; }
+.tab-btn {
+padding: 10px 22px; border-radius: 9px; border: none; cursor: pointer;
+font-family: var(–sans); font-size: 13.5px; font-weight: 500;
+background: transparent; color: var(–text-dim); transition: all 0.2s;
+}
+.tab-btn.active { background: var(–accent-dim); color: var(–accent); }
+.tab-btn:hover:not(.active) { color: var(–text); }
+
+/* Search */
+.search-input {
+width: 100%; padding: 13px 16px; border-radius: 10px;
+border: 1px solid var(–border); background: var(–surface);
+color: var(–text); font-size: 14px; font-family: var(–sans); outline: none;
+transition: border-color 0.2s;
+}
+.search-input:focus { border-color: var(–border-active); }
+
+/* Section labels */
+.section-label {
+font-size: 10.5px; font-weight: 600; text-transform: uppercase;
+letter-spacing: 0.09em; color: var(–text-faint); margin-bottom: 10px;
+}
+
+/* Type rows */
+.type-row {
+padding: 12px 16px; border-radius: 10px; cursor: pointer;
+background: var(–surface); border: 1px solid transparent;
+display: flex; justify-content: space-between; align-items: center;
+transition: all 0.15s; margin-bottom: 3px;
+}
+.type-row:hover { background: var(–surface-hover); transform: translateY(-1px); }
+.type-row.selected { background: var(–accent-dim); border-color: var(–border-active); }
+.type-row .label { font-size: 13.5px; color: var(–text); }
+.type-row .label.na { color: var(–text-faint); }
+.type-row .rate { font-size: 12.5px; font-family: var(–mono); color: var(–accent); font-weight: 500; }
+.type-row .rate.na { color: var(–text-faint); font-family: var(–sans); }
+
+/* Estimate panel */
+.panel {
+padding: 20px 22px; border-radius: 14px;
+background: var(–surface); border: 1px solid var(–border);
+margin-bottom: 16px;
+}
+.panel-accent {
+background: linear-gradient(135deg, rgba(79,209,197,0.05), rgba(43,108,176,0.04));
+border-color: rgba(79,209,197,0.14);
+}
+
+/* Number input */
+.num-input {
+width: 100%; padding: 10px 0; border: none;
+border-bottom: 2px solid rgba(255,255,255,0.1);
+background: transparent; color: #fff; font-size: 26px;
+font-family: var(–mono); font-weight: 600; outline: none;
+transition: border-color 0.2s;
+}
+.num-input:focus { border-color: var(–accent); }
+.num-input-sm {
+width: 240px; padding: 10px 14px; border-radius: 8px;
+border: 1px solid var(–border); background: var(–surface);
+color: #fff; font-size: 14px; font-family: var(–mono); outline: none;
+}
+
+/* Parking pills */
+.park-pill {
+padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer;
+font-family: var(–sans); font-size: 13px; font-weight: 500;
+background: rgba(255,255,255,0.04); color: rgba(224,227,235,0.5);
+transition: all 0.2s;
+}
+.park-pill.active { background: var(–accent-dim); color: var(–accent); }
+
+/* Generate button */
+.gen-btn {
+width: 100%; padding: 17px; border-radius: 13px; border: none;
+font-family: var(–sans); font-size: 16px; font-weight: 700;
+letter-spacing: -0.01em; cursor: pointer; transition: all 0.3s;
+}
+.gen-btn.ready {
+background: linear-gradient(135deg, var(–accent), var(–blue));
+color: var(–bg); box-shadow: 0 4px 28px var(–accent-glow);
+}
+.gen-btn.ready:hover { box-shadow: 0 6px 36px rgba(79,209,197,0.35); transform: translateY(-1px); }
+.gen-btn.disabled { background: rgba(255,255,255,0.05); color: var(–text-faint); cursor: not-allowed; }
+
+/* Results card */
+.result-card {
+border-radius: 16px; overflow: hidden;
+background: linear-gradient(180deg, rgba(79,209,197,0.04), rgba(43,108,176,0.02));
+box-shadow: 0 0 0 1px var(–border-active), 0 4px 30px rgba(79,209,197,0.08);
+}
+.result-header {
+padding: 30px 24px 22px; text-align: center;
+border-bottom: 1px solid var(–border);
+}
+.result-total {
+font-size: 52px; font-weight: 700; font-family: var(–mono);
+color: var(–accent); letter-spacing: -0.04em;
+text-shadow: 0 0 50px rgba(79,209,197,0.3);
+}
+.result-body { padding: 22px 24px; }
+.result-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; }
+.result-row .lbl { font-size: 14px; color: var(–text); }
+.result-row .sub { font-size: 11px; color: var(–text-faint); margin-top: 1px; }
+.result-row .val { font-size: 18px; font-family: var(–mono); font-weight: 600; color: var(–text); }
+.result-row .val-dim { color: rgba(224,227,235,0.55); font-weight: 500; font-size: 16px; }
+.result-divider { height: 1px; background: var(–border); margin: 6px 0; }
+.result-footer {
+padding: 14px 24px; background: rgba(255,255,255,0.015);
+border-top: 1px solid rgba(255,255,255,0.04);
+}
+.result-footer p { font-size: 10px; color: var(–text-faint); line-height: 1.6; }
+
+/* Comparison bars */
+.comp-row { display: grid; grid-template-columns: 68px 1fr 88px; align-items: center; gap: 10px; margin-bottom: 6px; }
+.comp-city { font-size: 12px; color: rgba(224,227,235,0.5); }
+.comp-city.active { color: var(–accent); font-weight: 600; }
+.comp-track { position: relative; height: 7px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; }
+.comp-bar { position: absolute; height: 100%; border-radius: 4px; transition: all 0.5s ease; }
+.comp-bar.active { background: linear-gradient(90deg, var(–accent), var(–blue)); }
+.comp-bar.inactive { background: rgba(255,255,255,0.12); }
+.comp-rate { font-size: 10.5px; font-family: var(–mono); color: var(–text-dim); text-align: right; }
+
+/* Soft cost tags */
+.soft-tag {
+display: inline-block; font-size: 10px; padding: 3px 8px; border-radius: 4px;
+background: rgba(255,255,255,0.035); color: var(–text-faint); margin: 2px 3px 2px 0;
+}
+
+/* Change button */
+.change-btn {
+margin-top: 16px; padding: 7px 16px; border-radius: 7px;
+border: 1px solid rgba(255,255,255,0.1); background: transparent;
+color: rgba(224,227,235,0.5); font-size: 12px; cursor: pointer;
+font-family: var(–sans); transition: all 0.2s;
+}
+.change-btn:hover { border-color: rgba(255,255,255,0.2); color: var(–text); }
+
+.empty-state { text-align: center; padding: 60px 20px; color: var(–text-faint); }
+.empty-state p { margin-bottom: 8px; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+
+.hidden { display: none; }
+</style>
+
+</head>
+<body>
+
+<div class="header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo">E</div>
+      <div>
+        <h1>Construction Cost Estimator</h1>
+        <p>Powered by 2025 Altus Group Canadian Cost Guide</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="padding-top:8px; padding-bottom:80px;">
+  <!-- City Selector -->
+  <div class="city-bar" id="cityBar"></div>
+
+  <!-- Tabs -->
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="browse" onclick="switchTab('browse')">Browse Types</button>
+    <button class="tab-btn" data-tab="estimate" onclick="switchTab('estimate')">Build Estimate</button>
+  </div>
+
+  <!-- Browse Panel -->
+
+  <div id="browsePanel" class="fade-in">
+    <div style="margin-bottom:18px;">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search building types..." oninput="renderTypeList()">
+    </div>
+    <div id="typeList"></div>
+  </div>
+
+  <!-- Estimate Panel -->
+
+  <div id="estimatePanel" class="hidden fade-in"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════
+const CITIES = ["GTA","Vancouver","Calgary","Edmonton","Winnipeg","Ottawa","Montreal","Halifax","St. John's"];
+let currentCity = "GTA";
+let currentTab = "browse";
+let selectedType = null;
+let showEstimate = false;
+
+const PARKING_TYPES = [
+  {key:"none",label:"No Parking"},{key:"surface",label:"Surface Parking"},
+  {key:"above_grade",label:"Above Grade Garage"},{key:"underground",label:"Underground Garage"}
+];
+let parkingType = "none";
+
+const SOFT_COSTS = [
+  "Architectural & Engineering Fees","Permits & Development Charges","Legal Fees",
+  "Contingencies","Interest & Lender Fees","Land Surveys",
+  "Soil & Environmental Tests","Insurance & Bond Costs","Management Costs",
+  "Marketing & Advertising","Special Equipment & Furnishings","Developer Profit"
+];
+
+const DATA = {
+private_sector:{
+residential:{
+condominiums_apartments:{
+up_to_12_storeys:{label:"Condos/Apartments — Up to 12 Storeys",Vancouver:[330,405],Calgary:[295,350],Edmonton:[295,350],Winnipeg:[295,350],GTA:[290,390],Ottawa:[270,345],Montreal:[260,320],Halifax:[240,340],"St. John's":[250,350]},
+"13_to_39_storeys":{label:"Condos/Apartments — 13 to 39 Storeys",Vancouver:[360,455],Calgary:[305,360],Edmonton:[305,360],Winnipeg:[305,355],GTA:[295,385],Ottawa:[310,340],Montreal:[300,315],Halifax:[295,370],"St. John's":null},
+"40_to_60_storeys":{label:"Condos/Apartments — 40 to 60 Storeys",Vancouver:[360,480],Calgary:[310,365],Edmonton:[310,365],Winnipeg:[310,360],GTA:[330,410],Ottawa:[315,365],Montreal:[310,355],Halifax:null,"St. John's":null},
+"60_plus_storeys":{label:"Condos/Apartments — 60+ Storeys",Vancouver:[370,485],Calgary:null,Edmonton:null,Winnipeg:null,GTA:[365,480],Ottawa:null,Montreal:null,Halifax:null,"St. John's":null}
+},
+wood_framed:{
+row_townhouse:{label:"Row Townhouse (Unfinished Basement)",Vancouver:[205,310],Calgary:[185,245],Edmonton:[180,240],Winnipeg:[180,240],GTA:[205,265],Ottawa:[130,180],Montreal:[135,185],Halifax:[140,200],"St. John's":[150,200]},
+single_family:{label:"Single Family (Unfinished Basement)",Vancouver:[200,320],Calgary:[175,265],Edmonton:[170,265],Winnipeg:[165,250],GTA:[200,275],Ottawa:[140,225],Montreal:[145,205],Halifax:[140,215],"St. John's":[150,210]},
+stacked_townhouse:{label:"3 Storey Stacked Townhouse",Vancouver:[225,315],Calgary:[195,255],Edmonton:[190,255],Winnipeg:[185,250],GTA:[230,270],Ottawa:[170,205],Montreal:[155,205],Halifax:[165,210],"St. John's":[165,215]},
+wood_framed_condo:{label:"Up to 6 Storey Wood Framed Condo",Vancouver:[275,365],Calgary:[235,345],Edmonton:[230,345],Winnipeg:[225,340],GTA:[245,330],Ottawa:[215,280],Montreal:[210,275],Halifax:[175,220],"St. John's":[240,310]},
+custom_single_family:{label:"Custom Built Single Family",Vancouver:[495,1250],Calgary:[475,1090],Edmonton:[475,1090],Winnipeg:[470,1050],GTA:[520,1130],Ottawa:[500,1000],Montreal:[440,875],Halifax:[345,695],"St. John's":[350,700]}
+},
+seniors_housing:{
+independent:{label:"Independent / Supportive Living",Vancouver:[330,420],Calgary:[260,350],Edmonton:[260,350],Winnipeg:[255,345],GTA:[285,385],Ottawa:[310,360],Montreal:[215,325],Halifax:[250,325],"St. John's":[260,335]},
+assisted:{label:"Assisted Living Residences",Vancouver:[315,450],Calgary:[295,375],Edmonton:[295,375],Winnipeg:[290,370],GTA:[310,405],Ottawa:[330,380],Montreal:[245,335],Halifax:[270,360],"St. John's":[280,365]},
+complex_care:{label:"Complex Care Residences",Vancouver:[410,625],Calgary:[335,550],Edmonton:[335,550],Winnipeg:[330,545],GTA:[400,590],Ottawa:[380,550],Montreal:[365,530],Halifax:[375,585],"St. John's":[400,565]}
+}
+},
+commercial:{
+office_buildings:{
+under_5_class_b:{label:"Office — Under 5 Storeys (Class B)",Vancouver:[300,380],Calgary:[240,325],Edmonton:[240,325],Winnipeg:[235,320],GTA:[260,355],Ottawa:[240,310],Montreal:[200,270],Halifax:[190,245],"St. John's":[200,350]},
+"5_30_class_b":{label:"Office — 5-30 Storeys (Class B)",Vancouver:[300,375],Calgary:[245,330],Edmonton:[245,330],Winnipeg:[240,325],GTA:[270,380],Ottawa:[250,340],Montreal:[205,280],Halifax:[195,280],"St. John's":[200,280]},
+"5_30_class_a":{label:"Office — 5-30 Storeys (Class A)",Vancouver:[345,425],Calgary:[270,375],Edmonton:[270,375],Winnipeg:[265,370],GTA:[305,450],Ottawa:[295,385],Montreal:[265,355],Halifax:[215,310],"St. John's":[215,310]},
+"31_60_class_a":{label:"Office — 31-60 Storeys (Class A)",Vancouver:[370,460],Calgary:[305,430],Edmonton:[305,430],Winnipeg:[300,425],GTA:[355,510],Ottawa:null,Montreal:[315,440],Halifax:null,"St. John's":null},
+fitout_b:{label:"Interior Fitout (Class B)",Vancouver:[90,175],Calgary:[80,120],Edmonton:[80,120],Winnipeg:[75,115],GTA:[110,150],Ottawa:[85,135],Montreal:[90,130],Halifax:[65,110],"St. John's":[65,105]},
+fitout_a:{label:"Interior Fitout (Class A)",Vancouver:[160,300],Calgary:[115,205],Edmonton:[115,205],Winnipeg:[110,200],GTA:[160,265],Ottawa:[125,195],Montreal:[140,195],Halifax:[105,175],"St. John's":[100,175]}
+},
+retail:{
+strip_plaza:{label:"Strip Plaza",Vancouver:[210,300],Calgary:[220,300],Edmonton:[220,300],Winnipeg:[215,295],GTA:[235,295],Ottawa:[170,245],Montreal:[155,225],Halifax:[140,190],"St. John's":[145,190]},
+supermarket:{label:"Supermarket",Vancouver:[215,270],Calgary:[210,260],Edmonton:[210,260],Winnipeg:[205,255],GTA:[175,260],Ottawa:[180,260],Montreal:[175,230],Halifax:[170,230],"St. John's":[170,220]},
+big_box:{label:"Big Box Store",Vancouver:[205,270],Calgary:[200,255],Edmonton:[200,255],Winnipeg:[195,250],GTA:[165,240],Ottawa:[175,225],Montreal:[165,220],Halifax:[175,225],"St. John's":[185,235]},
+enclosed_mall:{label:"Enclosed Mall",Vancouver:[350,460],Calgary:[270,420],Edmonton:[270,420],Winnipeg:[265,415],GTA:[275,480],Ottawa:[245,315],Montreal:[245,330],Halifax:[225,320],"St. John's":[235,315]}
+},
+hotels:{
+budget:{label:"Budget Hotel",Vancouver:[240,310],Calgary:[240,325],Edmonton:[240,325],Winnipeg:[235,320],GTA:[245,325],Ottawa:[220,285],Montreal:[195,265],Halifax:[215,265],"St. John's":[225,280]},
+suite:{label:"Suite Hotel",Vancouver:[340,425],Calgary:[300,410],Edmonton:[300,410],Winnipeg:[295,405],GTA:[345,420],Ottawa:[290,385],Montreal:[245,325],Halifax:[235,335],"St. John's":[280,405]},
+four_star:{label:"4-Star Full Service",Vancouver:[395,560],Calgary:[320,435],Edmonton:[320,435],Winnipeg:[315,430],GTA:[390,565],Ottawa:[345,520],Montreal:[310,455],Halifax:[290,370],"St. John's":[300,435]}
+},
+parking:{
+surface:{label:"Surface Parking",Vancouver:[13,25],Calgary:[11,27],Edmonton:[11,27],Winnipeg:[11,27],GTA:[15,30],Ottawa:[12,24],Montreal:[11,22],Halifax:[13,24],"St. John's":[10,20]},
+above_grade:{label:"Freestanding Garage (Above Grade)",Vancouver:[130,210],Calgary:[115,175],Edmonton:[115,175],Winnipeg:[110,170],GTA:[125,200],Ottawa:[115,165],Montreal:[105,155],Halifax:[115,145],"St. John's":[120,155]},
+underground:{label:"Underground Parking",Vancouver:[170,290],Calgary:[160,220],Edmonton:[160,220],Winnipeg:[155,215],GTA:[175,285],Ottawa:[200,290],Montreal:[145,195],Halifax:[145,200],"St. John's":[150,200]}
+},
+industrial:{
+warehouse:{label:"Warehouse",Vancouver:[125,210],Calgary:[125,165],Edmonton:[125,165],Winnipeg:[120,160],GTA:[80,180],Ottawa:[120,170],Montreal:[115,175],Halifax:[115,180],"St. John's":[110,165]},
+distribution:{label:"Distribution Facility",Vancouver:[200,485],Calgary:[150,450],Edmonton:[150,450],Winnipeg:[145,445],GTA:[180,480],Ottawa:[165,445],Montreal:[160,440],Halifax:[160,415],"St. John's":[180,475]},
+urban_storage:{label:"Urban Storage Facility",Vancouver:[120,175],Calgary:[140,185],Edmonton:[140,185],Winnipeg:[135,180],GTA:[95,195],Ottawa:[105,195],Montreal:null,Halifax:null,"St. John's":null}
+}
+}
+},
+public_sector:{
+institutional:{
+educational:{
+elementary:{label:"Elementary School",Vancouver:[425,530],Calgary:[355,555],Edmonton:[355,555],Winnipeg:[330,545],GTA:[450,700],Ottawa:[360,460],Montreal:[380,475],Halifax:[360,430],"St. John's":[325,460]},
+secondary:{label:"Secondary School",Vancouver:[445,535],Calgary:[395,575],Edmonton:[395,575],Winnipeg:[360,570],GTA:[500,750],Ottawa:[380,480],Montreal:[400,480],Halifax:[365,465],"St. John's":[350,475]},
+university_teaching:{label:"University — Teaching & Lecture Hall",Vancouver:[750,1250],Calgary:[575,950],Edmonton:[575,950],Winnipeg:[550,945],GTA:[900,1250],Ottawa:[710,1015],Montreal:[665,910],Halifax:[660,760],"St. John's":[670,770]},
+university_labs:{label:"University — Laboratories (Level 1 & 2)",Vancouver:[925,1400],Calgary:[750,1250],Edmonton:[750,1250],Winnipeg:[725,1245],GTA:[1150,1600],Ottawa:[935,1245],Montreal:[900,1190],Halifax:[760,1100],"St. John's":[770,1110]},
+student_residence:{label:"University — Student Residence",Vancouver:[395,580],Calgary:[310,420],Edmonton:[310,420],Winnipeg:[300,415],GTA:[590,800],Ottawa:[380,480],Montreal:[360,455],Halifax:[325,400],"St. John's":[285,375]}
+},
+healthcare:{
+hospital:{label:"General Hospital / Acute Care",Vancouver:[1000,1550],Calgary:[950,1400],Edmonton:[950,1400],Winnipeg:[900,1390],GTA:[1030,1620],Ottawa:[950,1500],Montreal:[870,1265],Halifax:[770,1260],"St. John's":[800,1200]},
+medical_clinic:{label:"Medical Clinic / Treatment Centre",Vancouver:[550,695],Calgary:[375,850],Edmonton:[375,850],Winnipeg:[370,845],GTA:[460,800],Ottawa:[450,600],Montreal:[360,530],Halifax:[410,680],"St. John's":[400,550]}
+}
+},
+civic:{
+government:{
+fire_ems:{label:"Fire / EMS Station",Vancouver:[600,865],Calgary:[550,715],Edmonton:[550,715],Winnipeg:[545,710],GTA:[620,860],Ottawa:[570,695],Montreal:[525,605],Halifax:[400,490],"St. John's":[400,500]},
+police_local:{label:"Police Station — Local",Vancouver:[550,600],Calgary:[450,545],Edmonton:[450,545],Winnipeg:[445,540],GTA:[600,735],Ottawa:[540,600],Montreal:[500,545],Halifax:[450,550],"St. John's":[410,475]},
+library:{label:"Library",Vancouver:[455,800],Calgary:[425,800],Edmonton:[425,800],Winnipeg:[420,795],GTA:[550,1100],Ottawa:[500,850],Montreal:[455,730],Halifax:[410,670],"St. John's":[400,600]},
+municipal_office:{label:"Municipal Office (Including Fit-Up)",Vancouver:[450,530],Calgary:[410,475],Edmonton:[410,475],Winnipeg:[405,470],GTA:[445,580],Ottawa:[375,470],Montreal:[350,430],Halifax:[335,385],"St. John's":[350,400]}
+},
+recreation:{
+ice_arena:{label:"Ice Arena",Vancouver:[395,510],Calgary:[375,550],Edmonton:[375,550],Winnipeg:[370,545],GTA:[355,450],Ottawa:[345,450],Montreal:[340,425],Halifax:[345,395],"St. John's":[340,395]},
+aquatic:{label:"Community Aquatic Facility",Vancouver:[560,930],Calgary:[550,800],Edmonton:[550,800],Winnipeg:[545,795],GTA:[610,940],Ottawa:[570,780],Montreal:[525,680],Halifax:[650,825],"St. John's":[510,565]},
+multi_use:{label:"Multi-Use Recreational Centre",Vancouver:[545,1050],Calgary:[450,725],Edmonton:[450,725],Winnipeg:[445,720],GTA:[670,1160],Ottawa:[590,710],Montreal:[545,640],Halifax:[550,675],"St. John's":[460,585]}
+}
+}
+}
+};
+
+// ═══════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════
+function fmt(n) {
+  if (n >= 1000000) return "$" + (n/1000000).toFixed(1) + "M";
+  return "$" + Math.round(n).toLocaleString();
+}
+
+function getAllTypes() {
+  const types = [];
+  const sectorNames = {private_sector:"Private Sector", public_sector:"Public Sector"};
+  function walk(obj, sectorLabel) {
+    for (const [k, v] of Object.entries(obj)) {
+      if (v && v.label) { types.push({key:k, label:v.label, data:v, sector:sectorLabel}); }
+      else if (typeof v === "object" && v !== null) { walk(v, sectorLabel); }
+    }
+  }
+  for (const [sk, sv] of Object.entries(DATA)) { walk(sv, sectorNames[sk] || sk); }
+  return types;
+}
+const ALL_TYPES = getAllTypes();
+
+function getCityData(typeData, city) {
+  const d = typeData[city];
+  return (d && Array.isArray(d)) ? d : null;
+}
+
+function getParkingRate(pType, city) {
+  if (pType === "none") return null;
+  const key = pType === "above_grade" ? "above_grade" : pType === "underground" ? "underground" : "surface";
+  const d = DATA.private_sector.commercial.parking[key];
+  return d ? getCityData(d, city) : null;
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDERING
+// ═══════════════════════════════════════════════════════════
+function renderCities() {
+  const bar = document.getElementById("cityBar");
+  bar.innerHTML = CITIES.map(c =>
+    `<button class="city-pill ${c===currentCity?'active':''}" onclick="selectCity('${c}')">${c}</button>`
+  ).join("");
+}
+
+function selectCity(c) {
+  currentCity = c; showEstimate = false;
+  renderCities(); renderTypeList(); renderEstimate();
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
+  document.getElementById("browsePanel").classList.toggle("hidden", tab !== "browse");
+  document.getElementById("estimatePanel").classList.toggle("hidden", tab !== "estimate");
+  if (tab === "estimate") renderEstimate();
+}
+
+function selectType(key) {
+  selectedType = ALL_TYPES.find(t => t.key === key) || null;
+  showEstimate = false; parkingType = "none";
+  renderTypeList(); switchTab("estimate");
+}
+
+function renderTypeList() {
+  const search = (document.getElementById("searchInput")?.value || "").toLowerCase();
+  const filtered = ALL_TYPES.filter(t => {
+    if (!search) return true;
+    return t.label.toLowerCase().includes(search) || t.sector.toLowerCase().includes(search);
+  });
+  const grouped = {};
+  filtered.forEach(t => { if (!grouped[t.sector]) grouped[t.sector] = []; grouped[t.sector].push(t); });
+
+  let html = "";
+  for (const [sector, items] of Object.entries(grouped)) {
+    html += `<div class="section-label" style="margin-top:20px">${sector}</div>`;
+    items.forEach(t => {
+      const d = getCityData(t.data, currentCity);
+      const sel = selectedType && selectedType.key === t.key;
+      if (d) {
+        html += `<div class="type-row ${sel?'selected':''}" onclick="selectType('${t.key}')">
+          <span class="label">${t.label}</span>
+          <span class="rate">$${d[0]} — $${d[1]}/sf</span>
+        </div>`;
+      } else {
+        html += `<div class="type-row" onclick="selectType('${t.key}')">
+          <span class="label na">${t.label}</span>
+          <span class="rate na">N/A</span>
+        </div>`;
+      }
+    });
+  }
+  document.getElementById("typeList").innerHTML = html;
+}
+
+function renderEstimate() {
+  const panel = document.getElementById("estimatePanel");
+  if (!selectedType) {
+    panel.innerHTML = `<div class="empty-state">
+      <p style="font-size:16px">No building type selected</p>
+      <p style="font-size:13px">Switch to "Browse Types" to pick one.</p>
+    </div>`;
+    return;
+  }
+
+  const cd = getCityData(selectedType.data, currentCity);
+
+  // City comparison
+  const comp = CITIES.map(c => {
+    const d = getCityData(selectedType.data, c);
+    return d ? {city:c, low:d[0], high:d[1]} : null;
+  }).filter(Boolean);
+  const gLow = comp.length ? Math.min(...comp.map(c=>c.low)) : 0;
+  const gHigh = comp.length ? Math.max(...comp.map(c=>c.high)) : 1;
+  const range = gHigh - gLow || 1;
+
+  let compHTML = "";
+  if (comp.length > 1) {
+    compHTML = `<div style="margin-top:20px">
+      <div class="section-label">Cross-Market Comparison</div>
+      ${comp.map(c => {
+        const leftPct = ((c.low - gLow) / range * 100);
+        const widthPct = Math.max(((c.high - c.low) / range * 100), 1);
+        const isActive = c.city === currentCity;
+        return `<div class="comp-row">
+          <span class="comp-city ${isActive?'active':''}">${c.city}</span>
+          <div class="comp-track"><div class="comp-bar ${isActive?'active':'inactive'}" style="left:${leftPct}%;width:${widthPct}%"></div></div>
+          <span class="comp-rate">$${c.low}–$${c.high}</span>
+        </div>`;
+      }).join("")}
+    </div>`;
+  }
+
+  // Rate display
+  const rateHTML = cd
+    ? `<div style="text-align:right">
+        <div class="section-label" style="margin-bottom:2px">${currentCity} Range</div>
+        <div style="font-size:28px;font-weight:700;font-family:var(--mono);color:var(--accent);letter-spacing:-0.02em">$${cd[0]} — $${cd[1]}</div>
+        <div style="font-size:12px;color:var(--text-faint)">per square foot</div>
+      </div>`
+    : `<div style="text-align:right;color:var(--text-faint)">Not available in ${currentCity}</div>`;
+
+  // Parking rate for display
+  const pRate = getParkingRate(parkingType, currentCity);
+  const pRateText = pRate ? `${currentCity}: $${pRate[0]} — $${pRate[1]}/sf` : "";
+
+  let html = `
+    <!-- Selected Type Header -->
+    <div class="panel panel-accent">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+        <div>
+          <div class="section-label" style="color:var(--accent);margin-bottom:4px">${selectedType.sector}</div>
+          <h2 style="font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.02em">${selectedType.label}</h2>
+        </div>
+        ${rateHTML}
+      </div>
+      ${compHTML}
+      <button class="change-btn" onclick="selectedType=null;switchTab('browse')">Change Type</button>
+    </div>`;
+
+  if (!cd) {
+    html += `<div class="empty-state">This building type is not available in ${currentCity}.</div>`;
+    panel.innerHTML = html;
+    return;
+  }
+
+  const qualVal = document.getElementById("qualitySlider")?.value || 50;
+  const curRate = Math.round(cd[0] + (cd[1] - cd[0]) * qualVal / 100);
+
+  html += `
+    <!-- Inputs -->
+    <div class="grid-2">
+      <div class="panel">
+        <div class="section-label">Building Area (sq ft)</div>
+        <input type="number" class="num-input" id="sqftInput" placeholder="e.g. 50000" oninput="showEstimate=false;clearResult()">
+        <div style="font-size:11px;color:var(--text-faint);margin-top:6px">Use CIQS floor area definition</div>
+      </div>
+      <div class="panel">
+        <div class="section-label">Quality Position</div>
+        <input type="range" id="qualitySlider" min="0" max="100" value="${qualVal}" oninput="updateQuality()">
+        <div style="display:flex;justify-content:space-between;margin-top:8px">
+          <span style="font-size:11px;color:var(--text-faint)">Low $${cd[0]}/sf</span>
+          <span id="qualityDisplay" style="font-size:14px;font-family:var(--mono);color:var(--accent);font-weight:600">$${curRate}/sf</span>
+          <span style="font-size:11px;color:var(--text-faint)">High $${cd[1]}/sf</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parking -->
+    <div class="panel">
+      <div class="section-label">Parking</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:${parkingType!=='none'?'14':'0'}px">
+        ${PARKING_TYPES.map(p => `<button class="park-pill ${parkingType===p.key?'active':''}" onclick="setPark('${p.key}')">${p.label}</button>`).join("")}
+      </div>
+      <div id="parkingExtra" class="${parkingType==='none'?'hidden':'fade-in'}">
+        <input type="number" class="num-input-sm" id="parkSqftInput" placeholder="Parking area (sq ft)" oninput="showEstimate=false;clearResult()">
+        <div style="font-size:12px;color:var(--text-faint);margin-top:6px" id="parkRateDisplay">${pRateText}</div>
+      </div>
+    </div>
+
+    <!-- Soft Costs -->
+    <div class="panel">
+      <div class="section-label" id="softLabel">Soft Cost Allowance: ${document.getElementById("softSlider")?.value || 15}%</div>
+      <input type="range" id="softSlider" min="0" max="40" value="${document.getElementById("softSlider")?.value || 15}" oninput="updateSoft()">
+      <div style="display:flex;justify-content:space-between;margin-top:4px">
+        <span style="font-size:11px;color:var(--text-faint)">0%</span>
+        <span style="font-size:11px;color:var(--text-faint)">40%</span>
+      </div>
+      <div style="margin-top:10px">${SOFT_COSTS.map(s => `<span class="soft-tag">${s}</span>`).join("")}</div>
+    </div>
+
+    <!-- Generate -->
+    <button class="gen-btn disabled" id="genBtn" onclick="generateEstimate()">Generate Estimate</button>
+
+    <!-- Result -->
+    <div id="resultArea" style="margin-top:32px"></div>
+  `;
+
+  panel.innerHTML = html;
+
+  // Restore input values
+  const oldSqft = panel._sqft || "";
+  const oldParkSqft = panel._parkSqft || "";
+  if (oldSqft) document.getElementById("sqftInput").value = oldSqft;
+  if (oldParkSqft && document.getElementById("parkSqftInput")) document.getElementById("parkSqftInput").value = oldParkSqft;
+
+  updateGenBtn();
+}
+
+function storeInputs() {
+  const panel = document.getElementById("estimatePanel");
+  const sqft = document.getElementById("sqftInput");
+  const parkSqft = document.getElementById("parkSqftInput");
+  if (sqft) panel._sqft = sqft.value;
+  if (parkSqft) panel._parkSqft = parkSqft.value;
+}
+
+function updateQuality() {
+  if (!selectedType) return;
+  const cd = getCityData(selectedType.data, currentCity);
+  if (!cd) return;
+  const v = document.getElementById("qualitySlider").value;
+  const rate = Math.round(cd[0] + (cd[1] - cd[0]) * v / 100);
+  document.getElementById("qualityDisplay").textContent = "$" + rate + "/sf";
+  showEstimate = false; clearResult();
+}
+
+function updateSoft() {
+  const v = document.getElementById("softSlider").value;
+  document.getElementById("softLabel").textContent = "Soft Cost Allowance: " + v + "%";
+  showEstimate = false; clearResult();
+}
+
+function setPark(key) {
+  storeInputs();
+  parkingType = key;
+  showEstimate = false;
+  renderEstimate();
+}
+
+function updateGenBtn() {
+  const sqft = document.getElementById("sqftInput");
+  const btn = document.getElementById("genBtn");
+  if (!btn) return;
+  const hasVal = sqft && sqft.value && parseFloat(sqft.value) > 0;
+  btn.className = hasVal ? "gen-btn ready" : "gen-btn disabled";
+}
+
+function clearResult() {
+  const r = document.getElementById("resultArea");
+  if (r) r.innerHTML = "";
+  updateGenBtn();
+}
+
+// Listen for input changes to update button state
+document.addEventListener("input", function(e) {
+  if (e.target.id === "sqftInput") {
+    storeInputs();
+    updateGenBtn();
+  }
+  if (e.target.id === "parkSqftInput") storeInputs();
+});
+
+function generateEstimate() {
+  if (!selectedType) return;
+  const cd = getCityData(selectedType.data, currentCity);
+  if (!cd) return;
+  const sqftEl = document.getElementById("sqftInput");
+  const area = parseFloat(sqftEl?.value);
+  if (isNaN(area) || area <= 0) return;
+
+  const qualV = (document.getElementById("qualitySlider")?.value || 50) / 100;
+  const [low, high] = cd;
+  const baseRate = Math.round(low + (high - low) * qualV);
+  const baseCost = baseRate * area;
+
+  let parkingCost = 0, parkRateUsed = null;
+  const pRate = getParkingRate(parkingType, currentCity);
+  const pSqft = parseFloat(document.getElementById("parkSqftInput")?.value);
+  if (pRate && !isNaN(pSqft) && pSqft > 0) {
+    parkRateUsed = Math.round(pRate[0] + (pRate[1] - pRate[0]) * qualV);
+    parkingCost = parkRateUsed * pSqft;
+  }
+
+  const hardTotal = baseCost + parkingCost;
+  const softPct = parseInt(document.getElementById("softSlider")?.value || 15);
+  const softCost = hardTotal * softPct / 100;
+  const grandTotal = hardTotal + softCost;
+
+  let parkRow = "";
+  if (parkingCost > 0) {
+    parkRow = `<div class="result-row">
+      <div><div class="lbl">Parking</div><div class="sub">${pSqft.toLocaleString()} sf × $${parkRateUsed}/sf</div></div>
+      <div class="val">${fmt(parkingCost)}</div>
+    </div>`;
+  }
+
+  const resultHTML = `
+    <div class="result-card slide-up">
+      <div class="result-header">
+        <div class="section-label" style="margin-bottom:8px;color:var(--text-dim)">Estimated Total Project Cost</div>
+        <div class="result-total">${fmt(grandTotal)}</div>
+        <div style="font-size:13px;color:var(--text-dim);margin-top:6px">${selectedType.label} · ${currentCity} · ${area.toLocaleString()} sq ft</div>
+      </div>
+      <div class="result-body">
+        <div class="result-row">
+          <div><div class="lbl">Building Hard Cost</div><div class="sub">${area.toLocaleString()} sf × $${baseRate}/sf</div></div>
+          <div class="val">${fmt(baseCost)}</div>
+        </div>
+        ${parkRow}
+        <div class="result-divider"></div>
+        <div class="result-row">
+          <div class="lbl" style="color:rgba(224,227,235,0.55)">Hard Cost Subtotal</div>
+          <div class="val val-dim">${fmt(hardTotal)}</div>
+        </div>
+        <div class="result-row">
+          <div><div class="lbl">Soft Cost Allowance</div><div class="sub">${softPct}% of hard costs</div></div>
+          <div class="val">${fmt(softCost)}</div>
+        </div>
+      </div>
+      <div class="result-footer">
+        <p>Excludes GST/HST/QST, tariff impacts, site development, and unique architecture premiums. Rates based on 2025 Altus Group Canadian Cost Guide. This estimate is for initial budgeting only. Consult a qualified professional for project-specific pricing.</p>
+      </div>
+    </div>`;
+
+  document.getElementById("resultArea").innerHTML = resultHTML;
+  document.getElementById("resultArea").scrollIntoView({behavior:"smooth"});
+}
+
+// ═══════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════
+renderCities();
+renderTypeList();
+renderEstimate();
+</script>
+
+</body>
+</html>
