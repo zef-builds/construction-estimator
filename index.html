@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -34,216 +33,236 @@
   ::selection { background: rgba(79,209,197,0.25); }
   input::placeholder { color: var(--text-faint); }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
 
-/* Range inputs */
-input[type=range] { -webkit-appearance: none; appearance: none; background: transparent; cursor: pointer; width: 100%; }
-input[type=range]::-webkit-slider-track { height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; }
-input[type=range]::-webkit-slider-thumb {
--webkit-appearance: none; height: 22px; width: 22px; border-radius: 50%;
-background: var(–accent); margin-top: -8px;
-box-shadow: 0 0 12px var(–accent-glow), 0 0 0 3px rgba(79,209,197,0.1);
-transition: box-shadow 0.2s;
-}
-input[type=range]::-webkit-slider-thumb:hover { box-shadow: 0 0 18px var(–accent-glow), 0 0 0 5px rgba(79,209,197,0.15); }
-input[type=range]::-moz-range-track { height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; }
-input[type=range]::-moz-range-thumb { height: 22px; width: 22px; border-radius: 50%; background: var(–accent); border: none; box-shadow: 0 0 12px var(–accent-glow); }
+  /* Range inputs */
+  input[type=range] { -webkit-appearance: none; appearance: none; background: transparent; cursor: pointer; width: 100%; }
+  input[type=range]::-webkit-slider-track { height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; height: 22px; width: 22px; border-radius: 50%;
+    background: var(--accent); margin-top: -8px;
+    box-shadow: 0 0 12px var(--accent-glow), 0 0 0 3px rgba(79,209,197,0.1);
+    transition: box-shadow 0.2s;
+  }
+  input[type=range]::-webkit-slider-thumb:hover { box-shadow: 0 0 18px var(--accent-glow), 0 0 0 5px rgba(79,209,197,0.15); }
+  input[type=range]::-moz-range-track { height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; }
+  input[type=range]::-moz-range-thumb { height: 22px; width: 22px; border-radius: 50%; background: var(--accent); border: none; box-shadow: 0 0 12px var(--accent-glow); }
 
-/* Animations */
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes slideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-.fade-in { animation: fadeIn 0.35s ease forwards; }
-.slide-up { animation: slideUp 0.5s cubic-bezier(0.22,1,0.36,1) forwards; }
+  /* Animations */
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+  .fade-in { animation: fadeIn 0.35s ease forwards; }
+  .slide-up { animation: slideUp 0.5s cubic-bezier(0.22,1,0.36,1) forwards; }
 
-/* Layout */
-.container { max-width: 960px; margin: 0 auto; padding: 0 28px; }
+  /* Layout */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 28px; }
 
-/* Header */
-.header {
-border-bottom: 1px solid var(–border); padding: 22px 0;
-background: linear-gradient(180deg, rgba(79,209,197,0.03) 0%, transparent 100%);
-}
-.header-inner { display: flex; align-items: center; gap: 14; }
-.logo {
-width: 40px; height: 40px; border-radius: 11px;
-background: linear-gradient(135deg, var(–accent), var(–blue));
-display: flex; align-items: center; justify-content: center;
-font-size: 20px; font-weight: 700; color: var(–bg);
-font-family: var(–mono); flex-shrink: 0;
-}
-.header h1 { font-size: 19px; font-weight: 700; letter-spacing: -0.025em; color: #fff; }
-.header p { font-size: 11.5px; color: var(–text-dim); margin-top: 1px; }
+  /* Header */
+  .header {
+    border-bottom: 1px solid var(--border); padding: 22px 0;
+    background: linear-gradient(180deg, rgba(79,209,197,0.03) 0%, transparent 100%);
+  }
+  .header-inner { display: flex; align-items: center; gap: 14; }
+  .logo {
+    width: 40px; height: 40px; border-radius: 11px;
+    background: linear-gradient(135deg, var(--accent), var(--blue));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 700; color: var(--bg);
+    font-family: var(--mono); flex-shrink: 0;
+  }
+  .header h1 { font-size: 19px; font-weight: 700; letter-spacing: -0.025em; color: #fff; }
+  .header p { font-size: 11.5px; color: var(--text-dim); margin-top: 1px; }
 
-/* City pills */
-.city-bar { display: flex; gap: 6px; flex-wrap: wrap; margin: 24px 0 20px; }
-.city-pill {
-padding: 8px 16px; border-radius: 9px; border: 1px solid #1e2538; cursor: pointer;
-font-family: var(–sans); font-size: 13px; font-weight: 500;
-background: #121828; color: #8a8fa0;
-transition: all 0.2s; -webkit-appearance: none;
-}
-.city-pill:hover { background: #1a2035; color: #c0c4d0; }
-.city-pill.active {
-background: linear-gradient(135deg, #4fd1c5, #38a89d);
-color: #080c18; border-color: #4fd1c5;
-box-shadow: 0 2px 14px rgba(79,209,197,0.25);
-font-weight: 600;
-}
+  /* City pills */
+  .city-bar { display: flex; gap: 6px; flex-wrap: wrap; margin: 24px 0 20px; }
+  .city-pill {
+    padding: 8px 16px; border-radius: 9px; border: 1px solid #1e2538; cursor: pointer;
+    font-family: var(--sans); font-size: 13px; font-weight: 500;
+    background: #121828; color: #8a8fa0;
+    transition: all 0.2s; -webkit-appearance: none;
+  }
+  .city-pill:hover { background: #1a2035; color: #c0c4d0; }
+  .city-pill.active {
+    background: linear-gradient(135deg, #4fd1c5, #38a89d);
+    color: #080c18; border-color: #4fd1c5;
+    box-shadow: 0 2px 14px rgba(79,209,197,0.25);
+    font-weight: 600;
+  }
 
-/* Tabs */
-.tabs { display: flex; gap: 4px; background: #0e1324; border-radius: 12px; padding: 4px; margin-bottom: 24px; border: 1px solid #1a2035; }
-.tab-btn {
-padding: 10px 22px; border-radius: 9px; border: none; cursor: pointer;
-font-family: var(–sans); font-size: 13.5px; font-weight: 500;
-background: transparent; color: var(–text-dim); transition: all 0.2s;
-}
-.tab-btn.active { background: rgba(79,209,197,0.15); color: #4fd1c5; }
-.tab-btn:hover:not(.active) { color: var(–text); }
+  /* Tabs */
+  .tabs { display: flex; gap: 4px; background: #0e1324; border-radius: 12px; padding: 4px; margin-bottom: 24px; border: 1px solid #1a2035; }
+  .tab-btn {
+    padding: 10px 22px; border-radius: 9px; border: none; cursor: pointer;
+    font-family: var(--sans); font-size: 13.5px; font-weight: 500;
+    background: transparent; color: var(--text-dim); transition: all 0.2s;
+  }
+  .tab-btn.active { background: rgba(79,209,197,0.15); color: #4fd1c5; }
+  .tab-btn:hover:not(.active) { color: var(--text); }
 
-/* Search */
-.search-input {
-width: 100%; padding: 13px 16px; border-radius: 10px;
-border: 1px solid #1e2538; background: #0e1324;
-color: #e0e3eb; font-size: 14px; font-family: var(–sans); outline: none;
-transition: border-color 0.2s; -webkit-appearance: none;
-}
-.search-input:focus { border-color: var(–border-active); }
+  /* Search */
+  .search-input {
+    width: 100%; padding: 13px 16px; border-radius: 10px;
+    border: 1px solid #1e2538; background: #0e1324;
+    color: #e0e3eb; font-size: 14px; font-family: var(--sans); outline: none;
+    transition: border-color 0.2s; -webkit-appearance: none;
+  }
+  .search-input:focus { border-color: var(--border-active); }
 
-/* Section labels */
-.section-label {
-font-size: 10.5px; font-weight: 600; text-transform: uppercase;
-letter-spacing: 0.09em; color: var(–text-faint); margin-bottom: 10px;
-}
+  /* Section labels */
+  .section-label {
+    font-size: 10.5px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.09em; color: var(--text-faint); margin-bottom: 10px;
+  }
 
-/* Type rows */
-.type-row {
-padding: 12px 16px; border-radius: 10px; cursor: pointer;
-background: #0e1324; border: 1px solid #1a2035;
-display: flex; justify-content: space-between; align-items: center;
-transition: all 0.15s; margin-bottom: 3px;
-}
-.type-row:hover { background: #141c30; transform: translateY(-1px); }
-.type-row.selected { background: rgba(79,209,197,0.08); border-color: rgba(79,209,197,0.25); }
-.type-row .label { font-size: 13.5px; color: var(–text); }
-.type-row .label.na { color: var(–text-faint); }
-.type-row .rate { font-size: 12.5px; font-family: var(–mono); color: var(–accent); font-weight: 500; }
-.type-row .rate.na { color: var(–text-faint); font-family: var(–sans); }
+  /* Type rows */
+  .type-row {
+    padding: 12px 16px; border-radius: 10px; cursor: pointer;
+    background: #0e1324; border: 1px solid #1a2035;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: all 0.15s; margin-bottom: 3px;
+  }
+  .type-row:hover { background: #141c30; transform: translateY(-1px); }
+  .type-row.selected { background: rgba(79,209,197,0.08); border-color: rgba(79,209,197,0.25); }
+  .type-row .label { font-size: 13.5px; color: var(--text); }
+  .type-row .label.na { color: var(--text-faint); }
+  .type-row .rate { font-size: 12.5px; font-family: var(--mono); color: var(--accent); font-weight: 500; }
+  .type-row .rate.na { color: var(--text-faint); font-family: var(--sans); }
 
-/* Estimate panel */
-.panel {
-padding: 20px 22px; border-radius: 14px;
-background: #0e1324; border: 1px solid #1e2538;
-margin-bottom: 16px;
-}
-.panel-accent {
-background: linear-gradient(135deg, rgba(79,209,197,0.05), rgba(43,108,176,0.04));
-border-color: rgba(79,209,197,0.14);
-}
+  /* Estimate panel */
+  .panel {
+    padding: 20px 22px; border-radius: 14px;
+    background: #0e1324; border: 1px solid #1e2538;
+    margin-bottom: 16px;
+  }
+  .panel-accent {
+    background: linear-gradient(135deg, rgba(79,209,197,0.05), rgba(43,108,176,0.04));
+    border-color: rgba(79,209,197,0.14);
+  }
 
-/* Number input */
-.num-input {
-width: 100%; padding: 10px 0; border: none;
-border-bottom: 2px solid rgba(255,255,255,0.1);
-background: transparent; color: #fff; font-size: 26px;
-font-family: var(–mono); font-weight: 600; outline: none;
-transition: border-color 0.2s; -webkit-appearance: none;
-}
-.num-input:focus { border-color: var(–accent); }
-.num-input-sm {
-width: 240px; padding: 10px 14px; border-radius: 8px;
-border: 1px solid #1e2538; background: #0e1324;
-color: #fff; font-size: 14px; font-family: var(–mono); outline: none;
--webkit-appearance: none;
-}
+  /* Number input */
+  .num-input {
+    width: 100%; padding: 10px 0; border: none;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+    background: transparent; color: #fff; font-size: 26px;
+    font-family: var(--mono); font-weight: 600; outline: none;
+    transition: border-color 0.2s; -webkit-appearance: none;
+  }
+  .num-input:focus { border-color: var(--accent); }
+  .num-input-sm {
+    width: 240px; padding: 10px 14px; border-radius: 8px;
+    border: 1px solid #1e2538; background: #0e1324;
+    color: #fff; font-size: 14px; font-family: var(--mono); outline: none;
+    -webkit-appearance: none;
+  }
 
-/* Parking pills */
-.park-pill {
-padding: 8px 14px; border-radius: 8px; border: 1px solid #1e2538; cursor: pointer;
-font-family: var(–sans); font-size: 13px; font-weight: 500;
-background: #121828; color: #8a8fa0;
-transition: all 0.2s; -webkit-appearance: none;
-}
-.park-pill.active { background: rgba(79,209,197,0.12); color: #4fd1c5; border-color: rgba(79,209,197,0.25); }
+  /* Parking pills */
+  .park-pill {
+    padding: 8px 14px; border-radius: 8px; border: 1px solid #1e2538; cursor: pointer;
+    font-family: var(--sans); font-size: 13px; font-weight: 500;
+    background: #121828; color: #8a8fa0;
+    transition: all 0.2s; -webkit-appearance: none;
+  }
+  .park-pill.active { background: rgba(79,209,197,0.12); color: #4fd1c5; border-color: rgba(79,209,197,0.25); }
 
-/* Generate button */
-.gen-btn {
-width: 100%; padding: 17px; border-radius: 13px; border: none;
-font-family: var(–sans); font-size: 16px; font-weight: 700;
-letter-spacing: -0.01em; cursor: pointer; transition: all 0.3s;
-}
-.gen-btn.ready {
-background: linear-gradient(135deg, var(–accent), var(–blue));
-color: var(–bg); box-shadow: 0 4px 28px var(–accent-glow);
-}
-.gen-btn.ready:hover { box-shadow: 0 6px 36px rgba(79,209,197,0.35); transform: translateY(-1px); }
-.gen-btn.disabled { background: rgba(255,255,255,0.05); color: var(–text-faint); cursor: not-allowed; }
+  /* Generate button */
+  .gen-btn {
+    width: 100%; padding: 17px; border-radius: 13px; border: none;
+    font-family: var(--sans); font-size: 16px; font-weight: 700;
+    letter-spacing: -0.01em; cursor: pointer; transition: all 0.3s;
+  }
+  .gen-btn.ready {
+    background: linear-gradient(135deg, var(--accent), var(--blue));
+    color: var(--bg); box-shadow: 0 4px 28px var(--accent-glow);
+  }
+  .gen-btn.ready:hover { box-shadow: 0 6px 36px rgba(79,209,197,0.35); transform: translateY(-1px); }
+  .gen-btn.disabled { background: rgba(255,255,255,0.05); color: var(--text-faint); cursor: not-allowed; }
 
-/* Results card */
-.result-card {
-border-radius: 16px; overflow: hidden;
-background: linear-gradient(180deg, rgba(79,209,197,0.04), rgba(43,108,176,0.02));
-box-shadow: 0 0 0 1px var(–border-active), 0 4px 30px rgba(79,209,197,0.08);
-}
-.result-header {
-padding: 30px 24px 22px; text-align: center;
-border-bottom: 1px solid var(–border);
-}
-.result-total {
-font-size: 52px; font-weight: 700; font-family: var(–mono);
-color: var(–accent); letter-spacing: -0.04em;
-text-shadow: 0 0 50px rgba(79,209,197,0.3);
-}
-.result-body { padding: 22px 24px; }
-.result-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; }
-.result-row .lbl { font-size: 14px; color: var(–text); }
-.result-row .sub { font-size: 11px; color: var(–text-faint); margin-top: 1px; }
-.result-row .val { font-size: 18px; font-family: var(–mono); font-weight: 600; color: var(–text); }
-.result-row .val-dim { color: rgba(224,227,235,0.55); font-weight: 500; font-size: 16px; }
-.result-divider { height: 1px; background: var(–border); margin: 6px 0; }
-.result-footer {
-padding: 14px 24px; background: rgba(255,255,255,0.015);
-border-top: 1px solid rgba(255,255,255,0.04);
-}
-.result-footer p { font-size: 10px; color: var(–text-faint); line-height: 1.6; }
+  /* Results card */
+  .result-card {
+    border-radius: 16px; overflow: hidden;
+    background: linear-gradient(180deg, rgba(79,209,197,0.04), rgba(43,108,176,0.02));
+    box-shadow: 0 0 0 1px var(--border-active), 0 4px 30px rgba(79,209,197,0.08);
+  }
+  .result-header {
+    padding: 30px 24px 22px; text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .result-total {
+    font-size: 52px; font-weight: 700; font-family: var(--mono);
+    color: var(--accent); letter-spacing: -0.04em;
+    text-shadow: 0 0 50px rgba(79,209,197,0.3);
+  }
+  .result-body { padding: 22px 24px; }
+  .result-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; }
+  .result-row .lbl { font-size: 14px; color: var(--text); }
+  .result-row .sub { font-size: 11px; color: var(--text-faint); margin-top: 1px; }
+  .result-row .val { font-size: 18px; font-family: var(--mono); font-weight: 600; color: var(--text); }
+  .result-row .val-dim { color: rgba(224,227,235,0.55); font-weight: 500; font-size: 16px; }
+  .result-divider { height: 1px; background: var(--border); margin: 6px 0; }
+  .result-footer {
+    padding: 14px 24px; background: rgba(255,255,255,0.015);
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+  .result-footer p { font-size: 10px; color: var(--text-faint); line-height: 1.6; }
 
-/* Comparison bars */
-.comp-row { display: grid; grid-template-columns: 68px 1fr 88px; align-items: center; gap: 10px; margin-bottom: 6px; }
-.comp-city { font-size: 12px; color: rgba(224,227,235,0.5); }
-.comp-city.active { color: var(–accent); font-weight: 600; }
-.comp-track { position: relative; height: 7px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; }
-.comp-bar { position: absolute; height: 100%; border-radius: 4px; transition: all 0.5s ease; }
-.comp-bar.active { background: linear-gradient(90deg, var(–accent), var(–blue)); }
-.comp-bar.inactive { background: rgba(255,255,255,0.12); }
-.comp-rate { font-size: 10.5px; font-family: var(–mono); color: var(–text-dim); text-align: right; }
+  /* Comparison bars */
+  .comp-row { display: grid; grid-template-columns: 68px 1fr 88px; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .comp-city { font-size: 12px; color: rgba(224,227,235,0.5); }
+  .comp-city.active { color: var(--accent); font-weight: 600; }
+  .comp-track { position: relative; height: 7px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; }
+  .comp-bar { position: absolute; height: 100%; border-radius: 4px; transition: all 0.5s ease; }
+  .comp-bar.active { background: linear-gradient(90deg, var(--accent), var(--blue)); }
+  .comp-bar.inactive { background: rgba(255,255,255,0.12); }
+  .comp-rate { font-size: 10.5px; font-family: var(--mono); color: var(--text-dim); text-align: right; }
 
-/* Soft cost tags */
-.soft-tag {
-display: inline-block; font-size: 10px; padding: 3px 8px; border-radius: 4px;
-background: #141c30; color: #6b7080; margin: 2px 3px 2px 0;
-}
+  /* Soft cost tags */
+  .soft-tag {
+    display: inline-block; font-size: 10px; padding: 3px 8px; border-radius: 4px;
+    background: #141c30; color: #6b7080; margin: 2px 3px 2px 0;
+  }
 
-/* Change button */
-.change-btn {
-margin-top: 16px; padding: 7px 16px; border-radius: 7px;
-border: 1px solid #2a3348; background: transparent;
-color: #8a8fa0; font-size: 12px; cursor: pointer;
-font-family: var(–sans); transition: all 0.2s;
-}
-.change-btn:hover { border-color: #3a4560; color: #c0c4d0; }
+  /* Change button */
+  .change-btn {
+    margin-top: 16px; padding: 7px 16px; border-radius: 7px;
+    border: 1px solid #2a3348; background: transparent;
+    color: #8a8fa0; font-size: 12px; cursor: pointer;
+    font-family: var(--sans); transition: all 0.2s;
+  }
+  .change-btn:hover { border-color: #3a4560; color: #c0c4d0; }
 
-.empty-state { text-align: center; padding: 60px 20px; color: var(–text-faint); }
-.empty-state p { margin-bottom: 8px; }
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--text-faint); }
+  .empty-state p { margin-bottom: 8px; }
 
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-@media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
 
-.hidden { display: none; }
+  .hidden { display: none; }
+
+  /* LCCA styles */
+  .lcca-select { padding:10px 14px;border-radius:8px;border:1px solid #1e2538;background:#121828;color:#e0e3eb;font-family:var(--sans);font-size:13px;outline:none;-webkit-appearance:none;width:100%;cursor:pointer }
+  .lcca-metric { padding:12px;background:#0a0f1c;border-radius:10px;border:1px solid #1a2035 }
+  .lcca-metric .m-label { font-size:11px;color:var(--text-faint) }
+  .lcca-metric .m-val { font-size:22px;font-family:var(--mono);font-weight:600;margin-top:2px }
+  .lcca-metric .m-sub { font-size:11px;color:var(--text-faint) }
+  .bar-chart { display:flex;flex-direction:column;gap:4px;margin-top:12px }
+  .bar-row-lc { display:grid;grid-template-columns:60px 1fr 80px;align-items:center;gap:8px }
+  .bar-track-lc { height:20px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden;display:flex }
+  .bar-seg { height:100%;transition:width 0.5s ease }
+  .legend { display:flex;gap:16px;flex-wrap:wrap;margin-top:12px }
+  .legend-item { display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-dim) }
+  .legend-dot { width:10px;height:10px;border-radius:3px }
+  .lcca-tag { display:inline-block;font-size:10px;padding:3px 8px;border-radius:4px;background:#141c30;color:#6b7080;margin:2px 3px 2px 0 }
+  .lcca-pill { padding:8px 14px;border-radius:8px;border:1px solid #1e2538;cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:500;background:#121828;color:#8a8fa0;transition:all 0.2s;-webkit-appearance:none }
+  .lcca-pill.active { background:rgba(246,173,85,0.15);color:#f6ad55;border-color:rgba(246,173,85,0.3) }
+  .lcca-btn { width:100%;padding:17px;border-radius:13px;border:none;font-family:var(--sans);font-size:16px;font-weight:700;cursor:pointer;transition:all 0.3s }
+  .lcca-btn.ready { background:linear-gradient(135deg,#f6ad55,#dd6b20);color:#080c18;box-shadow:0 4px 28px rgba(246,173,85,0.25) }
+  .lcca-btn.disabled { background:rgba(255,255,255,0.05);color:var(--text-faint);cursor:not-allowed }
+  .lcca-result { border-radius:16px;overflow:hidden;background:linear-gradient(180deg,rgba(246,173,85,0.04),rgba(79,209,197,0.02));box-shadow:0 0 0 1px rgba(246,173,85,0.2),0 4px 30px rgba(246,173,85,0.06) }
 </style>
-
 </head>
 <body>
 
@@ -264,14 +283,13 @@ font-family: var(–sans); transition: all 0.2s;
   <div class="city-bar" id="cityBar"></div>
 
   <!-- Tabs -->
-
   <div class="tabs">
     <button class="tab-btn active" data-tab="browse" onclick="switchTab('browse')">Browse Types</button>
     <button class="tab-btn" data-tab="estimate" onclick="switchTab('estimate')">Build Estimate</button>
+    <button class="tab-btn" data-tab="lcca" onclick="switchTab('lcca')">Life-Cycle Analysis</button>
   </div>
 
   <!-- Browse Panel -->
-
   <div id="browsePanel" class="fade-in">
     <div style="margin-bottom:18px;">
       <input type="text" class="search-input" id="searchInput" placeholder="Search building types..." oninput="renderTypeList()">
@@ -280,8 +298,10 @@ font-family: var(–sans); transition: all 0.2s;
   </div>
 
   <!-- Estimate Panel -->
-
   <div id="estimatePanel" class="hidden fade-in"></div>
+
+  <!-- LCCA Panel -->
+  <div id="lccaPanel" class="hidden fade-in"></div>
 </div>
 
 <script>
@@ -293,6 +313,7 @@ let currentCity = "GTA";
 let currentTab = "browse";
 let selectedType = null;
 let showEstimate = false;
+let lastEstimateResult = null; // Stores result for LCCA to use
 
 const PARKING_TYPES = [
   {key:"none",label:"No Parking"},{key:"surface",label:"Surface Parking"},
@@ -306,6 +327,103 @@ const SOFT_COSTS = [
   "Soil & Environmental Tests","Insurance & Bond Costs","Management Costs",
   "Marketing & Advertising","Special Equipment & Furnishings","Developer Profit"
 ];
+
+// ═══════════════════════════════════════════════════════════
+// LCCA DATA (Real Canadian sources)
+// ═══════════════════════════════════════════════════════════
+
+// Commercial electricity rates (cents/kWh) - blended commercial average
+// Sources: CER 2025, provincial utility regulators
+const ELEC_RATES = {
+  Vancouver:12.5, Calgary:17.0, Edmonton:17.0, Winnipeg:9.5,
+  GTA:15.8, Ottawa:15.8, Montreal:8.5, Halifax:17.5, "St. John's":14.0
+};
+
+// Natural gas rates ($/GJ)
+const GAS_RATES = {
+  Vancouver:12.0, Calgary:6.5, Edmonton:6.5, Winnipeg:7.0,
+  GTA:10.5, Ottawa:10.5, Montreal:11.0, Halifax:15.0, "St. John's":18.0
+};
+
+// Site Energy Use Intensity (GJ/m2/year)
+// Source: NRCan ENERGY STAR Portfolio Manager Canadian National Median Table (Aug 2023)
+// Mapping Altus building types to NRCan EUI categories
+const EUI_MAP = {
+  // Residential
+  up_to_12_storeys:     {eui:0.82,elecShare:0.55,cat:"residential",label:"Multifamily Housing"},
+  "13_to_39_storeys":   {eui:0.82,elecShare:0.55,cat:"residential",label:"Multifamily Housing"},
+  "40_to_60_storeys":   {eui:0.82,elecShare:0.55,cat:"residential",label:"Multifamily Housing"},
+  "60_plus_storeys":    {eui:0.82,elecShare:0.55,cat:"residential",label:"Multifamily Housing"},
+  row_townhouse:        {eui:0.82,elecShare:0.50,cat:"residential",label:"Low-Rise Residential"},
+  single_family:        {eui:0.82,elecShare:0.45,cat:"residential",label:"Residential"},
+  stacked_townhouse:    {eui:0.82,elecShare:0.50,cat:"residential",label:"Low-Rise Residential"},
+  wood_framed_condo:    {eui:0.82,elecShare:0.55,cat:"residential",label:"Multifamily Housing"},
+  custom_single_family: {eui:0.82,elecShare:0.45,cat:"residential",label:"Residential"},
+  independent:          {eui:1.21,elecShare:0.50,cat:"residential",label:"Senior Living"},
+  assisted:             {eui:1.21,elecShare:0.50,cat:"residential",label:"Residential Care"},
+  complex_care:         {eui:1.72,elecShare:0.50,cat:"institutional",label:"Residential Care"},
+  // Commercial
+  under_5_class_b:      {eui:0.87,elecShare:0.60,cat:"commercial",label:"Office"},
+  "5_30_class_b":       {eui:0.87,elecShare:0.60,cat:"commercial",label:"Office"},
+  "5_30_class_a":       {eui:0.87,elecShare:0.60,cat:"commercial",label:"Office"},
+  "31_60_class_a":      {eui:0.87,elecShare:0.60,cat:"commercial",label:"Office"},
+  fitout_b:             {eui:0.87,elecShare:0.60,cat:"commercial",label:"Office"},
+  fitout_a:             {eui:0.87,elecShare:0.60,cat:"commercial",label:"Office"},
+  strip_plaza:          {eui:0.85,elecShare:0.65,cat:"commercial",label:"Retail"},
+  supermarket:          {eui:1.07,elecShare:0.70,cat:"commercial",label:"Supermarket"},
+  big_box:              {eui:0.85,elecShare:0.65,cat:"commercial",label:"Retail"},
+  enclosed_mall:        {eui:1.16,elecShare:0.60,cat:"commercial",label:"Enclosed Mall"},
+  budget:               {eui:0.87,elecShare:0.50,cat:"commercial",label:"Hotel"},
+  suite:                {eui:0.87,elecShare:0.50,cat:"commercial",label:"Hotel"},
+  four_star:            {eui:0.87,elecShare:0.50,cat:"commercial",label:"Hotel"},
+  warehouse:            {eui:0.72,elecShare:0.55,cat:"commercial",label:"Warehouse"},
+  distribution:         {eui:0.99,elecShare:0.55,cat:"commercial",label:"Distribution"},
+  urban_storage:        {eui:0.72,elecShare:0.55,cat:"commercial",label:"Warehouse"},
+  // Public
+  elementary:           {eui:0.70,elecShare:0.50,cat:"institutional",label:"K-12 School"},
+  secondary:            {eui:0.70,elecShare:0.50,cat:"institutional",label:"K-12 School"},
+  university_teaching:  {eui:1.04,elecShare:0.55,cat:"institutional",label:"College/University"},
+  university_labs:      {eui:1.04,elecShare:0.55,cat:"institutional",label:"Laboratory"},
+  student_residence:    {eui:0.87,elecShare:0.50,cat:"institutional",label:"Dormitory"},
+  hospital:             {eui:2.20,elecShare:0.55,cat:"institutional",label:"Hospital"},
+  medical_clinic:       {eui:0.74,elecShare:0.60,cat:"institutional",label:"Medical Office"},
+  fire_ems:             {eui:0.66,elecShare:0.50,cat:"civic",label:"Fire Station"},
+  police_local:         {eui:0.66,elecShare:0.50,cat:"civic",label:"Police Station"},
+  library:              {eui:1.03,elecShare:0.55,cat:"civic",label:"Library"},
+  municipal_office:     {eui:0.87,elecShare:0.60,cat:"civic",label:"Office"},
+  ice_arena:            {eui:1.10,elecShare:0.65,cat:"civic",label:"Ice/Curling Rink"},
+  aquatic:              {eui:0.68,elecShare:0.55,cat:"civic",label:"Recreation Centre"},
+  multi_use:            {eui:0.68,elecShare:0.55,cat:"civic",label:"Recreation Centre"}
+};
+const EUI_DEFAULT = {eui:0.87,elecShare:0.55,cat:"commercial",label:"General"};
+
+// Maintenance rates as % of construction cost
+const MAINT_RATES = {
+  residential:{low:0.015,mid:0.020,high:0.030},
+  commercial:{low:0.015,mid:0.025,high:0.035},
+  institutional:{low:0.020,mid:0.030,high:0.040},
+  civic:{low:0.020,mid:0.030,high:0.040}
+};
+
+// Major component replacements
+const REPLACEMENTS = [
+  {name:"Roofing System",year:22,costPct:0.04},
+  {name:"HVAC / Mechanical",year:18,costPct:0.12},
+  {name:"Building Envelope Reseal",year:12,costPct:0.03},
+  {name:"Elevator Systems",year:28,costPct:0.05},
+  {name:"Plumbing Systems",year:35,costPct:0.06},
+  {name:"Electrical Systems",year:35,costPct:0.05},
+  {name:"Interior Fitout Refresh",year:15,costPct:0.08},
+  {name:"Flooring Replacement",year:12,costPct:0.02}
+];
+
+// LCCA state
+let lccaHorizon = 30;
+let lccaDiscountRate = 3.0;
+let lccaEnergyEsc = 2.5;
+let lccaMaintLevel = "mid";
+let lccaMaintEsc = 2.0;
+let showLCCA = false;
 
 const DATA = {
 private_sector:{
@@ -445,7 +563,9 @@ function switchTab(tab) {
   document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
   document.getElementById("browsePanel").classList.toggle("hidden", tab !== "browse");
   document.getElementById("estimatePanel").classList.toggle("hidden", tab !== "estimate");
+  document.getElementById("lccaPanel").classList.toggle("hidden", tab !== "lcca");
   if (tab === "estimate") renderEstimate();
+  if (tab === "lcca") renderLCCA();
 }
 
 function selectType(key) {
@@ -733,10 +853,229 @@ function generateEstimate() {
       <div class="result-footer">
         <p>Excludes GST/HST/QST, tariff impacts, site development, and unique architecture premiums. Rates based on 2025 Altus Group Canadian Cost Guide. This estimate is for initial budgeting only. Consult a qualified professional for project-specific pricing.</p>
       </div>
-    </div>`;
+    </div>
+    <button onclick="switchTab('lcca')" style="width:100%;padding:14px;border-radius:12px;border:1px solid rgba(246,173,85,0.3);background:rgba(246,173,85,0.06);color:#f6ad55;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;margin-top:16px;transition:all 0.2s">
+      Run Life-Cycle Cost Analysis →
+    </button>`;
 
   document.getElementById("resultArea").innerHTML = resultHTML;
   document.getElementById("resultArea").scrollIntoView({behavior:"smooth"});
+
+  // Store for LCCA
+  lastEstimateResult = { area, baseRate, baseCost, parkingCost, hardTotal, softCost, grandTotal, softPct };
+}
+
+// ═══════════════════════════════════════════════════════════
+// LCCA ENGINE
+// ═══════════════════════════════════════════════════════════
+function sqftToSqm(sf){return sf*0.092903}
+function gjToKwh(gj){return gj*277.778}
+function pvCalc(amount,rate,year){return amount/Math.pow(1+rate/100,year)}
+
+function getEUI(typeKey){return EUI_MAP[typeKey]||EUI_DEFAULT}
+
+function runLCCA(area,costSf){
+  const eui = getEUI(selectedType.key);
+  const constructionCost = area * costSf;
+  const areaSqm = sqftToSqm(area);
+  const totalEnergyGJ = areaSqm * eui.eui;
+  const elecGJ = totalEnergyGJ * eui.elecShare;
+  const gasGJ = totalEnergyGJ * (1-eui.elecShare);
+  const elecKwh = gjToKwh(elecGJ);
+  const elecRate = ELEC_RATES[currentCity]/100;
+  const gasRate = GAS_RATES[currentCity];
+  const maintRate = MAINT_RATES[eui.cat]?.[lccaMaintLevel]||0.025;
+
+  let totalEnergyPV=0,totalMaintPV=0,totalReplacePV=0;
+  const intervals=[];
+  const replEvents=[];
+
+  for(let y=1;y<=lccaHorizon;y++){
+    const eEsc=Math.pow(1+lccaEnergyEsc/100,y-1);
+    const eCost=(elecKwh*elecRate+gasGJ*gasRate)*eEsc;
+    totalEnergyPV+=pvCalc(eCost,lccaDiscountRate,y);
+
+    const mEsc=Math.pow(1+lccaMaintEsc/100,y-1);
+    const mCost=constructionCost*maintRate*mEsc;
+    totalMaintPV+=pvCalc(mCost,lccaDiscountRate,y);
+
+    let rCost=0;
+    REPLACEMENTS.forEach(r=>{
+      if(y>0&&y%r.year===0&&y<lccaHorizon){
+        const cost=constructionCost*r.costPct*Math.pow(1+lccaMaintEsc/100,y-1);
+        rCost+=cost;
+        replEvents.push({year:y,name:r.name,cost:cost});
+      }
+    });
+    totalReplacePV+=pvCalc(rCost,lccaDiscountRate,y);
+  }
+
+  // Build 5-year intervals
+  for(let y=5;y<=lccaHorizon;y+=5){
+    let cumE=0,cumM=0,cumR=0;
+    for(let i=1;i<=y;i++){
+      const eEsc=Math.pow(1+lccaEnergyEsc/100,i-1);
+      cumE+=pvCalc((elecKwh*elecRate+gasGJ*gasRate)*eEsc,lccaDiscountRate,i);
+      const mEsc=Math.pow(1+lccaMaintEsc/100,i-1);
+      cumM+=pvCalc(constructionCost*maintRate*mEsc,lccaDiscountRate,i);
+      let rC=0;
+      REPLACEMENTS.forEach(r=>{if(i>0&&i%r.year===0&&i<lccaHorizon)rC+=constructionCost*r.costPct*Math.pow(1+lccaMaintEsc/100,i-1)});
+      cumR+=pvCalc(rC,lccaDiscountRate,i);
+    }
+    intervals.push({year:y,energy:cumE,maint:cumM,replace:cumR,total:constructionCost+cumE+cumM+cumR});
+  }
+
+  const totalLCC=constructionCost+totalEnergyPV+totalMaintPV+totalReplacePV;
+  const year1Energy=elecKwh*elecRate+gasGJ*gasRate;
+
+  return{constructionCost,totalEnergyPV,totalMaintPV,totalReplacePV,totalLCC,year1Energy,
+    energyCostSf:year1Energy/area,intervals,replEvents,eui,maintRate,area,costSf};
+}
+
+function renderLCCA(){
+  const panel=document.getElementById("lccaPanel");
+
+  if(!selectedType||!lastEstimateResult){
+    panel.innerHTML=`<div class="empty-state">
+      <p style="font-size:16px">Build an estimate first</p>
+      <p style="font-size:13px">Select a building type and generate an estimate on the "Build Estimate" tab. Your inputs will carry over automatically.</p>
+      <button class="lcca-pill" style="margin-top:16px" onclick="switchTab('${selectedType?'estimate':'browse'}')">
+        ${selectedType?'Go to Build Estimate':'Browse Types'}
+      </button>
+    </div>`;
+    return;
+  }
+
+  const est=lastEstimateResult;
+  const eui=getEUI(selectedType.key);
+
+  let html=`
+  <div class="panel" style="background:linear-gradient(135deg,rgba(246,173,85,0.05),rgba(79,209,197,0.03));border-color:rgba(246,173,85,0.15)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+      <div>
+        <div class="section-label" style="color:#f6ad55;margin-bottom:4px">Life-Cycle Cost Analysis</div>
+        <h2 style="font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.02em">${selectedType.label}</h2>
+        <div style="font-size:13px;color:var(--text-dim);margin-top:4px">${currentCity} · ${Number(est.area).toLocaleString()} sq ft · $${est.baseRate}/sf</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:11px;color:var(--text-faint)">Construction Cost</div>
+        <div style="font-size:24px;font-family:var(--mono);font-weight:700;color:var(--accent)">${fmt(est.baseCost)}</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;display:flex;gap:12px;flex-wrap:wrap">
+      <span class="lcca-tag">EUI: ${eui.eui} GJ/m²/yr</span>
+      <span class="lcca-tag">Elec: ${ELEC_RATES[currentCity]}¢/kWh</span>
+      <span class="lcca-tag">Gas: $${GAS_RATES[currentCity]}/GJ</span>
+      <span class="lcca-tag">Source: NRCan SCIEU 2019</span>
+    </div>
+  </div>
+
+  <!-- Analysis Period -->
+  <div class="panel">
+    <div class="section-label">Analysis Period</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      ${[25,30,40,50].map(h=>`<button class="lcca-pill ${h===lccaHorizon?'active':''}" onclick="lccaHorizon=${h};showLCCA=false;renderLCCA()">${h} Years</button>`).join("")}
+    </div>
+  </div>
+
+  <!-- Assumptions -->
+  <div class="panel">
+    <div class="section-label">Assumptions</div>
+    <div class="grid-2" style="gap:20px">
+      <div>
+        <div style="font-size:12px;color:var(--text-dim);margin-bottom:6px">Discount Rate: <span style="color:#f6ad55;font-family:var(--mono)">${lccaDiscountRate}%</span></div>
+        <input type="range" min="1" max="6" step="0.5" value="${lccaDiscountRate}" oninput="lccaDiscountRate=parseFloat(this.value);this.previousElementSibling.querySelector('span').textContent=this.value+'%';showLCCA=false;clearLCCAResult()">
+      </div>
+      <div>
+        <div style="font-size:12px;color:var(--text-dim);margin-bottom:6px">Energy Escalation: <span style="color:#f6ad55;font-family:var(--mono)">${lccaEnergyEsc}%/yr</span></div>
+        <input type="range" min="0" max="6" step="0.5" value="${lccaEnergyEsc}" oninput="lccaEnergyEsc=parseFloat(this.value);this.previousElementSibling.querySelector('span').textContent=this.value+'%/yr';showLCCA=false;clearLCCAResult()">
+      </div>
+    </div>
+    <div style="margin-top:16px">
+      <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px">Maintenance Level</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        ${["low","mid","high"].map(m=>`<button class="lcca-pill ${m===lccaMaintLevel?'active':''}" onclick="lccaMaintLevel='${m}';showLCCA=false;renderLCCA()">${m==='low'?'Low (1.5-2%)':m==='mid'?'Standard (2-3%)':'High (3-4%)'}</button>`).join("")}
+      </div>
+    </div>
+  </div>
+
+  <button class="lcca-btn ready" onclick="showLCCA=true;renderLCCAResults()">Run Life-Cycle Analysis</button>
+  <div id="lccaResults" style="margin-top:32px"></div>`;
+
+  panel.innerHTML=html;
+  if(showLCCA) renderLCCAResults();
+}
+
+function clearLCCAResult(){const el=document.getElementById("lccaResults");if(el)el.innerHTML="";}
+
+function renderLCCAResults(){
+  if(!lastEstimateResult||!selectedType)return;
+  const est=lastEstimateResult;
+  const r=runLCCA(est.area,est.baseRate);
+  const el=document.getElementById("lccaResults");
+  if(!el)return;
+
+  const parts=[
+    {label:"Construction",value:r.constructionCost,color:"#4fd1c5"},
+    {label:"Energy",value:r.totalEnergyPV,color:"#f6ad55"},
+    {label:"Maintenance",value:r.totalMaintPV,color:"#fc8181"},
+    {label:"Replacements",value:r.totalReplacePV,color:"#b794f4"}
+  ];
+  const chartMax=r.intervals.length?r.intervals[r.intervals.length-1].total:1;
+
+  let html=`<div class="lcca-result slide-up">
+    <div class="result-header">
+      <div class="section-label" style="margin-bottom:8px;color:var(--text-dim)">Total Life-Cycle Cost (${lccaHorizon} Years, Present Value)</div>
+      <div style="font-size:48px;font-weight:700;font-family:var(--mono);color:#f6ad55;letter-spacing:-0.04em;text-shadow:0 0 50px rgba(246,173,85,0.3)">${fmt(r.totalLCC)}</div>
+      <div style="font-size:13px;color:var(--text-dim);margin-top:6px">${selectedType.label} · ${currentCity} · ${Number(r.area).toLocaleString()} sq ft · ${lccaHorizon} year horizon</div>
+    </div>
+    <div class="result-body">
+      ${parts.map(p=>{
+        const pct=(p.value/r.totalLCC*100).toFixed(1);
+        return`<div class="result-row">
+          <div><div style="display:flex;align-items:center;gap:8px"><div style="width:10px;height:10px;border-radius:3px;background:${p.color}"></div><span style="font-size:14px">${p.label}</span></div><div style="font-size:11px;color:var(--text-faint);margin-left:18px">${pct}% of total</div></div>
+          <div class="result-row .val" style="font-size:18px;font-family:var(--mono);font-weight:600">${fmt(p.value)}</div>
+        </div>`;
+      }).join("")}
+      <div class="result-divider"></div>
+
+      <div style="margin-top:12px"><div class="section-label">Key Metrics</div>
+        <div class="grid-2" style="gap:12px">
+          <div class="lcca-metric"><div class="m-label">Year 1 Energy Cost</div><div class="m-val" style="color:#f6ad55">${fmt(r.year1Energy)}/yr</div><div class="m-sub">$${r.energyCostSf.toFixed(2)}/sf/yr</div></div>
+          <div class="lcca-metric"><div class="m-label">Annual Maintenance</div><div class="m-val" style="color:#fc8181">${fmt(r.constructionCost*r.maintRate)}/yr</div><div class="m-sub">${(r.maintRate*100).toFixed(1)}% of construction cost</div></div>
+          <div class="lcca-metric"><div class="m-label">Operating Cost Ratio</div><div class="m-val" style="color:#b794f4">${(((r.totalEnergyPV+r.totalMaintPV+r.totalReplacePV)/r.constructionCost)*100).toFixed(0)}%</div><div class="m-sub">of construction cost over ${lccaHorizon} yrs</div></div>
+          <div class="lcca-metric"><div class="m-label">Total Cost per Sq Ft</div><div class="m-val" style="color:var(--accent)">$${(r.totalLCC/r.area).toFixed(0)}/sf</div><div class="m-sub">life-cycle (vs $${r.costSf}/sf build)</div></div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px"><div class="section-label">Cumulative Cost Over Time (Present Value)</div>
+        <div class="bar-chart">
+          ${r.intervals.map(iv=>{
+            const cP=(r.constructionCost/chartMax*100);
+            const eP=(iv.energy/chartMax*100);
+            const mP=(iv.maint/chartMax*100);
+            const rP=(iv.replace/chartMax*100);
+            return`<div class="bar-row-lc"><span style="font-size:11px;color:var(--text-dim)">Year ${iv.year}</span><div class="bar-track-lc"><div class="bar-seg" style="width:${cP}%;background:#4fd1c5"></div><div class="bar-seg" style="width:${eP}%;background:#f6ad55"></div><div class="bar-seg" style="width:${mP}%;background:#fc8181"></div><div class="bar-seg" style="width:${rP}%;background:#b794f4"></div></div><span style="font-size:11px;font-family:var(--mono);color:var(--text-dim);text-align:right">${fmt(iv.total)}</span></div>`;
+          }).join("")}
+        </div>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#4fd1c5"></div>Construction</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#f6ad55"></div>Energy</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#fc8181"></div>Maintenance</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#b794f4"></div>Replacements</div>
+        </div>
+      </div>
+
+      ${r.replEvents.length>0?`<div style="margin-top:24px"><div class="section-label">Scheduled Replacement Events</div>
+        ${r.replEvents.map(e=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04)"><div><span style="font-size:13px">${e.name}</span><span style="font-size:11px;color:var(--text-faint);margin-left:8px">Year ${e.year}</span></div><span style="font-size:13px;font-family:var(--mono);color:#b794f4">${fmt(e.cost)}</span></div>`).join("")}
+      </div>`:""}
+    </div>
+    <div class="result-footer"><p>Present values calculated using a ${lccaDiscountRate}% real discount rate. Energy costs escalated at ${lccaEnergyEsc}%/yr. Maintenance escalated at ${lccaMaintEsc}%/yr. Energy benchmarks from NRCan ENERGY STAR Portfolio Manager (SCIEU 2019). Electricity and gas rates are approximate commercial blended averages. Component replacement cycles are industry standard estimates. This analysis is for planning purposes only.</p></div>
+  </div>`;
+
+  el.innerHTML=html;
+  el.scrollIntoView({behavior:"smooth"});
+  showLCCA=true;
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -746,6 +1085,5 @@ renderCities();
 renderTypeList();
 renderEstimate();
 </script>
-
 </body>
 </html>
