@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -21,127 +20,113 @@ body{min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--s
 ::selection{background:rgba(79,209,197,0.25)}
 input::placeholder{color:var(--text-faint)}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:3px}
-
 input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;cursor:pointer;width:100%}
 input[type=range]::-webkit-slider-track{height:6px;background:rgba(255,255,255,0.08);border-radius:3px}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:22px;width:22px;border-radius:50%;background:var(–accent);margin-top:-8px;box-shadow:0 0 12px var(–accent-glow)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:22px;width:22px;border-radius:50%;background:var(--accent);margin-top:-8px;box-shadow:0 0 12px var(--accent-glow)}
 input[type=range]::-moz-range-track{height:6px;background:rgba(255,255,255,0.08);border-radius:3px}
-input[type=range]::-moz-range-thumb{height:22px;width:22px;border-radius:50%;background:var(–accent);border:none}
-
+input[type=range]::-moz-range-thumb{height:22px;width:22px;border-radius:50%;background:var(--accent);border:none}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 .fade-in{animation:fadeIn .3s ease}.slide-up{animation:slideUp .4s ease}
 .hidden{display:none}
-
 .shell{max-width:520px;margin:0 auto;padding:16px 16px 80px}
 .logo{text-align:center;padding:28px 0 8px}
 .logo h1{font-size:17px;font-weight:600;letter-spacing:-0.3px}
-.logo p{font-size:11px;color:var(–text-dim);margin-top:4px}
-
+.logo p{font-size:11px;color:var(--text-dim);margin-top:4px}
 /* City pills */
 .city-bar{display:flex;gap:6px;overflow-x:auto;padding:12px 0;scrollbar-width:none;-ms-overflow-style:none}
 .city-bar::-webkit-scrollbar{display:none}
-.city-pill{flex-shrink:0;padding:7px 14px;border-radius:8px;border:1px solid var(–border);background:var(–surface);color:var(–text-dim);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;font-family:var(–sans)}
-.city-pill.active{border-color:var(–border-a);background:var(–accent-dim);color:var(–accent)}
-
+.city-pill{flex-shrink:0;padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text-dim);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;font-family:var(--sans)}
+.city-pill.active{border-color:var(--border-a);background:var(--accent-dim);color:var(--accent)}
 /* Tabs */
-.tabs{display:flex;gap:2px;background:var(–surface);border-radius:10px;padding:3px;margin:12px 0}
-.tab-btn{flex:1;padding:9px 6px;border:none;border-radius:8px;background:transparent;color:var(–text-dim);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .2s;font-family:var(–sans);white-space:nowrap}
-.tab-btn.active{background:#141c30;color:var(–text)}
-
+.tabs{display:flex;gap:2px;background:var(--surface);border-radius:10px;padding:3px;margin:12px 0}
+.tab-btn{flex:1;padding:9px 6px;border:none;border-radius:8px;background:transparent;color:var(--text-dim);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .2s;font-family:var(--sans);white-space:nowrap}
+.tab-btn.active{background:#141c30;color:var(--text)}
 /* Search */
-.search-input{width:100%;padding:12px 16px;border-radius:10px;border:1px solid var(–border);background:var(–surface);color:var(–text);font-size:13px;font-family:var(–sans);outline:none;transition:border-color .2s}
-.search-input:focus{border-color:var(–border-a)}
-
+.search-input{width:100%;padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-family:var(--sans);outline:none;transition:border-color .2s}
+.search-input:focus{border-color:var(--border-a)}
 /* Type cards */
-.type-card{padding:14px 16px;border-radius:10px;border:1px solid var(–border);background:var(–surface);margin-bottom:8px;cursor:pointer;transition:all .2s}
-.type-card:hover{border-color:#2a3348;background:var(–surface-h)}
-.type-card.selected{border-color:var(–border-a);background:var(–accent-dim)}
-.type-name{font-weight:600;font-size:13px}.type-sector{font-size:11px;color:var(–text-dim);margin-top:2px}
-.type-range{font-family:var(–mono);font-size:12px;color:var(–accent);margin-top:6px}
+.type-card{padding:14px 16px;border-radius:10px;border:1px solid var(--border);background:var(--surface);margin-bottom:8px;cursor:pointer;transition:all .2s}
+.type-card:hover{border-color:#2a3348;background:var(--surface-h)}
+.type-card.selected{border-color:var(--border-a);background:var(--accent-dim)}
+.type-name{font-weight:600;font-size:13px}.type-sector{font-size:11px;color:var(--text-dim);margin-top:2px}
+.type-range{font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:6px}
 .sector-tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;margin-right:4px}
 .tag-private{background:#1a1f35;color:#8a8fa0}.tag-public{background:#1a2535;color:#6b9fb0}.tag-infra{background:#251a1a;color:#b08a6b}
-
 /* Estimate panel */
 .est-section{margin-bottom:20px}
-.est-label{font-size:11px;color:var(–text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;font-weight:600}
-.num-input{width:100%;padding:10px 0;border:none;border-bottom:2px solid #1e2538;background:transparent;color:#fff;font-size:26px;font-family:var(–mono);font-weight:600;outline:none;transition:border-color .2s;-webkit-appearance:none}
-.num-input:focus{border-color:var(–accent)}
+.est-label{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;font-weight:600}
+.num-input{width:100%;padding:10px 0;border:none;border-bottom:2px solid #1e2538;background:transparent;color:#fff;font-size:26px;font-family:var(--mono);font-weight:600;outline:none;transition:border-color .2s;-webkit-appearance:none}
+.num-input:focus{border-color:var(--accent)}
 .slider-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.slider-val{font-family:var(–mono);font-size:13px;color:var(–accent);font-weight:600}
+.slider-val{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600}
 .pill-group{display:flex;gap:6px;flex-wrap:wrap}
-.pill{padding:8px 14px;border-radius:8px;border:1px solid var(–border);cursor:pointer;font-family:var(–sans);font-size:13px;font-weight:500;background:var(–surface);color:var(–text-dim);transition:all .2s}
-.pill.active{border-color:var(–border-a);background:var(–accent-dim);color:var(–accent)}
-.gen-btn{width:100%;padding:14px;border-radius:12px;border:none;background:var(–accent);color:#080c18;font-size:15px;font-weight:700;cursor:pointer;font-family:var(–sans);transition:all .2s;letter-spacing:-0.3px}
-.gen-btn:hover{box-shadow:0 0 30px var(–accent-glow)}
-.change-btn{margin-top:16px;padding:7px 16px;border-radius:7px;border:1px solid var(–border);background:transparent;color:var(–text-dim);font-size:12px;cursor:pointer;font-family:var(–sans);transition:all .2s}
+.pill{padding:8px 14px;border-radius:8px;border:1px solid var(--border);cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:500;background:var(--surface);color:var(--text-dim);transition:all .2s}
+.pill.active{border-color:var(--border-a);background:var(--accent-dim);color:var(--accent)}
+.gen-btn{width:100%;padding:14px;border-radius:12px;border:none;background:var(--accent);color:#080c18;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--sans);transition:all .2s;letter-spacing:-0.3px}
+.gen-btn:hover{box-shadow:0 0 30px var(--accent-glow)}
+.change-btn{margin-top:16px;padding:7px 16px;border-radius:7px;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-size:12px;cursor:pointer;font-family:var(--sans);transition:all .2s}
 .change-btn:hover{border-color:#3a4560;color:#c0c4d0}
-
 /* Results */
-.result-card{border-radius:14px;border:1px solid var(–border);background:var(–surface);overflow:hidden;animation:slideUp .4s ease}
+.result-card{border-radius:14px;border:1px solid var(--border);background:var(--surface);overflow:hidden;animation:slideUp .4s ease}
 .result-header{padding:20px;border-bottom:1px solid #141c30}
-.result-total{font-size:36px;font-family:var(–mono);font-weight:700;color:var(–accent);letter-spacing:-1px}
+.result-total{font-size:36px;font-family:var(--mono);font-weight:700;color:var(--accent);letter-spacing:-1px}
 .result-body{padding:16px 20px}
 .result-row{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 0}
-.result-row .lbl{font-size:13px;font-weight:500}.result-row .sub{font-size:11px;color:var(–text-dim);margin-top:2px}
-.result-row .val{font-family:var(–mono);font-size:14px;font-weight:600;text-align:right}
-.val-dim{color:var(–text-dim)!important}
+.result-row .lbl{font-size:13px;font-weight:500}.result-row .sub{font-size:11px;color:var(--text-dim);margin-top:2px}
+.result-row .val{font-family:var(--mono);font-size:14px;font-weight:600;text-align:right}
+.val-dim{color:var(--text-dim)!important}
 .result-divider{height:1px;background:#141c30;margin:4px 0}
-.result-footer{padding:14px 20px;border-top:1px solid #141c30;font-size:11px;color:var(–text-dim);line-height:1.6}
-
+.result-footer{padding:14px 20px;border-top:1px solid #141c30;font-size:11px;color:var(--text-dim);line-height:1.6}
 /* Comparison bars */
-.comp-section{margin-top:24px}.comp-title{font-size:12px;font-weight:600;color:var(–text-dim);margin-bottom:12px}
+.comp-section{margin-top:24px}.comp-title{font-size:12px;font-weight:600;color:var(--text-dim);margin-bottom:12px}
 .comp-row{display:grid;grid-template-columns:80px 1fr 70px;align-items:center;gap:8px;margin-bottom:6px}
-.comp-city{font-size:11px;color:var(–text-dim)}.comp-track{height:20px;background:#0a0f1c;border-radius:4px;overflow:hidden}
+.comp-city{font-size:11px;color:var(--text-dim)}.comp-track{height:20px;background:#0a0f1c;border-radius:4px;overflow:hidden}
 .comp-bar{height:100%;border-radius:4px;transition:width .6s ease;min-width:2px}
-.comp-val{font-family:var(–mono);font-size:11px;color:var(–text-dim);text-align:right}
-
+.comp-val{font-family:var(--mono);font-size:11px;color:var(--text-dim);text-align:right}
 /* LCCA */
-.lcca-select{padding:10px 14px;border-radius:8px;border:1px solid var(–border);background:var(–surface);color:var(–text);font-family:var(–sans);font-size:13px;outline:none;-webkit-appearance:none;width:100%;cursor:pointer}
+.lcca-select{padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--sans);font-size:13px;outline:none;-webkit-appearance:none;width:100%;cursor:pointer}
 .lcca-metric{padding:12px;background:#0a0f1c;border-radius:10px;border:1px solid #1a2035}
-.lcca-metric .m-label{font-size:11px;color:var(–text-faint)}
-.lcca-metric .m-val{font-size:22px;font-family:var(–mono);font-weight:600;margin-top:2px}
-.lcca-metric .m-sub{font-size:11px;color:var(–text-faint)}
+.lcca-metric .m-label{font-size:11px;color:var(--text-faint)}
+.lcca-metric .m-val{font-size:22px;font-family:var(--mono);font-weight:600;margin-top:2px}
+.lcca-metric .m-sub{font-size:11px;color:var(--text-faint)}
 .bar-chart{display:flex;flex-direction:column;gap:4px;margin-top:12px}
 .bar-row-lc{display:grid;grid-template-columns:60px 1fr 80px;align-items:center;gap:8px}
 .bar-track-lc{height:20px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden;display:flex}
 .bar-seg{height:100%;transition:width .5s ease}
 .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
-.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(–text-dim)}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-dim)}
 .legend-dot{width:10px;height:10px;border-radius:3px}
-.lcca-pill{padding:8px 14px;border-radius:8px;border:1px solid var(–border);cursor:pointer;font-family:var(–sans);font-size:13px;font-weight:500;background:var(–surface);color:var(–text-dim);transition:all .2s}
-.lcca-pill.active{border-color:var(–border-a);background:var(–accent-dim);color:var(–accent)}
-
+.lcca-pill{padding:8px 14px;border-radius:8px;border:1px solid var(--border);cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:500;background:var(--surface);color:var(--text-dim);transition:all .2s}
+.lcca-pill.active{border-color:var(--border-a);background:var(--accent-dim);color:var(--accent)}
 /* Optimization */
-.opt-card{border-radius:12px;border:1px solid var(–border);background:var(–surface);padding:16px;margin-bottom:12px;transition:all .2s}
+.opt-card{border-radius:12px;border:1px solid var(--border);background:var(--surface);padding:16px;margin-bottom:12px;transition:all .2s}
 .opt-card:hover{border-color:#2a3348}
 .opt-card h3{font-size:14px;font-weight:600;margin-bottom:4px}
-.opt-card p{font-size:12px;color:var(–text-dim);line-height:1.5}
+.opt-card p{font-size:12px;color:var(--text-dim);line-height:1.5}
 .opt-card .opt-icon{font-size:20px;margin-bottom:8px}
-.opt-result{border-radius:12px;border:1px solid var(–border);background:var(–surface);padding:20px;margin-top:16px;animation:slideUp .4s ease}
+.opt-result{border-radius:12px;border:1px solid var(--border);background:var(--surface);padding:20px;margin-top:16px;animation:slideUp .4s ease}
 .opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .opt-metric{padding:10px;background:#0a0f1c;border-radius:8px;border:1px solid #1a2035}
-.opt-metric .om-label{font-size:10px;color:var(–text-faint);text-transform:uppercase;letter-spacing:0.3px}
-.opt-metric .om-val{font-size:18px;font-family:var(–mono);font-weight:600;margin-top:2px}
-.opt-metric .om-sub{font-size:10px;color:var(–text-dim);margin-top:1px}
+.opt-metric .om-label{font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.3px}
+.opt-metric .om-val{font-size:18px;font-family:var(--mono);font-weight:600;margin-top:2px}
+.opt-metric .om-sub{font-size:10px;color:var(--text-dim);margin-top:1px}
 .scenario-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #141c30}
 .scenario-row:last-child{border-bottom:none}
 .scenario-label{font-size:13px;font-weight:500}
-.scenario-val{font-family:var(–mono);font-size:13px;font-weight:600}
-.savings-tag{display:inline-block;font-size:11px;padding:3px 8px;border-radius:5px;font-family:var(–mono);font-weight:600}
-.tag-save{background:rgba(104,211,145,0.12);color:var(–green)}
-.tag-cost{background:rgba(252,129,129,0.12);color:var(–red)}
-.tag-neutral{background:rgba(255,255,255,0.06);color:var(–text-dim)}
-.opt-input{width:100%;padding:10px 14px;border-radius:8px;border:1px solid var(–border);background:var(–surface);color:var(–text);font-family:var(–mono);font-size:14px;outline:none;transition:border-color .2s}
-.opt-input:focus{border-color:var(–border-a)}
-
+.scenario-val{font-family:var(--mono);font-size:13px;font-weight:600}
+.savings-tag{display:inline-block;font-size:11px;padding:3px 8px;border-radius:5px;font-family:var(--mono);font-weight:600}
+.tag-save{background:rgba(104,211,145,0.12);color:var(--green)}
+.tag-cost{background:rgba(252,129,129,0.12);color:var(--red)}
+.tag-neutral{background:rgba(255,255,255,0.06);color:var(--text-dim)}
+.opt-input{width:100%;padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--mono);font-size:14px;outline:none;transition:border-color .2s}
+.opt-input:focus{border-color:var(--border-a)}
 /* Shared utility */
-.link-btn{display:block;width:100%;padding:14px;border-radius:12px;border:1px solid rgba(79,209,197,0.2);background:rgba(79,209,197,0.04);color:var(–accent);font-size:14px;font-weight:600;font-family:var(–sans);cursor:pointer;margin-top:16px;transition:all .2s;text-align:center}
+.link-btn{display:block;width:100%;padding:14px;border-radius:12px;border:1px solid rgba(79,209,197,0.2);background:rgba(79,209,197,0.04);color:var(--accent);font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer;margin-top:16px;transition:all .2s;text-align:center}
 .link-btn:hover{background:rgba(79,209,197,0.08)}
-.link-btn-orange{border-color:rgba(246,173,85,0.3);background:rgba(246,173,85,0.06);color:var(–orange)}
+.link-btn-orange{border-color:rgba(246,173,85,0.3);background:rgba(246,173,85,0.06);color:var(--orange)}
 .link-btn-orange:hover{background:rgba(246,173,85,0.1)}
 </style>
-
 </head>
 <body>
 <div class="shell">
@@ -149,16 +134,13 @@ input[type=range]::-moz-range-thumb{height:22px;width:22px;border-radius:50%;bac
     <h1>Construction Cost Estimator</h1>
     <p>2025 Altus Group Canadian Cost Guide</p>
   </div>
-
   <div class="city-bar" id="cityBar"></div>
-
   <div class="tabs">
     <button class="tab-btn active" data-tab="browse" onclick="switchTab('browse')">Browse</button>
     <button class="tab-btn" data-tab="estimate" onclick="switchTab('estimate')">Estimate</button>
     <button class="tab-btn" data-tab="lcca" onclick="switchTab('lcca')">Life-Cycle</button>
     <button class="tab-btn" data-tab="optimize" onclick="switchTab('optimize')">Optimize</button>
   </div>
-
   <div id="browsePanel" class="fade-in">
     <div style="margin-bottom:18px"><input type="text" class="search-input" id="searchInput" placeholder="Search building types..." oninput="renderTypeList()"></div>
     <div id="typeList"></div>
@@ -167,7 +149,6 @@ input[type=range]::-moz-range-thumb{height:22px;width:22px;border-radius:50%;bac
   <div id="lccaPanel" class="hidden fade-in"></div>
   <div id="optimizePanel" class="hidden fade-in"></div>
 </div>
-
 <script>
 // ═══════════════════════════════════════════════════════════
 // DATA — 2025 Altus Group Canadian Cost Guide
@@ -179,7 +160,6 @@ const CITIES = [
   {id:"win",label:"Winnipeg",prov:"MB"},{id:"hal",label:"Halifax",prov:"NS"},
   {id:"stj",label:"St. John's",prov:"NL"}
 ];
-
 const TYPES = [
   {id:"condo_low",label:"Condominium (Low-Rise, 1-4 Storey)",sector:"private",cat:"residential",
    rates:{tor:[280,370],ott:[260,345],mtl:[240,320],cal:[265,350],edm:[260,345],van:[290,385],win:[245,325],hal:[255,340],stj:[260,345]}},
@@ -238,7 +218,6 @@ const TYPES = [
   {id:"sewer",label:"Sanitary / Storm Sewer",sector:"infrastructure",cat:"infrastructure",
    rates:{tor:[1800,4000],ott:[1650,3700],mtl:[1550,3500],cal:[1650,3700],edm:[1650,3700],van:[1900,4200],win:[1550,3500],hal:[1600,3600],stj:[1650,3700]},perLM:true}
 ];
-
 // Energy data — NRCan SCIEU 2019 + provincial rates
 const ENERGY = {
   eui: { // kWh-equivalent per sf per year
@@ -248,10 +227,8 @@ const ENERGY = {
   gasRate: {tor:0.035,ott:0.035,mtl:0.028,cal:0.025,edm:0.025,van:0.032,win:0.030,hal:0.04,stj:0.038},
   elecShare: {residential:0.45,commercial:0.55,institutional:0.50,industrial:0.60,parking:0.90,infrastructure:0}
 };
-
 // Maintenance rates — % of construction value per year
 const MAINT = {low:0.015,standard:0.025,high:0.04};
-
 // Component replacement cycles
 const REPLACEMENTS = [
   {name:"Roofing",cycle:22,pct:0.06},{name:"HVAC Systems",cycle:18,pct:0.12},
@@ -259,20 +236,35 @@ const REPLACEMENTS = [
   {name:"Plumbing Systems",cycle:28,pct:0.04},{name:"Electrical Systems",cycle:30,pct:0.05},
   {name:"Interior Fitout",cycle:12,pct:0.10},{name:"Flooring",cycle:15,pct:0.03}
 ];
-
 // ═══════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════
 let currentCity = "tor";
 let selectedType = null;
 let currentTab = "browse";
-let quality = 50;
-let sqft = 50000;
-let parkingType = "none";
-let parkingStalls = 100;
-let softPctSlider = 20;
 let showLCCA = false;
 let lastEstimate = null;
+// ── Project Inputs (Session 1) ──
+let projectInputs = {
+  gfa: 50000,
+  storeys: 8,
+  floorplate: 6250,       // auto: gfa ÷ storeys
+  unitCount: 0,           // residential only
+  unitMix: {bachelor:0, one:0, two:0, three:0},
+  siteArea: 0,
+  fsr: 0,                 // auto: gfa ÷ siteArea
+  parkingType: "none",
+  parkingStalls: 0,
+  province: "ON",
+  softPct: 20,
+  quality: 50
+};
+// Legacy aliases kept for LCCA / Optimize reads
+Object.defineProperty(window, 'quality',    { get(){ return projectInputs.quality; },    set(v){ projectInputs.quality = v; } });
+Object.defineProperty(window, 'sqft',       { get(){ return projectInputs.gfa; },        set(v){ projectInputs.gfa = v; } });
+Object.defineProperty(window, 'parkingType',{ get(){ return projectInputs.parkingType; },set(v){ projectInputs.parkingType = v; } });
+Object.defineProperty(window, 'parkingStalls',{ get(){ return projectInputs.parkingStalls; },set(v){ projectInputs.parkingStalls = v; } });
+Object.defineProperty(window, 'softPctSlider',{ get(){ return projectInputs.softPct; },  set(v){ projectInputs.softPct = v; } });
 // LCCA state
 let lccaPeriod = 30;
 let lccaDiscount = 3.5;
@@ -281,27 +273,22 @@ let lccaMaintEsc = 2.0;
 let lccaMaintTier = "standard";
 // Optimization state
 let optTool = null; // 'threshold','parking','shape','area'
-
 // ═══════════════════════════════════════════════════════════
 // HELPERS
 // ═══════════════════════════════════════════════════════════
 const fmt = n => "$" + Math.round(n).toLocaleString();
 const fmtM = n => n >= 1e6 ? "$" + (n/1e6).toFixed(1) + "M" : fmt(n);
-
 function lerp(low, high, t) { return Math.round(low + (high - low) * (t / 100)); }
-
 function getUnit(type) {
   if (type.perStall) return "/stall";
   if (type.perLM) return "/lin.m";
   if (type.perSM) return "/sq.m";
   return "/sf";
 }
-
 function getRate(type, city, q) {
   const r = type.rates[city];
   return lerp(r[0], r[1], q);
 }
-
 // ═══════════════════════════════════════════════════════════
 // RENDER — Cities
 // ═══════════════════════════════════════════════════════════
@@ -311,7 +298,6 @@ function renderCities() {
   ).join("");
 }
 function setCity(id) { currentCity = id; renderCities(); renderTypeList(); if(currentTab==="estimate") renderEstimate(); }
-
 // ═══════════════════════════════════════════════════════════
 // RENDER — Browse Types
 // ═══════════════════════════════════════════════════════════
@@ -332,16 +318,54 @@ function renderTypeList() {
     </div>`;
   }).join("");
 }
-
 function selectType(id) {
   selectedType = TYPES.find(t => t.id === id);
   renderTypeList();
   switchTab("estimate");
 }
-
 // ═══════════════════════════════════════════════════════════
 // RENDER — Estimate
 // ═══════════════════════════════════════════════════════════
+// ── Helpers for live project input updates ──
+function piUpdate(field, val) {
+  projectInputs[field] = val;
+  // Keep derived fields in sync
+  if (field === 'gfa' || field === 'storeys') {
+    if (projectInputs.storeys > 0) {
+      projectInputs.floorplate = Math.round(projectInputs.gfa / projectInputs.storeys);
+    }
+    document.getElementById('pi-floorplate') && (document.getElementById('pi-floorplate').textContent = projectInputs.floorplate.toLocaleString() + ' sf');
+  }
+  if (field === 'gfa' || field === 'siteArea') {
+    projectInputs.fsr = projectInputs.siteArea > 0 ? +(projectInputs.gfa / projectInputs.siteArea).toFixed(2) : 0;
+    document.getElementById('pi-fsr') && (document.getElementById('pi-fsr').textContent = projectInputs.fsr > 0 ? 'FSR: ' + projectInputs.fsr.toFixed(2) : '');
+  }
+  if (field === 'quality') {
+    const t = selectedType;
+    if (t) {
+      const r = t.rates[currentCity];
+      const unit = getUnit(t);
+      document.getElementById('pi-q-val') && (document.getElementById('pi-q-val').textContent = projectInputs.quality + '%');
+      document.getElementById('pi-q-base') && (document.getElementById('pi-q-base').textContent = 'Base ($' + r[0].toLocaleString() + unit + ')');
+      document.getElementById('pi-q-prem') && (document.getElementById('pi-q-prem').textContent = 'Premium ($' + r[1].toLocaleString() + unit + ')');
+    }
+  }
+  if (field === 'softPct') {
+    document.getElementById('pi-soft-val') && (document.getElementById('pi-soft-val').textContent = projectInputs.softPct + '%');
+  }
+  if (['bachelor','one','two','three'].includes(field)) {
+    projectInputs.unitMix[field] = val;
+    const total = Object.values(projectInputs.unitMix).reduce((a,b)=>a+b,0);
+    projectInputs.unitCount = total;
+    document.getElementById('pi-unit-total') && (document.getElementById('pi-unit-total').textContent = 'Total: ' + total.toLocaleString() + ' units');
+  }
+}
+function piParkingType(p) {
+  projectInputs.parkingType = p;
+  const stallRow = document.getElementById('pi-stall-row');
+  if (stallRow) stallRow.style.display = p === 'none' ? 'none' : 'block';
+}
+
 function renderEstimate() {
   const el = document.getElementById("estimatePanel");
   if (!selectedType) {
@@ -353,10 +377,12 @@ function renderEstimate() {
   }
   const t = selectedType;
   const r = t.rates[currentCity];
-  const rate = lerp(r[0], r[1], quality);
   const unit = getUnit(t);
   const isBuilding = !t.perStall && !t.perLM && !t.perSM;
+  const isResidential = t.cat === "residential";
+  const pi = projectInputs;
 
+  // ── Header ──
   let html = `<div class="est-section">
     <div style="display:flex;justify-content:space-between;align-items:center">
       <div><div style="font-size:15px;font-weight:600">${t.label}</div>
@@ -365,80 +391,167 @@ function renderEstimate() {
     <button class="change-btn" onclick="switchTab('browse')">Change type</button>
   </div>`;
 
+  // ── 1. Floor Area ──
   if (isBuilding) {
+    const fp = pi.storeys > 0 ? Math.round(pi.gfa / pi.storeys) : 0;
     html += `<div class="est-section">
-      <div class="est-label">Gross Floor Area (sq ft)</div>
-      <input type="number" class="num-input" value="${sqft}" min="1000" step="1000" oninput="sqft=+this.value" inputmode="numeric">
+      <div class="est-label">Floor Area</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div>
+          <div style="font-size:10px;color:var(--text-faint);margin-bottom:4px">GFA (sq ft)</div>
+          <input type="number" class="num-input" value="${pi.gfa}" min="1000" step="1000"
+            oninput="piUpdate('gfa',+this.value)" inputmode="numeric" style="font-size:22px">
+        </div>
+        <div>
+          <div style="font-size:10px;color:var(--text-faint);margin-bottom:4px">Storeys</div>
+          <input type="number" class="num-input" value="${pi.storeys}" min="1" max="100" step="1"
+            oninput="piUpdate('storeys',+this.value)" inputmode="numeric" style="font-size:22px">
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:var(--text-dim)">
+        Floorplate: <span id="pi-floorplate" style="font-family:var(--mono);color:var(--accent)">${fp.toLocaleString()} sf</span>
+      </div>
     </div>`;
   }
 
+  // ── 2. Site Area (optional) ──
+  if (isBuilding) {
+    const fsr = pi.siteArea > 0 ? (pi.gfa / pi.siteArea).toFixed(2) : 0;
+    html += `<div class="est-section">
+      <div class="est-label">Site Area <span style="font-weight:400;text-transform:none;color:var(--text-faint)">(optional)</span></div>
+      <input type="number" class="num-input" value="${pi.siteArea || ''}" min="0" step="500"
+        placeholder="0" oninput="piUpdate('siteArea',+this.value)" inputmode="numeric" style="font-size:22px">
+      <div style="margin-top:6px;font-size:11px;color:var(--text-dim);min-height:16px">
+        <span id="pi-fsr" style="font-family:var(--mono);color:var(--orange)">${fsr > 0 ? 'FSR: ' + fsr : ''}</span>
+      </div>
+    </div>`;
+  }
+
+  // ── 3. Unit Mix (residential only) ──
+  if (isBuilding && isResidential) {
+    const mx = pi.unitMix;
+    const total = Object.values(mx).reduce((a,b)=>a+b,0);
+    html += `<div class="est-section">
+      <div class="est-label">Unit Mix <span style="font-weight:400;text-transform:none;color:var(--text-faint)">(optional)</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px">
+        ${[['bachelor','Bachelor'],['one','1 BR'],['two','2 BR'],['three','3 BR']].map(([k,lbl]) => `
+          <div style="padding:10px 12px;background:#0a0f1c;border-radius:8px;border:1px solid #1a2035">
+            <div style="font-size:10px;color:var(--text-faint);margin-bottom:4px">${lbl}</div>
+            <input type="number" style="width:100%;background:transparent;border:none;color:#fff;font-family:var(--mono);font-size:18px;font-weight:600;outline:none;-webkit-appearance:none"
+              value="${mx[k]}" min="0" step="1" oninput="piUpdate('${k}',+this.value)" inputmode="numeric">
+          </div>`).join("")}
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:var(--text-dim)">
+        <span id="pi-unit-total" style="font-family:var(--mono);color:${total>0?'var(--accent)':'var(--text-faint)'}">Total: ${total.toLocaleString()} units</span>
+      </div>
+    </div>`;
+  }
+
+  // ── 4. Quality ──
   html += `<div class="est-section">
-    <div class="slider-row"><span class="est-label">Quality Level</span><span class="slider-val">${quality}%</span></div>
-    <input type="range" min="0" max="100" value="${quality}" oninput="quality=+this.value;renderEstimate()">
+    <div class="slider-row">
+      <span class="est-label">Quality Level</span>
+      <span class="slider-val" id="pi-q-val">${pi.quality}%</span>
+    </div>
+    <input type="range" min="0" max="100" value="${pi.quality}" oninput="piUpdate('quality',+this.value)">
     <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-faint);margin-top:4px">
-      <span>Base ($${r[0].toLocaleString()}${unit})</span><span>Premium ($${r[1].toLocaleString()}${unit})</span>
+      <span id="pi-q-base">Base ($${r[0].toLocaleString()}${unit})</span>
+      <span id="pi-q-prem">Premium ($${r[1].toLocaleString()}${unit})</span>
     </div>
   </div>`;
 
+  // ── 5. Parking ──
   if (isBuilding) {
+    const pt = pi.parkingType;
     html += `<div class="est-section">
       <div class="est-label">Parking</div>
       <div class="pill-group">
         ${["none","surface","above","underground"].map(p =>
-          `<button class="pill ${parkingType===p?'active':''}" onclick="parkingType='${p}';renderEstimate()">${p==="none"?"None":p==="surface"?"Surface":p==="above"?"Above Grade":"Underground"}</button>`
+          `<button class="pill ${pt===p?'active':''}" onclick="piParkingType('${p}');this.closest('.pill-group').querySelectorAll('.pill').forEach(b=>b.classList.remove('active'));this.classList.add('active')">${p==="none"?"None":p==="surface"?"Surface":p==="above"?"Above Grade":"Underground"}</button>`
         ).join("")}
       </div>
-      ${parkingType!=="none" ? `<div style="margin-top:12px"><div class="est-label">Number of Stalls</div>
-        <input type="number" class="num-input" value="${parkingStalls}" min="1" step="10" oninput="parkingStalls=+this.value" inputmode="numeric" style="font-size:20px"></div>` : ""}
+      <div id="pi-stall-row" style="margin-top:12px;display:${pt!=='none'?'block':'none'}">
+        <div class="est-label">Number of Stalls</div>
+        <input type="number" class="num-input" value="${pi.parkingStalls||100}" min="1" step="10"
+          oninput="piUpdate('parkingStalls',+this.value)" inputmode="numeric" style="font-size:20px">
+      </div>
     </div>`;
 
+    // ── 6. Soft Cost ──
     html += `<div class="est-section">
-      <div class="slider-row"><span class="est-label">Soft Cost Allowance</span><span class="slider-val">${softPctSlider}%</span></div>
-      <input type="range" min="10" max="35" value="${softPctSlider}" oninput="softPctSlider=+this.value;renderEstimate()">
+      <div class="slider-row">
+        <span class="est-label">Soft Cost Allowance</span>
+        <span class="slider-val" id="pi-soft-val">${pi.softPct}%</span>
+      </div>
+      <input type="range" min="10" max="35" value="${pi.softPct}" oninput="piUpdate('softPct',+this.value)">
       <div style="font-size:10px;color:var(--text-faint);margin-top:4px">Design, permits, fees, project management</div>
     </div>`;
   }
 
   html += `<button class="gen-btn" onclick="generateEstimate()">Generate Estimate</button>
     <div id="resultArea" style="margin-top:20px"></div>`;
-
   el.innerHTML = html;
 }
-
 function generateEstimate() {
   const t = selectedType;
   if (!t) return;
+  const pi = projectInputs;
   const r = t.rates[currentCity];
-  const rate = lerp(r[0], r[1], quality);
+  const rate = lerp(r[0], r[1], pi.quality);
   const isBuilding = !t.perStall && !t.perLM && !t.perSM;
-  const area = isBuilding ? sqft : (t.perStall ? parkingStalls : sqft);
+  const area = isBuilding ? pi.gfa : (t.perStall ? pi.parkingStalls : pi.gfa);
   const unit = getUnit(t);
   const baseCost = rate * area;
 
   let parkCost = 0;
   let parkRow = "";
-  if (isBuilding && parkingType !== "none") {
-    const pKey = parkingType === "surface" ? "surface_lot" : parkingType === "above" ? "parkade_ag" : "parkade_ug";
+  if (isBuilding && pi.parkingType !== "none") {
+    const pKey = pi.parkingType === "surface" ? "surface_lot" : pi.parkingType === "above" ? "parkade_ag" : "parkade_ug";
     const pType = TYPES.find(x => x.id === pKey);
-    const pRate = lerp(pType.rates[currentCity][0], pType.rates[currentCity][1], quality);
-    parkCost = pRate * parkingStalls;
-    parkRow = `<div class="result-row"><div><div class="lbl">Parking (${parkingType === "surface" ? "Surface" : parkingType === "above" ? "Above Grade" : "Underground"})</div><div class="sub">${parkingStalls} stalls × $${pRate.toLocaleString()}/stall</div></div><div class="val">${fmt(parkCost)}</div></div>`;
+    const pRate = lerp(pType.rates[currentCity][0], pType.rates[currentCity][1], pi.quality);
+    const stalls = pi.parkingStalls || 100;
+    parkCost = pRate * stalls;
+    parkRow = `<div class="result-row"><div><div class="lbl">Parking (${pi.parkingType === "surface" ? "Surface" : pi.parkingType === "above" ? "Above Grade" : "Underground"})</div><div class="sub">${stalls} stalls × $${pRate.toLocaleString()}/stall</div></div><div class="val">${fmt(parkCost)}</div></div>`;
   }
 
   const hardTotal = baseCost + parkCost;
-  const softPct = isBuilding ? softPctSlider : 15;
+  const softPct = isBuilding ? pi.softPct : 15;
   const softCost = hardTotal * softPct / 100;
   const grandTotal = hardTotal + softCost;
 
-  // Store for LCCA/Optimization
-  lastEstimate = { type: t, city: currentCity, area, rate, baseCost, parkCost, parkingType, parkingStalls, hardTotal, softCost, softPct, grandTotal, quality };
+  // Per-unit row (residential only)
+  const unitCount = pi.unitMix ? Object.values(pi.unitMix).reduce((a,b)=>a+b,0) : 0;
+  let perUnitRow = "";
+  if (isBuilding && t.cat === "residential" && unitCount > 0) {
+    const costPerUnit = grandTotal / unitCount;
+    perUnitRow = `<div class="result-divider"></div>
+      <div class="result-row"><div><div class="lbl">Per Unit Cost</div><div class="sub">${unitCount} units total</div></div><div class="val" style="color:var(--accent)">${fmt(costPerUnit)}<span style="font-size:10px;font-weight:400;color:var(--text-dim)"> / unit</span></div></div>`;
+  }
 
-  // Comparison bars
+  // FSR row
+  let fsrRow = "";
+  if (isBuilding && pi.siteArea > 0) {
+    const fsr = (pi.gfa / pi.siteArea).toFixed(2);
+    fsrRow = `<div class="result-divider"></div>
+      <div class="result-row"><div><div class="lbl">FSR</div><div class="sub">Verify against zoning approval</div></div><div class="val" style="color:var(--orange)">${fsr}</div></div>`;
+  }
+
+  // Store for LCCA / Optimization — includes all new Session 1 fields
+  lastEstimate = {
+    type: t, city: currentCity, area, rate, baseCost, parkCost,
+    parkingType: pi.parkingType, parkingStalls: pi.parkingStalls,
+    hardTotal, softCost, softPct, grandTotal, quality: pi.quality,
+    storeys: pi.storeys, floorplate: pi.floorplate,
+    unitCount, unitMix: {...pi.unitMix},
+    siteArea: pi.siteArea, fsr: pi.siteArea > 0 ? +(pi.gfa / pi.siteArea).toFixed(2) : 0
+  };
+
+  // Cross-market comparison bars
   let compHTML = "";
   if (isBuilding) {
-    const allRates = CITIES.map(c => ({label: c.label, rate: lerp(t.rates[c.id][0], t.rates[c.id][1], quality)}));
+    const allRates = CITIES.map(c => ({label: c.label, rate: lerp(t.rates[c.id][0], t.rates[c.id][1], pi.quality)}));
     const maxRate = Math.max(...allRates.map(x => x.rate));
-    compHTML = `<div class="comp-section"><div class="comp-title">Cross-Market Comparison at ${quality}% Quality</div>
+    compHTML = `<div class="comp-section"><div class="comp-title">Cross-Market Comparison at ${pi.quality}% Quality</div>
       ${allRates.map(c => {
         const w = (c.rate / maxRate * 100).toFixed(0);
         const isCurrent = c.label === CITIES.find(x => x.id === currentCity).label;
@@ -451,7 +564,7 @@ function generateEstimate() {
   const resultHTML = `<div class="result-card">
     <div class="result-header">
       <div class="result-total">${fmt(grandTotal)}</div>
-      <div style="font-size:12px;color:var(--text-dim);margin-top:6px">${t.label} · ${CITIES.find(c=>c.id===currentCity).label} · ${area.toLocaleString()} ${isBuilding?"sq ft":unit.replace("/","")}</div>
+      <div style="font-size:12px;color:var(--text-dim);margin-top:6px">${t.label} · ${CITIES.find(c=>c.id===currentCity).label} · ${area.toLocaleString()} ${isBuilding?"sq ft":unit.replace("/","")}${pi.storeys > 0 && isBuilding ? " · " + pi.storeys + " storeys" : ""}</div>
     </div>
     <div class="result-body">
       <div class="result-row"><div><div class="lbl">Building Hard Cost</div><div class="sub">${area.toLocaleString()} ${isBuilding?"sf":unit.replace("/","")} × $${rate.toLocaleString()}${unit}</div></div><div class="val">${fmt(baseCost)}</div></div>
@@ -459,17 +572,17 @@ function generateEstimate() {
       <div class="result-divider"></div>
       <div class="result-row"><div class="lbl" style="color:var(--text-dim)">Hard Cost Subtotal</div><div class="val val-dim">${fmt(hardTotal)}</div></div>
       <div class="result-row"><div><div class="lbl">Soft Cost Allowance</div><div class="sub">${softPct}% of hard costs</div></div><div class="val">${fmt(softCost)}</div></div>
+      ${perUnitRow}
+      ${fsrRow}
     </div>
     <div class="result-footer"><p>Excludes GST/HST/QST, tariff impacts, site development, and unique architecture premiums. Rates based on 2025 Altus Group Canadian Cost Guide. Hard costs use CIQS floor area definition. This estimate is for initial budgeting only.</p></div>
   </div>
   ${compHTML}
   <button class="link-btn link-btn-orange" onclick="switchTab('lcca')">Run Life-Cycle Cost Analysis →</button>
   <button class="link-btn" onclick="switchTab('optimize')">Explore Building Optimization →</button>`;
-
   document.getElementById("resultArea").innerHTML = resultHTML;
   document.getElementById("resultArea").scrollIntoView({behavior:"smooth"});
 }
-
 // ═══════════════════════════════════════════════════════════
 // RENDER — LCCA
 // ═══════════════════════════════════════════════════════════
@@ -484,35 +597,27 @@ function renderLCCA() {
   }
   const e = lastEstimate;
   const cityLabel = CITIES.find(c=>c.id===e.city).label;
-
   let html = `<div style="padding:14px;background:var(--surface);border-radius:12px;border:1px solid var(--border);margin-bottom:16px">
     <div style="font-size:13px;font-weight:600">${e.type.label}</div>
     <div style="font-size:11px;color:var(--text-dim);margin-top:2px">${cityLabel} · ${e.area.toLocaleString()} sf · ${fmt(e.grandTotal)} total estimate</div>
   </div>`;
-
   html += `<div class="est-section"><div class="est-label">Analysis Period (Years)</div>
     <div class="pill-group">${[25,30,40,50].map(y=>`<button class="lcca-pill ${lccaPeriod===y?'active':''}" onclick="lccaPeriod=${y};renderLCCA()">${y}</button>`).join("")}</div></div>`;
-
   html += `<div class="est-section"><div class="est-label">Maintenance Level</div>
     <div class="pill-group">${["low","standard","high"].map(m=>`<button class="lcca-pill ${lccaMaintTier===m?'active':''}" onclick="lccaMaintTier='${m}';renderLCCA()">${m[0].toUpperCase()+m.slice(1)}</button>`).join("")}</div></div>`;
-
   html += `<div class="est-section">
     <div class="slider-row"><span class="est-label">Discount Rate</span><span class="slider-val">${lccaDiscount}%</span></div>
     <input type="range" min="1" max="8" step="0.5" value="${lccaDiscount}" oninput="lccaDiscount=+this.value;renderLCCA()">
   </div>`;
-
   html += `<div class="est-section">
     <div class="slider-row"><span class="est-label">Energy Escalation</span><span class="slider-val">${lccaEnergyEsc}%/yr</span></div>
     <input type="range" min="0" max="6" step="0.5" value="${lccaEnergyEsc}" oninput="lccaEnergyEsc=+this.value;renderLCCA()">
   </div>`;
-
   html += `<button class="gen-btn" onclick="generateLCCA()">Generate Life-Cycle Analysis</button>
     <div id="lccaResult" style="margin-top:20px"></div>`;
-
   el.innerHTML = html;
   if (showLCCA) generateLCCA();
 }
-
 function generateLCCA() {
   const e = lastEstimate;
   const cat = e.type.cat;
@@ -525,19 +630,16 @@ function generateLCCA() {
   const dr = lccaDiscount / 100;
   const ee = lccaEnergyEsc / 100;
   const me = lccaMaintEsc / 100;
-
   let pvEnergy = 0, pvMaint = 0, pvReplace = 0;
   const yearlyData = [];
   let cumConst = e.grandTotal, cumEnergy = 0, cumMaint = 0, cumReplace = 0;
   const replacementEvents = [];
-
   for (let yr = 1; yr <= lccaPeriod; yr++) {
     const eCost = annualEnergy * Math.pow(1 + ee, yr - 1);
     const mCost = annualMaint * Math.pow(1 + me, yr - 1);
     const pvFactor = 1 / Math.pow(1 + dr, yr);
     pvEnergy += eCost * pvFactor;
     pvMaint += mCost * pvFactor;
-
     let yrReplace = 0;
     REPLACEMENTS.forEach(comp => {
       if (yr > 0 && yr % comp.cycle === 0 && cat !== "parking" && cat !== "infrastructure") {
@@ -547,21 +649,16 @@ function generateLCCA() {
         replacementEvents.push({year: yr, name: comp.name, cost: rCost});
       }
     });
-
     cumEnergy += eCost; cumMaint += mCost; cumReplace += yrReplace;
     yearlyData.push({yr, cumTotal: cumConst + cumEnergy + cumMaint + cumReplace, cumEnergy, cumMaint, cumReplace});
   }
-
   const pvTotal = e.grandTotal + pvEnergy + pvMaint + pvReplace;
   const costPerSf = pvTotal / e.area;
   const opRatio = (pvEnergy + pvMaint + pvReplace) / e.grandTotal;
-
   // Bar chart — sample every 5 years
   const sampleYears = yearlyData.filter(d => d.yr % 5 === 0 || d.yr === lccaPeriod);
   const maxCum = sampleYears[sampleYears.length - 1].cumTotal;
-
   const barColors = {const:"#4fd1c5",energy:"#f6ad55",maint:"#b794f4",replace:"#fc8181"};
-
   let resultHTML = `<div class="result-card">
     <div class="result-header">
       <div style="font-size:12px;color:var(--text-dim);margin-bottom:4px">Total Life-Cycle Cost (${lccaPeriod}yr, Present Value)</div>
@@ -579,7 +676,6 @@ function generateLCCA() {
         <div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--text-faint)">Total Cost/SF (PV)</span><span style="font-family:var(--mono);font-size:13px;font-weight:600">$${costPerSf.toFixed(0)}</span></div>
       </div>
     </div>
-
     <div style="padding:0 20px 16px">
       <div style="font-size:12px;font-weight:600;color:var(--text-dim);margin-bottom:8px">Cumulative Cost Buildup</div>
       <div class="bar-chart">
@@ -600,99 +696,79 @@ function generateLCCA() {
         <div class="legend-item"><div class="legend-dot" style="background:${barColors.replace}"></div>Replacements</div>
       </div>
     </div>
-
     ${replacementEvents.length ? `<div style="padding:0 20px 16px"><div style="font-size:12px;font-weight:600;color:var(--text-dim);margin-bottom:8px">Replacement Schedule</div>
       ${replacementEvents.slice(0,12).map(ev => `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #141c30;font-size:12px">
         <div><span style="color:var(--text-dim);font-family:var(--mono)">Year ${ev.year}</span> <span style="margin-left:8px">${ev.name}</span></div>
         <div style="font-family:var(--mono);color:var(--red)">${fmt(ev.cost)}</div></div>`).join("")}
       ${replacementEvents.length > 12 ? `<div style="font-size:11px;color:var(--text-faint);margin-top:8px">+ ${replacementEvents.length-12} more events</div>` : ""}
     </div>` : ""}
-
     <div class="result-footer"><p>Energy benchmarks from NRCan SCIEU 2019. Provincial rates are approximate commercial blended averages. Energy escalation ${lccaEnergyEsc}%/yr, maintenance ${lccaMaintEsc}%/yr, discount rate ${lccaDiscount}%. Component cycles are industry standard estimates. For planning purposes only.</p></div>
   </div>`;
-
   document.getElementById("lccaResult").innerHTML = resultHTML;
   document.getElementById("lccaResult").scrollIntoView({behavior:"smooth"});
   showLCCA = true;
 }
-
 // ═══════════════════════════════════════════════════════════
 // RENDER — Building Optimization
 // ═══════════════════════════════════════════════════════════
 function renderOptimize() {
   const el = document.getElementById("optimizePanel");
-
   if (!optTool) {
     // Tool selection menu
     let html = `<div style="font-size:11px;color:var(--text-dim);margin-bottom:16px">Select an optimization tool to analyze design tradeoffs and cost implications.</div>`;
-
     const tools = [
       {id:"threshold",icon:"📐",name:"Structural Threshold Analyzer",desc:"See how building height triggers structural system changes and cost jumps. Compare low-rise wood frame versus mid-rise concrete versus high-rise steel costs."},
       {id:"parking",icon:"🅿️",name:"Parking Mix Optimizer",desc:"Model different parking configurations — underground, above grade, surface — and compare total project cost impact across scenarios."},
       {id:"shape",icon:"🔷",name:"Building Shape Efficiency",desc:"Analyze how building footprint shape affects cost per square foot. Compare square, rectangular, L-shaped, and irregular floorplates."},
       {id:"area",icon:"📏",name:"CIQS vs. Zoning Floor Area",desc:"Calculate the grossing-up factor between CIQS measured floor area (used for cost estimating) and zoning GFA (used for density calculations)."}
     ];
-
     html += tools.map(t => `<div class="opt-card" onclick="optTool='${t.id}';renderOptimize()" style="cursor:pointer">
       <div class="opt-icon">${t.icon}</div>
       <h3>${t.name}</h3>
       <p>${t.desc}</p>
     </div>`).join("");
-
     if (lastEstimate) {
       html += `<div style="margin-top:8px;padding:12px;background:var(--surface);border-radius:10px;border:1px solid var(--border);font-size:12px;color:var(--text-dim)">
         Using data from your estimate: ${lastEstimate.type.label}, ${CITIES.find(c=>c.id===lastEstimate.city).label}, ${lastEstimate.area.toLocaleString()} sf</div>`;
     }
-
     el.innerHTML = html;
     return;
   }
-
   // Render specific tool
   let html = `<button class="change-btn" onclick="optTool=null;renderOptimize()" style="margin-bottom:16px;margin-top:0">← All Optimization Tools</button>`;
-
   if (optTool === "threshold") html += renderThreshold();
   else if (optTool === "parking") html += renderParkingOpt();
   else if (optTool === "shape") html += renderShapeOpt();
   else if (optTool === "area") html += renderAreaOpt();
-
   el.innerHTML = html;
 }
-
 // ── Structural Threshold Analyzer ──
 function renderThreshold() {
   const city = lastEstimate?.city || currentCity;
   const area = lastEstimate?.area || sqft;
   const q = lastEstimate?.quality || quality;
-
   const tiers = [
     {label:"Low-Rise (1-4 Storey)",id:"condo_low",system:"Wood Frame / Light Steel",floors:"1-4",note:"Most economical structural system. Wood frame dominates."},
     {label:"Mid-Rise (5-12 Storey)",id:"condo_mid",system:"Concrete / Post-Tension",floors:"5-12",note:"Transition to concrete frame. Building code triggers at 6 storeys for many jurisdictions."},
     {label:"High-Rise (13-39 Storey)",id:"condo_high",system:"Reinforced Concrete",floors:"13-39",note:"Major cost jump. Requires concrete shear walls, increased foundation, crane time."},
     {label:"Supertall (40+ Storey)",id:"condo_super",system:"High-Strength Concrete / Steel Hybrid",floors:"40+",note:"Premium structural engineering. Wind loading, damping systems, specialized formwork."}
   ];
-
   const tierData = tiers.map(t => {
     const type = TYPES.find(x => x.id === t.id);
     const rate = lerp(type.rates[city][0], type.rates[city][1], q);
     const totalCost = rate * area;
     return {...t, rate, totalCost};
   });
-
   const baseRate = tierData[0].rate;
   const maxRate = tierData[tierData.length-1].rate;
-
   let html = `<div style="font-size:15px;font-weight:600;margin-bottom:4px">Structural Threshold Analyzer</div>
     <div style="font-size:12px;color:var(--text-dim);margin-bottom:16px">${CITIES.find(c=>c.id===city).label} · ${area.toLocaleString()} sf · ${q}% quality</div>`;
-
   html += `<div class="opt-result" style="margin-top:0">`;
-
   tierData.forEach((t, i) => {
     const premium = i === 0 ? 0 : ((t.rate - baseRate) / baseRate * 100);
     const jump = i === 0 ? null : t.rate - tierData[i-1].rate;
     const jumpPct = i === 0 ? null : ((t.rate - tierData[i-1].rate) / tierData[i-1].rate * 100);
     const barW = (t.rate / maxRate * 100).toFixed(0);
-
     html += `<div style="padding:14px 0;${i>0?'border-top:1px solid #141c30':''}">
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
         <div><div style="font-size:13px;font-weight:600">${t.label}</div>
@@ -708,25 +784,20 @@ function renderThreshold() {
       </div>
     </div>`;
   });
-
   // Summary
   const totalPremium = tierData[3].rate - tierData[0].rate;
   const biggestJump = tierData[2].rate - tierData[1].rate;
-
   html += `<div style="margin-top:12px;padding:12px;background:#0a0f1c;border-radius:8px;border:1px solid #1a2035">
     <div style="font-size:12px;font-weight:600;margin-bottom:8px">Key Insight</div>
     <div style="font-size:12px;color:var(--text-dim);line-height:1.6">The biggest cost jump occurs at the 12-to-13 storey transition (+$${biggestJump}/sf), where the structural system shifts from post-tension concrete to reinforced concrete shear walls. For a ${area.toLocaleString()} sf building, choosing 12 storeys instead of 13 saves approximately ${fmtM(biggestJump * area)} in hard costs. The full range from low-rise to supertall is $${totalPremium}/sf (+${((totalPremium/baseRate)*100).toFixed(0)}% premium).</div>
   </div></div>`;
-
   return html;
 }
-
 // ── Parking Mix Optimizer ──
 function renderParkingOpt() {
   const city = lastEstimate?.city || currentCity;
   const q = lastEstimate?.quality || quality;
   const stalls = lastEstimate?.parkingStalls || parkingStalls || 100;
-
   const scenarios = [
     {label:"100% Underground",mix:{underground:1.0,above:0,surface:0}},
     {label:"100% Above Grade",mix:{underground:0,above:1.0,surface:0}},
@@ -735,34 +806,28 @@ function renderParkingOpt() {
     {label:"50 Above / 50 Surface",mix:{underground:0,above:0.5,surface:0.5}},
     {label:"100% Surface",mix:{underground:0,above:0,surface:1.0}}
   ];
-
   const ugType = TYPES.find(x=>x.id==="parkade_ug");
   const agType = TYPES.find(x=>x.id==="parkade_ag");
   const sfType = TYPES.find(x=>x.id==="surface_lot");
   const ugRate = lerp(ugType.rates[city][0],ugType.rates[city][1],q);
   const agRate = lerp(agType.rates[city][0],agType.rates[city][1],q);
   const sfRate = lerp(sfType.rates[city][0],sfType.rates[city][1],q);
-
   const scenarioData = scenarios.map(s => {
     const cost = stalls * (s.mix.underground * ugRate + s.mix.above * agRate + s.mix.surface * sfRate);
     const perStall = cost / stalls;
     return {...s, cost, perStall};
   });
-
   const minCost = Math.min(...scenarioData.map(s=>s.cost));
   const maxCost = Math.max(...scenarioData.map(s=>s.cost));
-
   let html = `<div style="font-size:15px;font-weight:600;margin-bottom:4px">Parking Mix Optimizer</div>
     <div style="font-size:12px;color:var(--text-dim);margin-bottom:4px">${CITIES.find(c=>c.id===city).label} · ${stalls} stalls · ${q}% quality</div>
     <div style="font-size:11px;color:var(--text-faint);margin-bottom:16px">UG: $${ugRate.toLocaleString()}/stall · Above: $${agRate.toLocaleString()}/stall · Surface: $${sfRate.toLocaleString()}/stall</div>`;
-
   html += `<div class="opt-result" style="margin-top:0">`;
   scenarioData.forEach((s, i) => {
     const savings = s.cost - minCost;
     const barW = (s.cost / maxCost * 100).toFixed(0);
     const isMin = s.cost === minCost;
     const isMax = s.cost === maxCost;
-
     html += `<div class="scenario-row">
       <div><div class="scenario-label">${s.label}</div>
         <div style="font-size:10px;color:var(--text-faint);margin-top:2px">$${Math.round(s.perStall).toLocaleString()}/stall avg</div></div>
@@ -771,24 +836,19 @@ function renderParkingOpt() {
       </div>
     </div>`;
   });
-
   const ugTotal = stalls * ugRate;
   const potentialSaving = ugTotal - minCost;
-
   html += `<div style="margin-top:12px;padding:12px;background:#0a0f1c;border-radius:8px;border:1px solid #1a2035">
     <div style="font-size:12px;font-weight:600;margin-bottom:8px">Key Insight</div>
     <div style="font-size:12px;color:var(--text-dim);line-height:1.6">If your current plan is 100% underground parking, switching to a surface-only configuration saves ${fmtM(potentialSaving)} (${((potentialSaving/ugTotal)*100).toFixed(0)}% reduction). As cities reduce minimum parking requirements, optimizing the parking mix is one of the highest-impact cost levers available. Each underground stall costs ${((ugRate/sfRate)).toFixed(0)}x more than a surface stall.</div>
   </div></div>`;
-
   return html;
 }
-
 // ── Building Shape Efficiency ──
 function renderShapeOpt() {
   const city = lastEstimate?.city || currentCity;
   const area = lastEstimate?.area || sqft;
   const rate = lastEstimate?.rate || 300;
-
   // Shape efficiency modifiers based on perimeter-to-area ratios
   // Square is baseline (1.0), other shapes have higher wall ratios
   const shapes = [
@@ -799,27 +859,21 @@ function renderShapeOpt() {
     {id:"ushape",label:"U-Shape",ratio:1.25,perimFactor:1.25,desc:"High envelope cost. Courtyard benefit for amenity space.",example:"Three wings"},
     {id:"tower",label:"Tower (Point Tower)",ratio:1.12,perimFactor:1.12,desc:"Compact but all-exterior. Higher wind loads at height.",example:"25m × 25m core"}
   ];
-
   // Wall/envelope typically 15-20% of construction cost
   const envelopePct = 0.17;
   const baseCost = rate * area;
-
   const shapeData = shapes.map(s => {
     const envelopePremium = baseCost * envelopePct * (s.perimFactor - 1);
     const totalCost = baseCost + envelopePremium;
     const effectiveRate = totalCost / area;
     return {...s, envelopePremium, totalCost, effectiveRate};
   });
-
   let html = `<div style="font-size:15px;font-weight:600;margin-bottom:4px">Building Shape Efficiency</div>
     <div style="font-size:12px;color:var(--text-dim);margin-bottom:16px">${CITIES.find(c=>c.id===city).label} · ${area.toLocaleString()} sf at $${rate}/sf · Envelope at ~17% of construction</div>`;
-
   html += `<div class="opt-result" style="margin-top:0">`;
-
   shapeData.forEach((s, i) => {
     const premPct = ((s.ratio - 1) * 100).toFixed(1);
     const barW = Math.min(100, (s.ratio / 1.30 * 100)).toFixed(0);
-
     html += `<div style="padding:12px 0;${i>0?'border-top:1px solid #141c30':''}">
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
         <div><div style="font-size:13px;font-weight:600">${s.label}</div>
@@ -832,31 +886,25 @@ function renderShapeOpt() {
       <div style="margin-top:6px"><div class="comp-track" style="height:12px"><div class="comp-bar" style="width:${barW}%;background:${s.ratio<=1.0?'var(--green)':s.ratio<=1.10?'var(--accent)':s.ratio<=1.18?'var(--orange)':'var(--red)'}"></div></div></div>
     </div>`;
   });
-
   const worstPremium = shapeData[4].envelopePremium; // U-shape
   html += `<div style="margin-top:12px;padding:12px;background:#0a0f1c;border-radius:8px;border:1px solid #1a2035">
     <div style="font-size:12px;font-weight:600;margin-bottom:8px">Key Insight</div>
     <div style="font-size:12px;color:var(--text-dim);line-height:1.6">Building shape affects cost primarily through the envelope (exterior wall and glazing), which typically represents 15-20% of construction cost. A U-shaped building costs approximately ${fmtM(worstPremium)} more than a square footprint of the same area due to the additional exterior wall. For projects where site constraints force an irregular shape, budget an extra ${((shapeData[3].ratio-1)*100).toFixed(0)}-${((shapeData[4].ratio-1)*100).toFixed(0)}% for envelope premiums.</div>
   </div></div>`;
-
   return html;
 }
-
 // ── CIQS vs Zoning Floor Area ──
 function renderAreaOpt() {
   const area = lastEstimate?.area || sqft;
-
   let ciqsSf = area;
   let html = `<div style="font-size:15px;font-weight:600;margin-bottom:4px">CIQS vs. Zoning Floor Area</div>
     <div style="font-size:12px;color:var(--text-dim);margin-bottom:16px">Calculate the grossing-up factor between measured construction area (CIQS) and zoning GFA</div>`;
-
   html += `<div class="opt-result" style="margin-top:0">
     <div class="est-section" style="margin-bottom:16px">
       <div class="est-label">CIQS Measured Floor Area (sq ft)</div>
       <input type="number" class="opt-input" id="ciqsInput" value="${ciqsSf}" min="1000" step="1000" oninput="updateAreaCalc()" inputmode="numeric">
       <div style="font-size:10px;color:var(--text-faint);margin-top:4px">Total floor area per CIQS standards (includes all enclosed area measured to exterior face of walls)</div>
     </div>`;
-
   // Common grossing-up factors
   const factors = [
     {label:"Residential Condo",factor:1.15,note:"Balconies, mechanical penthouses, amenity counted differently"},
@@ -864,13 +912,10 @@ function renderAreaOpt() {
     {label:"Mixed-Use",factor:1.18,note:"Multiple uses trigger different zoning calculations"},
     {label:"Retail / Commercial",factor:1.08,note:"Storage, receiving areas may be excluded"},
   ];
-
   html += `<div style="font-size:12px;font-weight:600;margin-bottom:10px;color:var(--text-dim)">Common Grossing-Up Factors</div>`;
-
   factors.forEach(f => {
     const zoningGFA = Math.round(ciqsSf / f.factor);
     const diff = ciqsSf - zoningGFA;
-
     html += `<div style="padding:10px 0;border-bottom:1px solid #141c30">
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
         <div><div style="font-size:13px;font-weight:500">${f.label}</div>
@@ -882,7 +927,6 @@ function renderAreaOpt() {
       </div>
     </div>`;
   });
-
   html += `<div style="margin-top:16px">
     <div class="est-label">Custom Grossing-Up Factor</div>
     <div style="display:flex;gap:10px;align-items:center;margin-top:6px">
@@ -890,15 +934,12 @@ function renderAreaOpt() {
       <div style="font-size:12px;color:var(--text-dim)">→ Zoning GFA: <span id="customZoning" style="font-family:var(--mono);color:var(--accent);font-weight:600">${Math.round(ciqsSf/1.15).toLocaleString()}</span> sf</div>
     </div>
   </div>`;
-
   html += `<div style="margin-top:16px;padding:12px;background:#0a0f1c;border-radius:8px;border:1px solid #1a2035">
     <div style="font-size:12px;font-weight:600;margin-bottom:8px">Why This Matters</div>
     <div style="font-size:12px;color:var(--text-dim);line-height:1.6">Cost estimating uses CIQS floor area (measured to exterior face of walls, includes all enclosed space). Zoning uses GFA which excludes certain areas depending on the municipality. When a developer says "we have 50,000 sf of GFA approved," the actual construction area they need to budget for is typically 8-18% larger. Getting this conversion wrong means underestimating construction cost from the very first feasibility calculation.</div>
   </div></div>`;
-
   return html;
 }
-
 function updateAreaCalc() {
   const ciqsInput = document.getElementById("ciqsInput");
   const factorInput = document.getElementById("customFactor");
@@ -909,7 +950,6 @@ function updateAreaCalc() {
     zoningSpan.textContent = Math.round(ciqsVal / factorVal).toLocaleString();
   }
 }
-
 // ═══════════════════════════════════════════════════════════
 // TAB SWITCHING
 // ═══════════════════════════════════════════════════════════
@@ -924,13 +964,11 @@ function switchTab(tab) {
   if (tab === "lcca") renderLCCA();
   if (tab === "optimize") renderOptimize();
 }
-
 // ═══════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════
 renderCities();
 renderTypeList();
 </script>
-
 </body>
 </html>
