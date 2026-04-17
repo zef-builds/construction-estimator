@@ -161,62 +161,138 @@ const CITIES = [
   {id:"stj",label:"St. John's",prov:"NL"}
 ];
 const TYPES = [
-  {id:"condo_low",label:"Condominium (Low-Rise, 1-4 Storey)",sector:"private",cat:"residential",
-   rates:{tor:[280,370],ott:[260,345],mtl:[240,320],cal:[265,350],edm:[260,345],van:[290,385],win:[245,325],hal:[255,340],stj:[260,345]}},
-  {id:"condo_mid",label:"Condominium (Mid-Rise, 5-12 Storey)",sector:"private",cat:"residential",
-   rates:{tor:[310,420],ott:[290,390],mtl:[270,365],cal:[295,400],edm:[290,390],van:[325,435],win:[275,370],hal:[285,385],stj:[290,390]}},
-  {id:"condo_high",label:"Condominium (High-Rise, 13-39 Storey)",sector:"private",cat:"residential",
-   rates:{tor:[350,480],ott:[325,445],mtl:[305,415],cal:[330,455],edm:[325,445],van:[365,500],win:[310,425],hal:[320,440],stj:[325,445]}},
-  {id:"condo_super",label:"Condominium (Supertall, 40+ Storey)",sector:"private",cat:"residential",
-   rates:{tor:[420,580],ott:[390,540],mtl:[365,505],cal:[395,550],edm:[390,540],van:[435,600],win:[370,515],hal:[385,530],stj:[390,540]}},
-  {id:"townhouse",label:"Townhouse / Stacked Townhouse",sector:"private",cat:"residential",
-   rates:{tor:[220,300],ott:[205,280],mtl:[190,260],cal:[210,285],edm:[205,280],van:[230,310],win:[195,265],hal:[200,275],stj:[205,280]}},
-  {id:"rental_apt",label:"Purpose-Built Rental Apartment",sector:"private",cat:"residential",
-   rates:{tor:[275,365],ott:[255,340],mtl:[235,315],cal:[260,345],edm:[255,340],van:[285,380],win:[240,320],hal:[250,335],stj:[255,340]}},
-  {id:"seniors",label:"Seniors Living / Long-Term Care",sector:"private",cat:"residential",
-   rates:{tor:[320,435],ott:[300,405],mtl:[280,375],cal:[305,415],edm:[300,405],van:[335,450],win:[285,385],hal:[295,400],stj:[300,405]}},
-  {id:"student",label:"Student Housing",sector:"public",cat:"residential",
-   rates:{tor:[310,410],ott:[290,385],mtl:[270,355],cal:[295,390],edm:[290,385],van:[320,425],win:[275,365],hal:[285,380],stj:[290,385]}},
-  {id:"hotel",label:"Hotel (Full Service)",sector:"private",cat:"commercial",
-   rates:{tor:[360,500],ott:[335,465],mtl:[315,435],cal:[340,475],edm:[335,465],van:[375,520],win:[320,445],hal:[330,460],stj:[335,465]}},
-  {id:"office_a",label:"Office (Class A)",sector:"private",cat:"commercial",
-   rates:{tor:[310,425],ott:[290,395],mtl:[270,370],cal:[295,405],edm:[290,395],van:[325,440],win:[275,375],hal:[285,390],stj:[290,395]}},
-  {id:"office_b",label:"Office (Class B)",sector:"private",cat:"commercial",
-   rates:{tor:[240,330],ott:[225,305],mtl:[210,285],cal:[230,315],edm:[225,305],van:[250,340],win:[215,290],hal:[220,300],stj:[225,305]}},
-  {id:"retail",label:"Retail / Shopping Centre",sector:"private",cat:"commercial",
-   rates:{tor:[200,310],ott:[185,290],mtl:[170,265],cal:[190,295],edm:[185,290],van:[210,320],win:[175,270],hal:[180,280],stj:[185,290]}},
-  {id:"warehouse",label:"Warehouse / Distribution Centre",sector:"private",cat:"industrial",
-   rates:{tor:[140,210],ott:[130,195],mtl:[120,180],cal:[135,200],edm:[130,195],van:[145,215],win:[125,185],hal:[128,190],stj:[130,195]}},
-  {id:"light_ind",label:"Light Industrial / Flex Space",sector:"private",cat:"industrial",
-   rates:{tor:[170,255],ott:[158,237],mtl:[147,220],cal:[162,243],edm:[158,237],van:[177,265],win:[152,228],hal:[156,233],stj:[158,237]}},
+  // ── CONDOMINIUMS / APARTMENTS ──────────────────────────────
+  {id:"condo_12",label:"Condominium / Apartment (Up to 12 Storeys)",sector:"private",cat:"residential",
+   rates:{van:[330,405],cal:[295,350],edm:[295,350],win:[295,350],tor:[290,390],ott:[270,345],mtl:[260,320],hal:[240,340],stj:[250,350]}},
+  {id:"condo_13_39",label:"Condominium / Apartment (13–39 Storeys)",sector:"private",cat:"residential",
+   rates:{van:[360,455],cal:[305,360],edm:[305,360],win:[305,355],tor:[295,385],ott:[310,345],mtl:[300,315],hal:[295,370],stj:[290,360]}},
+  {id:"condo_40_60",label:"Condominium / Apartment (40–60 Storeys)",sector:"private",cat:"residential",
+   rates:{van:[370,480],cal:[310,400],edm:[310,365],win:[310,365],tor:[330,410],ott:[315,365],mtl:[305,360],hal:[300,360],stj:[295,355]}},
+  {id:"condo_60plus",label:"Condominium / Apartment (60+ Storeys)",sector:"private",cat:"residential",
+   rates:{van:[370,485],cal:[355,460],edm:[350,450],win:[345,445],tor:[365,480],ott:[345,445],mtl:[330,425],hal:[320,415],stj:[315,410]}},
+  // ── WOOD FRAMED RESIDENTIAL ────────────────────────────────
+  {id:"townhouse_row",label:"Row Townhouse (Unfinished Basement)",sector:"private",cat:"residential",
+   rates:{van:[205,310],cal:[185,245],edm:[180,240],win:[180,240],tor:[205,265],ott:[130,180],mtl:[135,185],hal:[140,200],stj:[150,200]}},
+  {id:"townhouse_stacked",label:"3-Storey Stacked Townhouse",sector:"private",cat:"residential",
+   rates:{van:[225,315],cal:[195,255],edm:[195,255],win:[185,255],tor:[230,270],ott:[170,205],mtl:[155,185],hal:[165,210],stj:[165,215]}},
+  {id:"condo_wood",label:"Wood Frame Condo (Up to 6 Storeys)",sector:"private",cat:"residential",
+   rates:{van:[275,365],cal:[235,345],edm:[230,345],win:[225,340],tor:[245,330],ott:[215,280],mtl:[210,275],hal:[175,220],stj:[240,310]}},
+  {id:"sfr",label:"Single Family Residential (Unfinished Basement)",sector:"private",cat:"residential",
+   rates:{van:[200,320],cal:[175,265],edm:[170,265],win:[165,250],tor:[200,275],ott:[140,225],mtl:[145,205],hal:[140,215],stj:[150,210]}},
+  // ── SENIORS HOUSING ────────────────────────────────────────
+  {id:"seniors_ind",label:"Seniors: Independent / Supportive Living",sector:"private",cat:"residential",
+   rates:{van:[330,420],cal:[260,350],edm:[260,355],win:[255,345],tor:[285,385],ott:[310,360],mtl:[215,325],hal:[250,325],stj:[260,335]}},
+  {id:"seniors_assisted",label:"Seniors: Assisted Living Residences",sector:"private",cat:"residential",
+   rates:{van:[315,450],cal:[295,375],edm:[295,375],win:[290,370],tor:[310,405],ott:[330,380],mtl:[245,335],hal:[270,360],stj:[280,365]}},
+  {id:"seniors_complex",label:"Seniors: Complex Care Residences",sector:"private",cat:"residential",
+   rates:{van:[410,625],cal:[335,550],edm:[335,550],win:[330,545],tor:[400,590],ott:[380,550],mtl:[365,530],hal:[375,585],stj:[400,565]}},
+  // ── OFFICE ─────────────────────────────────────────────────
+  {id:"office_low_b",label:"Office Under 5 Storeys (Class B)",sector:"private",cat:"commercial",
+   rates:{van:[300,380],cal:[240,325],edm:[240,325],win:[235,320],tor:[260,355],ott:[240,310],mtl:[200,270],hal:[190,245],stj:[200,350]}},
+  {id:"office_mid_b",label:"Office 6–30 Storeys (Class B)",sector:"private",cat:"commercial",
+   rates:{van:[300,375],cal:[245,330],edm:[245,330],win:[240,325],tor:[270,380],ott:[260,340],mtl:[205,280],hal:[195,280],stj:[200,280]}},
+  {id:"office_a",label:"Office 5–30 Storeys (Class A)",sector:"private",cat:"commercial",
+   rates:{van:[345,425],cal:[270,375],edm:[270,375],win:[265,370],tor:[305,450],ott:[295,385],mtl:[265,355],hal:[215,310],stj:[215,310]}},
+  {id:"office_high_a",label:"Office 31–60 Storeys (Class A)",sector:"private",cat:"commercial",
+   rates:{van:[370,460],cal:[305,430],edm:[305,430],win:[300,425],tor:[355,510],ott:[340,460],mtl:[315,440],hal:[310,430],stj:[310,425]}},
+  {id:"office_fitout_b",label:"Office Interior Fitout (Class B)",sector:"private",cat:"commercial",
+   rates:{van:[90,150],cal:[70,120],edm:[70,120],win:[70,120],tor:[110,150],ott:[100,135],mtl:[90,130],hal:[65,110],stj:[65,105]}},
+  {id:"office_fitout_a",label:"Office Interior Fitout (Class A)",sector:"private",cat:"commercial",
+   rates:{van:[160,300],cal:[115,205],edm:[115,205],win:[110,200],tor:[160,265],ott:[125,195],mtl:[140,195],hal:[105,175],stj:[100,175]}},
+  // ── RETAIL ─────────────────────────────────────────────────
+  {id:"retail_strip",label:"Retail Strip Plaza",sector:"private",cat:"commercial",
+   rates:{van:[210,300],cal:[220,300],edm:[220,300],win:[215,295],tor:[235,295],ott:[170,245],mtl:[155,225],hal:[140,190],stj:[145,190]}},
+  {id:"retail_supermarket",label:"Retail Supermarket",sector:"private",cat:"commercial",
+   rates:{van:[215,350],cal:[210,260],edm:[210,260],win:[205,260],tor:[175,350],ott:[175,260],mtl:[175,230],hal:[170,230],stj:[170,220]}},
+  {id:"retail_bigbox",label:"Retail Big Box Store",sector:"private",cat:"commercial",
+   rates:{van:[205,270],cal:[200,255],edm:[200,255],win:[195,250],tor:[165,240],ott:[175,225],mtl:[165,220],hal:[175,225],stj:[185,235]}},
+  {id:"retail_mall",label:"Retail Enclosed Mall",sector:"private",cat:"commercial",
+   rates:{van:[350,460],cal:[270,420],edm:[270,420],win:[265,415],tor:[275,480],ott:[245,315],mtl:[245,330],hal:[225,320],stj:[235,315]}},
+  // ── HOTELS ─────────────────────────────────────────────────
+  {id:"hotel_budget",label:"Hotel (Budget)",sector:"private",cat:"commercial",
+   rates:{van:[240,310],cal:[240,325],edm:[240,325],win:[235,320],tor:[245,325],ott:[220,285],mtl:[195,265],hal:[215,265],stj:[225,280]}},
+  {id:"hotel_suite",label:"Hotel (Suite)",sector:"private",cat:"commercial",
+   rates:{van:[340,425],cal:[300,410],edm:[300,410],win:[295,400],tor:[345,500],ott:[290,420],mtl:[235,385],hal:[280,335],stj:[300,405]}},
+  {id:"hotel_full",label:"Hotel (4-Star Full Service)",sector:"private",cat:"commercial",
+   rates:{van:[395,560],cal:[320,435],edm:[320,435],win:[315,430],tor:[445,565],ott:[345,520],mtl:[290,455],hal:[290,370],stj:[300,435]}},
+  // ── INDUSTRIAL ─────────────────────────────────────────────
+  {id:"warehouse",label:"Warehouse",sector:"private",cat:"industrial",
+   rates:{van:[125,210],cal:[125,165],edm:[125,165],win:[120,160],tor:[80,180],ott:[120,170],mtl:[115,175],hal:[115,180],stj:[110,165]}},
+  {id:"distribution",label:"Distribution Facility",sector:"private",cat:"industrial",
+   rates:{van:[200,475],cal:[150,450],edm:[150,450],win:[140,440],tor:[145,380],ott:[140,445],mtl:[160,440],hal:[160,415],stj:[180,475]}},
+  {id:"storage_urban",label:"Urban Storage Facility",sector:"private",cat:"industrial",
+   rates:{van:[120,175],cal:[140,185],edm:[140,185],win:[135,180],tor:[95,195],ott:[105,195],mtl:[110,175],hal:[110,175],stj:[110,170]}},
+  // ── PARKING (per stall — Altus $/sf × 350 sf/stall) ───────
+  {id:"parkade_ug",label:"Parking – Underground Garage",sector:"private",cat:"parking",
+   rates:{van:[59500,101500],cal:[56000,77000],edm:[56000,77000],win:[54250,77000],tor:[61250,99750],ott:[70000,101500],mtl:[50750,70000],hal:[50750,70000],stj:[52500,70000]},perStall:true},
+  {id:"parkade_ag",label:"Parking – Above Grade Garage",sector:"private",cat:"parking",
+   rates:{van:[45500,73500],cal:[40250,61250],edm:[40250,61250],win:[38500,59500],tor:[43750,70000],ott:[40250,57750],mtl:[36750,57750],hal:[40250,50750],stj:[42000,54250]},perStall:true},
+  {id:"surface_lot",label:"Parking – Surface Lot",sector:"private",cat:"parking",
+   rates:{van:[4300,8250],cal:[3630,8910],edm:[3630,8910],win:[3630,8910],tor:[4950,9900],ott:[3960,7920],mtl:[3630,7260],hal:[4290,7920],stj:[3300,6600]},perStall:true},
+  // ── EDUCATION ──────────────────────────────────────────────
   {id:"school_elem",label:"Elementary School",sector:"public",cat:"institutional",
-   rates:{tor:[350,470],ott:[325,440],mtl:[305,410],cal:[330,450],edm:[325,440],van:[360,485],win:[310,420],hal:[320,435],stj:[325,440]}},
+   rates:{van:[425,530],cal:[355,555],edm:[355,555],win:[330,545],tor:[450,700],ott:[360,460],mtl:[380,475],hal:[360,430],stj:[325,460]}},
   {id:"school_sec",label:"Secondary School",sector:"public",cat:"institutional",
-   rates:{tor:[370,500],ott:[345,465],mtl:[320,435],cal:[350,475],edm:[345,465],van:[385,520],win:[325,445],hal:[340,460],stj:[345,465]}},
-  {id:"university",label:"University / College Building",sector:"public",cat:"institutional",
-   rates:{tor:[420,580],ott:[390,540],mtl:[365,505],cal:[400,555],edm:[390,540],van:[435,600],win:[370,515],hal:[385,530],stj:[390,540]}},
-  {id:"hospital",label:"Hospital / Acute Care",sector:"public",cat:"institutional",
-   rates:{tor:[550,750],ott:[510,700],mtl:[480,655],cal:[520,720],edm:[510,700],van:[570,780],win:[490,670],hal:[500,685],stj:[510,700]}},
-  {id:"community",label:"Community / Recreation Centre",sector:"public",cat:"institutional",
-   rates:{tor:[380,520],ott:[355,485],mtl:[330,450],cal:[360,495],edm:[355,485],van:[395,540],win:[340,460],hal:[350,475],stj:[355,485]}},
+   rates:{van:[445,535],cal:[395,575],edm:[395,575],win:[360,570],tor:[500,750],ott:[380,480],mtl:[400,480],hal:[365,465],stj:[350,475]}},
+  {id:"uni_teaching",label:"University / College – Teaching & Lecture Hall",sector:"public",cat:"institutional",
+   rates:{van:[750,1250],cal:[750,950],edm:[750,950],win:[550,945],tor:[900,1250],ott:[710,1015],mtl:[665,910],hal:[660,760],stj:[670,770]}},
+  {id:"uni_labs",label:"University / College – Laboratories (Level 1 & 2)",sector:"public",cat:"institutional",
+   rates:{van:[925,1400],cal:[750,1250],edm:[750,1250],win:[725,1245],tor:[1150,1600],ott:[935,1245],mtl:[900,1190],hal:[760,1100],stj:[770,1110]}},
+  {id:"uni_residence",label:"University / College – Student Residence",sector:"public",cat:"residential",
+   rates:{van:[395,580],cal:[310,420],edm:[310,420],win:[300,415],tor:[590,800],ott:[380,480],mtl:[360,455],hal:[325,400],stj:[285,375]}},
+  // ── HEALTH CARE ────────────────────────────────────────────
+  {id:"hospital",label:"General Hospital / Acute Care",sector:"public",cat:"institutional",
+   rates:{van:[1000,1550],cal:[950,1400],edm:[950,1400],win:[900,1390],tor:[1030,1620],ott:[950,1500],mtl:[870,1265],hal:[770,1260],stj:[800,1200]}},
+  {id:"medical_clinic",label:"Medical Clinic / Treatment Centre",sector:"public",cat:"institutional",
+   rates:{van:[550,695],cal:[375,850],edm:[375,850],win:[370,845],tor:[460,800],ott:[450,600],mtl:[360,530],hal:[410,680],stj:[400,550]}},
+  // ── TRANSPORTATION ─────────────────────────────────────────
+  {id:"airport_regional",label:"Airport Terminal – Regional",sector:"public",cat:"institutional",
+   rates:{van:[430,550],cal:[500,750],edm:[500,750],win:[495,745],tor:[535,640],ott:[395,500],mtl:[380,470],hal:[385,480],stj:[360,500]}},
+  {id:"airport_intl",label:"Airport Terminal – International",sector:"public",cat:"institutional",
+   rates:{van:[840,1100],cal:[800,1100],edm:[800,1100],win:[795,1095],tor:[885,1175],ott:[800,985],mtl:[760,900],hal:[745,910],stj:[745,910]}},
+  {id:"bus_terminal",label:"Bus Terminal / Garage",sector:"public",cat:"institutional",
+   rates:{van:[400,510],cal:[380,525],edm:[380,525],win:[375,520],tor:[460,750],ott:[345,430],mtl:[335,395],hal:[315,405],stj:[280,375]}},
+  // ── GOVERNMENT ─────────────────────────────────────────────
+  {id:"fire_ems",label:"Fire / EMS Station",sector:"public",cat:"institutional",
+   rates:{van:[600,865],cal:[550,715],edm:[550,715],win:[545,710],tor:[620,860],ott:[570,695],mtl:[525,605],hal:[400,490],stj:[400,500]}},
+  {id:"police_local",label:"Police Station – Local Detachment",sector:"public",cat:"institutional",
+   rates:{van:[500,640],cal:[450,545],edm:[450,545],win:[445,540],tor:[600,735],ott:[500,600],mtl:[500,545],hal:[450,550],stj:[410,475]}},
+  {id:"police_regional",label:"Police Station – Regional Headquarters",sector:"public",cat:"institutional",
+   rates:{van:[500,620],cal:[475,565],edm:[475,565],win:[470,560],tor:[620,820],ott:[470,570],mtl:[455,525],hal:[475,625],stj:[350,450]}},
+  {id:"courthouse",label:"Court House",sector:"public",cat:"institutional",
+   rates:{van:[540,750],cal:[605,925],edm:[605,925],win:[600,920],tor:[640,820],ott:[530,705],mtl:[500,660],hal:[485,585],stj:[480,550]}},
+  {id:"facilities_maint",label:"Facilities Maintenance Building",sector:"public",cat:"institutional",
+   rates:{van:[450,530],cal:[315,450],edm:[315,465],win:[310,460],tor:[600,745],ott:[485,555],mtl:[420,505],hal:[300,350],stj:[300,350]}},
+  {id:"penitentiary",label:"Penitentiary / Correctional Facility",sector:"public",cat:"institutional",
+   rates:{van:[575,720],cal:[575,750],edm:[575,750],win:[570,745],tor:[635,770],ott:[510,640],mtl:[470,580],hal:[430,595],stj:[480,595]}},
+  {id:"municipal_office",label:"Municipal Office (Including Fit-Up)",sector:"public",cat:"institutional",
+   rates:{van:[465,580],cal:[410,475],edm:[410,475],win:[405,470],tor:[445,580],ott:[375,475],mtl:[350,430],hal:[335,385],stj:[350,400]}},
   {id:"library",label:"Library",sector:"public",cat:"institutional",
-   rates:{tor:[400,545],ott:[370,510],mtl:[345,475],cal:[380,520],edm:[370,510],van:[415,565],win:[355,485],hal:[365,500],stj:[370,510]}},
-  {id:"fire_stn",label:"Fire Station",sector:"public",cat:"institutional",
-   rates:{tor:[420,560],ott:[390,520],mtl:[365,490],cal:[400,535],edm:[390,520],van:[435,580],win:[370,500],hal:[385,515],stj:[390,520]}},
-  {id:"parkade_ug",label:"Parking Structure (Underground)",sector:"private",cat:"parking",
-   rates:{tor:[65000,95000],ott:[60000,88000],mtl:[56000,82000],cal:[62000,90000],edm:[60000,88000],van:[68000,98000],win:[57000,84000],hal:[59000,86000],stj:[60000,88000]},perStall:true},
-  {id:"parkade_ag",label:"Parking Structure (Above Grade)",sector:"private",cat:"parking",
-   rates:{tor:[40000,60000],ott:[37000,56000],mtl:[35000,52000],cal:[38000,57000],edm:[37000,56000],van:[42000,62000],win:[36000,53000],hal:[37000,55000],stj:[37000,56000]},perStall:true},
-  {id:"surface_lot",label:"Surface Parking Lot",sector:"private",cat:"parking",
-   rates:{tor:[5000,10000],ott:[4500,9000],mtl:[4200,8500],cal:[4500,9000],edm:[4500,9000],van:[5500,10500],win:[4200,8500],hal:[4400,8800],stj:[4500,9000]},perStall:true},
-  {id:"road",label:"Road (Urban Arterial)",sector:"infrastructure",cat:"infrastructure",
-   rates:{tor:[8000,15000],ott:[7500,14000],mtl:[7000,13000],cal:[7500,14000],edm:[7500,14000],van:[8500,15500],win:[7000,13000],hal:[7200,13500],stj:[7500,14000]},perLM:true},
-  {id:"bridge",label:"Bridge",sector:"infrastructure",cat:"infrastructure",
-   rates:{tor:[6000,12000],ott:[5500,11000],mtl:[5200,10500],cal:[5500,11000],edm:[5500,11000],van:[6200,12500],win:[5200,10500],hal:[5400,10800],stj:[5500,11000]},perSM:true},
+   rates:{van:[455,800],cal:[425,800],edm:[425,800],win:[420,795],tor:[550,1100],ott:[500,850],mtl:[465,730],hal:[410,670],stj:[400,600]}},
+  // ── RECREATION & ENTERTAINMENT ─────────────────────────────
+  {id:"ice_arena",label:"Ice Arena",sector:"public",cat:"institutional",
+   rates:{van:[395,510],cal:[375,550],edm:[375,550],win:[370,545],tor:[355,450],ott:[345,450],mtl:[340,425],hal:[345,395],stj:[340,395]}},
+  {id:"aquatic",label:"Community Aquatic Facility",sector:"public",cat:"institutional",
+   rates:{van:[560,930],cal:[550,800],edm:[550,800],win:[545,795],tor:[610,940],ott:[570,780],mtl:[525,680],hal:[650,825],stj:[510,565]}},
+  {id:"rec_centre",label:"Multi-Use Recreational Centre",sector:"public",cat:"institutional",
+   rates:{van:[545,1050],cal:[450,725],edm:[450,725],win:[445,720],tor:[670,1160],ott:[590,710],mtl:[545,640],hal:[550,675],stj:[460,585]}},
+  {id:"performing_arts",label:"Performing Arts Building",sector:"public",cat:"institutional",
+   rates:{van:[890,1150],cal:[650,1150],edm:[650,1150],win:[645,1145],tor:[940,1270],ott:[625,980],mtl:[530,930],hal:[490,635],stj:[485,620]}},
+  {id:"museum",label:"Museum / Gallery",sector:"public",cat:"institutional",
+   rates:{van:[555,900],cal:[585,1100],edm:[585,1100],win:[580,1095],tor:[660,1200],ott:[615,755],mtl:[520,705],hal:[470,615],stj:[445,620]}},
+  // ── INFRASTRUCTURE (per lin.m; bridge per sq.m) ────────────
+  // Road rates from Altus Servicing table (per metre)
+  {id:"road_local",label:"Road – Local (8m width)",sector:"infrastructure",cat:"infrastructure",
+   rates:{van:[3000,4100],cal:[3300,3800],edm:[3300,3800],win:[3300,3800],tor:[4200,5800],ott:[3300,4400],mtl:[3200,4200],hal:[3000,3800],stj:[3400,4200]},perLM:true},
+  {id:"road_arterial",label:"Road – Arterial (12m width)",sector:"infrastructure",cat:"infrastructure",
+   rates:{van:[4000,4700],cal:[4200,4800],edm:[4200,4800],win:[4200,4800],tor:[5300,6900],ott:[4500,5500],mtl:[4400,5400],hal:[4100,4900],stj:[4300,4800]},perLM:true},
+  // Bridge / utilities — estimated industry benchmarks (not in Altus public guide)
+  {id:"bridge",label:"Bridge (per sq.m of deck area)",sector:"infrastructure",cat:"infrastructure",
+   rates:{van:[6200,12500],cal:[5500,11000],edm:[5500,11000],win:[5200,10500],tor:[6000,12000],ott:[5500,11000],mtl:[5200,10500],hal:[5400,10800],stj:[5500,11000]},perSM:true},
   {id:"water_main",label:"Watermain",sector:"infrastructure",cat:"infrastructure",
-   rates:{tor:[1500,3500],ott:[1400,3200],mtl:[1300,3000],cal:[1400,3200],edm:[1400,3200],van:[1600,3600],win:[1300,3000],hal:[1350,3100],stj:[1400,3200]},perLM:true},
+   rates:{van:[1600,3600],cal:[1400,3200],edm:[1400,3200],win:[1300,3000],tor:[1500,3500],ott:[1400,3200],mtl:[1300,3000],hal:[1350,3100],stj:[1400,3200]},perLM:true},
   {id:"sewer",label:"Sanitary / Storm Sewer",sector:"infrastructure",cat:"infrastructure",
-   rates:{tor:[1800,4000],ott:[1650,3700],mtl:[1550,3500],cal:[1650,3700],edm:[1650,3700],van:[1900,4200],win:[1550,3500],hal:[1600,3600],stj:[1650,3700]},perLM:true}
+   rates:{van:[1900,4200],cal:[1650,3700],edm:[1650,3700],win:[1550,3500],tor:[1800,4000],ott:[1650,3700],mtl:[1550,3500],hal:[1600,3600],stj:[1650,3700]},perLM:true}
 ];
 // Energy data — NRCan SCIEU 2019 + provincial rates
 const ENERGY = {
@@ -575,7 +651,7 @@ function generateEstimate() {
       ${perUnitRow}
       ${fsrRow}
     </div>
-    <div class="result-footer"><p>Excludes GST/HST/QST, tariff impacts, site development, and unique architecture premiums. Rates based on 2025 Altus Group Canadian Cost Guide. Hard costs use CIQS floor area definition. This estimate is for initial budgeting only.</p></div>
+    <div class="result-footer"><p>Building, parking, and road/servicing rates sourced directly from the 2025 Altus Group Canadian Cost Guide. Bridge, watermain, and sewer rates are industry benchmark estimates. Hard costs use CIQS floor area definition — do not apply to zoning GFA without grossing up (typically 8–18%). Excludes GST/HST/QST, tariff impacts, land, site servicing, and soft costs unless added above. For initial budgeting only — consult a qualified cost professional for project-specific estimates.</p></div>
   </div>
   ${compHTML}
   <button class="link-btn link-btn-orange" onclick="switchTab('lcca')">Run Life-Cycle Cost Analysis →</button>
@@ -748,10 +824,10 @@ function renderThreshold() {
   const area = lastEstimate?.area || sqft;
   const q = lastEstimate?.quality || quality;
   const tiers = [
-    {label:"Low-Rise (1-4 Storey)",id:"condo_low",system:"Wood Frame / Light Steel",floors:"1-4",note:"Most economical structural system. Wood frame dominates."},
-    {label:"Mid-Rise (5-12 Storey)",id:"condo_mid",system:"Concrete / Post-Tension",floors:"5-12",note:"Transition to concrete frame. Building code triggers at 6 storeys for many jurisdictions."},
-    {label:"High-Rise (13-39 Storey)",id:"condo_high",system:"Reinforced Concrete",floors:"13-39",note:"Major cost jump. Requires concrete shear walls, increased foundation, crane time."},
-    {label:"Supertall (40+ Storey)",id:"condo_super",system:"High-Strength Concrete / Steel Hybrid",floors:"40+",note:"Premium structural engineering. Wind loading, damping systems, specialized formwork."}
+    {label:"Up to 12 Storeys",id:"condo_12",system:"Wood Frame / Concrete (≤6), Post-Tension (7–12)",floors:"1–12",note:"Most economical structural system. Wood frame dominates up to 6 storeys; post-tension concrete above."},
+    {label:"13–39 Storeys",id:"condo_13_39",system:"Reinforced Concrete / Shear Wall",floors:"13–39",note:"Major cost jump at 13 storeys. Requires concrete shear walls, deeper foundations, and extended crane time."},
+    {label:"40–60 Storeys",id:"condo_40_60",system:"High-Strength Concrete / Outrigger",floors:"40–60",note:"Premium engineering: high-strength concrete mix, outrigger systems, wind tunnel testing typically required."},
+    {label:"60+ Storeys",id:"condo_60plus",system:"High-Strength Concrete / Steel Hybrid",floors:"60+",note:"Available only in Toronto and Vancouver markets per Altus. Damping systems, specialized formwork, extended schedule."}
   ];
   const tierData = tiers.map(t => {
     const type = TYPES.find(x => x.id === t.id);
