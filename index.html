@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -8,1043 +9,595 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:#080c18;--surface:#0e1324;--surface-h:#141c30;--border:#1e2538;--border-a:rgba(79,209,197,0.3);
-  --text:#e0e3eb;--text-dim:#6b7080;--text-faint:#3a4058;
+  --bg:#080c18;--surface:#0e1324;--surface-h:#141c30;--surface-d:#0a0f1c;
+  --border:#1e2538;--border-h:#2a3348;--border-a:rgba(79,209,197,0.35);
+  --text:#e0e3eb;--text-mid:#9aa0b4;--text-dim:#6b7080;--text-faint:#3a4058;
   --accent:#4fd1c5;--accent-dim:rgba(79,209,197,0.12);--accent-glow:rgba(79,209,197,0.25);
-  --orange:#f6ad55;--blue:#2b6cb0;--red:#fc8181;--green:#68d391;--purple:#b794f4;
+  --accent-soft:rgba(79,209,197,0.06);
+  --orange:#f6ad55;--blue:#63b3ed;--red:#fc8181;--green:#68d391;--purple:#b794f4;
   --mono:'JetBrains Mono','SF Mono',monospace;--sans:'DM Sans',system-ui,sans-serif;
+  --shadow-soft:0 1px 2px rgba(0,0,0,0.3),0 4px 12px rgba(0,0,0,0.15);
+  --shadow-strong:0 4px 16px rgba(0,0,0,0.4),0 12px 32px rgba(0,0,0,0.2);
+  --ease:cubic-bezier(0.2,0.9,0.3,1);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:120px}
 ::selection{background:rgba(79,209,197,0.25)}
 input::placeholder{color:var(--text-faint)}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:3px}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.15)}
+
+/* Sliders */
 input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;cursor:pointer;width:100%}
-input[type=range]::-webkit-slider-track{height:6px;background:rgba(255,255,255,0.08);border-radius:3px}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:22px;width:22px;border-radius:50%;background:var(--accent);margin-top:-8px;box-shadow:0 0 12px var(--accent-glow)}
-input[type=range]::-moz-range-track{height:6px;background:rgba(255,255,255,0.08);border-radius:3px}
-input[type=range]::-moz-range-thumb{height:22px;width:22px;border-radius:50%;background:var(--accent);border:none}
+input[type=range]::-webkit-slider-track{height:6px;background:rgba(255,255,255,0.06);border-radius:3px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:22px;width:22px;border-radius:50%;background:var(–accent);margin-top:-8px;box-shadow:0 0 12px var(–accent-glow);transition:transform .15s var(–ease)}
+input[type=range]::-webkit-slider-thumb:active{transform:scale(1.15)}
+input[type=range]::-moz-range-track{height:6px;background:rgba(255,255,255,0.06);border-radius:3px}
+input[type=range]::-moz-range-thumb{height:22px;width:22px;border-radius:50%;background:var(–accent);border:none}
+
+/* Animations */
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{animation:fadeIn .3s ease}.slide-up{animation:slideUp .4s ease}
-.hidden{display:none}
-.shell{max-width:520px;margin:0 auto;padding:16px 16px 80px}
-.logo{text-align:center;padding:28px 0 8px}
-.logo h1{font-size:17px;font-weight:600;letter-spacing:-0.3px}
-.logo p{font-size:11px;color:var(--text-dim);margin-top:4px}
-/* City pills */
-.city-bar{display:flex;gap:6px;overflow-x:auto;padding:12px 0;scrollbar-width:none;-ms-overflow-style:none}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+@keyframes shimmer{0%{background-position:-200px 0}100%{background-position:200px 0}}
+.fade-in{animation:fadeIn .3s var(–ease)}
+.slide-up{animation:slideUp .35s var(–ease) both}
+.slide-down{animation:slideDown .25s var(–ease) both}
+.hidden{display:none!important}
+
+.shell{max-width:540px;margin:0 auto;padding:16px 16px 20px}
+
+/* Header */
+.hdr{padding:20px 0 6px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hdr-mark{display:flex;align-items:center;gap:10px}
+.hdr-dot{width:8px;height:8px;border-radius:50%;background:var(–accent);box-shadow:0 0 12px var(–accent-glow)}
+.hdr-title{font-size:15px;font-weight:600;letter-spacing:-0.2px}
+.hdr-title span{color:var(–text-dim);font-weight:400}
+.hdr-sub{font-size:10.5px;color:var(–text-faint);margin-top:3px;font-family:var(–mono);letter-spacing:0.5px;text-transform:uppercase}
+
+/* Scenario chips — the core new pattern */
+.scenario-bar{margin:14px 0 10px;display:flex;align-items:center;gap:6px;overflow-x:auto;padding:2px;scrollbar-width:none}
+.scenario-bar::-webkit-scrollbar{display:none}
+.sc-chip{flex-shrink:0;display:flex;align-items:center;gap:8px;padding:7px 12px 7px 14px;border-radius:999px;border:1px solid var(–border);background:var(–surface);cursor:pointer;transition:all .18s var(–ease);font-size:12px;font-weight:500;color:var(–text-mid)}
+.sc-chip:hover{border-color:var(–border-h);background:var(–surface-h)}
+.sc-chip.active{border-color:var(–border-a);background:var(–accent-dim);color:var(–accent)}
+.sc-chip-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7}
+.sc-chip-x{width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);font-size:10px;line-height:1;opacity:0;transition:opacity .15s var(–ease)}
+.sc-chip.active .sc-chip-x{opacity:.6}
+.sc-chip.active .sc-chip-x:hover{opacity:1;background:rgba(255,255,255,0.12)}
+.sc-chip-new{border-style:dashed;color:var(–text-dim);padding:7px 12px}
+.sc-compare-btn{margin-left:auto;flex-shrink:0;padding:7px 12px;border-radius:8px;border:1px solid var(–border);background:transparent;color:var(–text-dim);font-size:11.5px;font-weight:600;cursor:pointer;font-family:var(–sans);transition:all .18s var(–ease);white-space:nowrap}
+.sc-compare-btn:not(:disabled):hover{border-color:var(–accent);color:var(–accent)}
+.sc-compare-btn:disabled{opacity:.35;cursor:not-allowed}
+
+/* City scroll */
+.city-bar{display:flex;gap:6px;overflow-x:auto;padding:10px 0;scrollbar-width:none;-ms-overflow-style:none;position:relative;-webkit-mask-image:linear-gradient(to right,black calc(100% - 40px),transparent);mask-image:linear-gradient(to right,black calc(100% - 40px),transparent)}
 .city-bar::-webkit-scrollbar{display:none}
-.city-pill{flex-shrink:0;padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text-dim);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;font-family:var(--sans)}
-.city-pill.active{border-color:var(--border-a);background:var(--accent-dim);color:var(--accent)}
+.city-pill{flex-shrink:0;padding:7px 14px;border-radius:8px;border:1px solid var(–border);background:var(–surface);color:var(–text-dim);font-size:12px;font-weight:500;cursor:pointer;transition:all .18s var(–ease);font-family:var(–sans)}
+.city-pill:hover{border-color:var(–border-h);color:var(–text-mid)}
+.city-pill.active{border-color:var(–border-a);background:var(–accent-dim);color:var(–accent)}
+
 /* Tabs */
-.tabs{display:flex;gap:2px;background:var(--surface);border-radius:10px;padding:3px;margin:12px 0}
-.tab-btn{flex:1;padding:9px 6px;border:none;border-radius:8px;background:transparent;color:var(--text-dim);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .2s;font-family:var(--sans);white-space:nowrap}
-.tab-btn.active{background:#141c30;color:var(--text)}
+.tabs{display:flex;gap:2px;background:var(–surface);border-radius:10px;padding:3px;margin:10px 0 4px;position:relative}
+.tab-btn{flex:1;padding:10px 6px;border:none;border-radius:8px;background:transparent;color:var(–text-dim);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .18s var(–ease);font-family:var(–sans);white-space:nowrap;position:relative}
+.tab-btn.active{background:var(–surface-h);color:var(–text)}
+.tab-btn:disabled{opacity:.4;cursor:not-allowed}
+.tab-btn .tab-badge{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(–accent);margin-left:5px;vertical-align:middle;opacity:0;transition:opacity .2s var(–ease)}
+.tab-btn.tab-ready .tab-badge{opacity:.8}
+
 /* Search */
-.search-input{width:100%;padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-family:var(--sans);outline:none;transition:border-color .2s}
-.search-input:focus{border-color:var(--border-a)}
+.search-wrap{position:relative;margin-bottom:16px}
+.search-input{width:100%;padding:12px 16px 12px 40px;border-radius:10px;border:1px solid var(–border);background:var(–surface);color:var(–text);font-size:13px;font-family:var(–sans);outline:none;transition:all .18s var(–ease)}
+.search-input:focus{border-color:var(–border-a);background:var(–surface-h)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(–text-faint);pointer-events:none}
+
+/* Category pills */
+.cat-bar{display:flex;gap:6px;overflow-x:auto;padding:4px 0 14px;scrollbar-width:none}
+.cat-bar::-webkit-scrollbar{display:none}
+.cat-pill{flex-shrink:0;padding:6px 12px;border-radius:7px;border:1px solid transparent;background:transparent;color:var(–text-dim);font-size:11.5px;font-weight:500;cursor:pointer;transition:all .18s var(–ease);font-family:var(–sans);text-transform:capitalize}
+.cat-pill:hover{color:var(–text-mid)}
+.cat-pill.active{background:var(–surface);border-color:var(–border);color:var(–text)}
+.cat-count{font-family:var(–mono);font-size:10px;color:var(–text-faint);margin-left:4px}
+
 /* Type cards */
-.type-card{padding:14px 16px;border-radius:10px;border:1px solid var(--border);background:var(--surface);margin-bottom:8px;cursor:pointer;transition:all .2s}
-.type-card:hover{border-color:#2a3348;background:var(--surface-h)}
-.type-card.selected{border-color:var(--border-a);background:var(--accent-dim)}
-.type-name{font-weight:600;font-size:13px}.type-sector{font-size:11px;color:var(--text-dim);margin-top:2px}
-.type-range{font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:6px}
-.sector-tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;margin-right:4px}
-.tag-private{background:#1a1f35;color:#8a8fa0}.tag-public{background:#1a2535;color:#6b9fb0}.tag-infra{background:#251a1a;color:#b08a6b}
-/* Estimate panel */
-.est-section{margin-bottom:20px}
-.est-label{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;font-weight:600}
-.num-input{width:100%;padding:10px 0;border:none;border-bottom:2px solid #1e2538;background:transparent;color:#fff;font-size:26px;font-family:var(--mono);font-weight:600;outline:none;transition:border-color .2s;-webkit-appearance:none}
-.num-input:focus{border-color:var(--accent)}
-.slider-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.slider-val{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600}
+.type-card{padding:14px 16px;border-radius:10px;border:1px solid var(–border);background:var(–surface);margin-bottom:8px;cursor:pointer;transition:all .18s var(–ease);position:relative;overflow:hidden}
+.type-card::before{content:””;position:absolute;left:0;top:0;bottom:0;width:2px;background:transparent;transition:background .18s var(–ease)}
+.type-card:hover{border-color:var(–border-h);background:var(–surface-h);transform:translateX(1px)}
+.type-card:hover::before{background:var(–border-h)}
+.type-card.selected{border-color:var(–border-a);background:var(–accent-dim)}
+.type-card.selected::before{background:var(–accent)}
+.type-name{font-weight:600;font-size:13px;letter-spacing:-0.1px}
+.type-meta{font-size:11px;color:var(–text-dim);margin-top:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.type-range{font-family:var(–mono);font-size:11.5px;color:var(–accent);margin-top:8px;display:flex;align-items:center;gap:8px}
+.type-range-bar{flex:1;height:3px;background:rgba(79,209,197,0.12);border-radius:2px;position:relative;max-width:80px}
+.type-range-bar::after{content:””;position:absolute;left:0;top:0;bottom:0;width:100%;background:linear-gradient(to right,transparent,var(–accent));border-radius:2px;opacity:.7}
+.sector-tag{display:inline-block;font-size:9.5px;padding:2px 7px;border-radius:4px;font-weight:600;letter-spacing:0.3px;text-transform:uppercase}
+.tag-private{background:rgba(138,143,160,0.12);color:#8a8fa0}
+.tag-public{background:rgba(107,159,176,0.14);color:#6b9fb0}
+.tag-infra{background:rgba(176,138,107,0.14);color:#b08a6b}
+.src-badge{display:inline-block;margin-left:8px;font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;letter-spacing:0.4px;text-transform:uppercase;background:rgba(246,173,85,0.1);color:var(–orange);border:1px solid rgba(246,173,85,0.18);vertical-align:middle}
+
+/* Estimate panel — inline expanding card style */
+.est-header{padding:14px 16px;border-radius:12px;border:1px solid var(–border);background:var(–surface);margin-bottom:14px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.est-header-name{font-size:14px;font-weight:600;letter-spacing:-0.1px}
+.est-header-meta{font-size:11px;color:var(–text-dim);margin-top:3px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.est-header-range{font-family:var(–mono);font-size:11px;color:var(–accent);margin-top:6px}
+.chev-btn{flex-shrink:0;padding:6px 10px;border-radius:7px;border:1px solid var(–border);background:transparent;color:var(–text-dim);font-size:11px;cursor:pointer;font-family:var(–sans);transition:all .18s var(–ease);font-weight:500}
+.chev-btn:hover{border-color:var(–border-h);color:var(–text)}
+
+/* Input groups */
+.est-section{margin-bottom:18px}
+.est-label{font-size:10.5px;color:var(–text-dim);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.est-label-opt{font-weight:400;text-transform:none;color:var(–text-faint);letter-spacing:0;font-size:10.5px}
+.est-hint{font-size:10.5px;color:var(–text-faint);margin-top:5px;line-height:1.5}
+
+/* Number input with native-feeling mobile behavior */
+.num-input{width:100%;padding:8px 0;border:none;border-bottom:2px solid var(–border);background:transparent;color:#fff;font-size:22px;font-family:var(–mono);font-weight:600;outline:none;transition:border-color .18s var(–ease);-webkit-appearance:none}
+.num-input:focus{border-color:var(–accent)}
+.num-input::-webkit-outer-spin-button,.num-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column}
+.field-small-label{font-size:10px;color:var(–text-faint);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.4px}
+.field-derived{margin-top:8px;font-size:11px;color:var(–text-dim);display:flex;align-items:center;gap:6px;min-height:16px}
+.field-derived .chip{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:6px;background:var(–accent-soft);border:1px solid rgba(79,209,197,0.15);font-family:var(–mono);color:var(–accent);font-size:11px;font-weight:500}
+.field-derived .chip-orange{background:rgba(246,173,85,0.08);border-color:rgba(246,173,85,0.2);color:var(–orange)}
+
+/* Slider rows */
+.slider-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.slider-val{font-family:var(–mono);font-size:13px;color:var(–accent);font-weight:600}
+.slider-anchors{display:flex;justify-content:space-between;font-size:10px;color:var(–text-faint);margin-top:6px;font-family:var(–mono)}
+.slider-anchor-mid{position:relative;color:var(–text-dim)}
+
+/* Preset chips (for LCCA, etc) */
+.preset-row{display:flex;gap:6px;margin-bottom:8px}
+.preset-chip{padding:6px 10px;border-radius:6px;border:1px solid var(–border);background:transparent;color:var(–text-dim);font-size:11px;font-weight:500;cursor:pointer;font-family:var(–sans);transition:all .18s var(–ease)}
+.preset-chip:hover{border-color:var(–border-h);color:var(–text-mid)}
+.preset-chip.active{border-color:var(–border-a);background:var(–accent-dim);color:var(–accent)}
+
+/* Pill group */
 .pill-group{display:flex;gap:6px;flex-wrap:wrap}
-.pill{padding:8px 14px;border-radius:8px;border:1px solid var(--border);cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:500;background:var(--surface);color:var(--text-dim);transition:all .2s}
-.pill.active{border-color:var(--border-a);background:var(--accent-dim);color:var(--accent)}
-.gen-btn{width:100%;padding:14px;border-radius:12px;border:none;background:var(--accent);color:#080c18;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--sans);transition:all .2s;letter-spacing:-0.3px}
-.gen-btn:hover{box-shadow:0 0 30px var(--accent-glow)}
-.change-btn{margin-top:16px;padding:7px 16px;border-radius:7px;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-size:12px;cursor:pointer;font-family:var(--sans);transition:all .2s}
-.change-btn:hover{border-color:#3a4560;color:#c0c4d0}
-/* Results */
-.result-card{border-radius:14px;border:1px solid var(--border);background:var(--surface);overflow:hidden;animation:slideUp .4s ease}
-.result-header{padding:20px;border-bottom:1px solid #141c30}
-.result-total{font-size:36px;font-family:var(--mono);font-weight:700;color:var(--accent);letter-spacing:-1px}
-.result-body{padding:16px 20px}
-.result-row{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 0}
-.result-row .lbl{font-size:13px;font-weight:500}.result-row .sub{font-size:11px;color:var(--text-dim);margin-top:2px}
-.result-row .val{font-family:var(--mono);font-size:14px;font-weight:600;text-align:right}
-.val-dim{color:var(--text-dim)!important}
-.result-divider{height:1px;background:#141c30;margin:4px 0}
-.result-footer{padding:14px 20px;border-top:1px solid #141c30;font-size:11px;color:var(--text-dim);line-height:1.6}
+.pill{padding:8px 12px;border-radius:8px;border:1px solid var(–border);cursor:pointer;font-family:var(–sans);font-size:12.5px;font-weight:500;background:var(–surface);color:var(–text-dim);transition:all .18s var(–ease);min-height:34px;display:flex;align-items:center;justify-content:center}
+.pill:hover{border-color:var(–border-h);color:var(–text-mid)}
+.pill.active{border-color:var(–border-a);background:var(–accent-dim);color:var(–accent)}
+
+/* Unit mix grid */
+.unit-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.unit-box{padding:10px 12px;background:var(–surface-d);border-radius:8px;border:1px solid var(–border);transition:border-color .18s var(–ease)}
+.unit-box:focus-within{border-color:var(–border-a)}
+.unit-box label{font-size:10px;color:var(–text-faint);margin-bottom:4px;display:block;text-transform:uppercase;letter-spacing:0.3px}
+.unit-box input{width:100%;background:transparent;border:none;color:#fff;font-family:var(–mono);font-size:17px;font-weight:600;outline:none;-webkit-appearance:none}
+
+/* Generate / primary buttons — de-emphasized now since results are live */
+.gen-btn{width:100%;padding:13px;border-radius:10px;border:1px solid var(–border-a);background:var(–accent-dim);color:var(–accent);font-size:13.5px;font-weight:600;cursor:pointer;font-family:var(–sans);transition:all .18s var(–ease);letter-spacing:-0.1px}
+.gen-btn:hover{background:rgba(79,209,197,0.2);box-shadow:0 0 20px var(–accent-soft)}
+
+/* Live summary card — always visible once inputs set */
+.live-summary{position:sticky;top:8px;z-index:10;padding:14px 16px;border-radius:12px;border:1px solid var(–border-a);background:linear-gradient(180deg,var(–surface-h) 0%,var(–surface) 100%);margin-bottom:14px;backdrop-filter:blur(12px);box-shadow:var(–shadow-soft)}
+.live-summary.sticky-on{box-shadow:var(–shadow-strong)}
+.live-sum-row{display:flex;justify-content:space-between;align-items:flex-end}
+.live-sum-label{font-size:10.5px;color:var(–text-dim);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;margin-bottom:4px}
+.live-sum-total{font-size:28px;font-family:var(–mono);font-weight:700;color:var(–accent);line-height:1;letter-spacing:-0.5px}
+.live-sum-range{font-size:10.5px;color:var(–text-faint);margin-top:4px;font-family:var(–mono)}
+.live-sum-per{text-align:right;font-size:11px;color:var(–text-dim)}
+.live-sum-per .v{font-family:var(–mono);color:var(–text);font-size:14px;font-weight:600;display:block}
+
+/* Result breakdown */
+.result-card{border-radius:12px;border:1px solid var(–border);background:var(–surface);overflow:hidden}
+.result-body{padding:14px 18px}
+.result-row{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0}
+.result-row .lbl{font-size:13px;font-weight:500}
+.result-row .sub{font-size:11px;color:var(–text-dim);margin-top:2px}
+.result-row .val{font-family:var(–mono);font-size:13.5px;font-weight:600;text-align:right}
+.val-dim{color:var(–text-dim)!important}
+.result-divider{height:1px;background:var(–surface-h);margin:4px 0}
+
 /* Comparison bars */
-.comp-section{margin-top:24px}.comp-title{font-size:12px;font-weight:600;color:var(--text-dim);margin-bottom:12px}
-.comp-row{display:grid;grid-template-columns:80px 1fr 70px;align-items:center;gap:8px;margin-bottom:6px}
-.comp-city{font-size:11px;color:var(--text-dim)}.comp-track{height:20px;background:#0a0f1c;border-radius:4px;overflow:hidden}
-.comp-bar{height:100%;border-radius:4px;transition:width .6s ease;min-width:2px}
-.comp-val{font-family:var(--mono);font-size:11px;color:var(--text-dim);text-align:right}
-/* LCCA */
-.lcca-select{padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--sans);font-size:13px;outline:none;-webkit-appearance:none;width:100%;cursor:pointer}
-.lcca-metric{padding:12px;background:#0a0f1c;border-radius:10px;border:1px solid #1a2035}
-.lcca-metric .m-label{font-size:11px;color:var(--text-faint)}
-.lcca-metric .m-val{font-size:22px;font-family:var(--mono);font-weight:600;margin-top:2px}
-.lcca-metric .m-sub{font-size:11px;color:var(--text-faint)}
-.bar-chart{display:flex;flex-direction:column;gap:4px;margin-top:12px}
-.bar-row-lc{display:grid;grid-template-columns:60px 1fr 80px;align-items:center;gap:8px}
-.bar-track-lc{height:20px;background:rgba(255,255,255,0.04);border-radius:4px;overflow:hidden;display:flex}
-.bar-seg{height:100%;transition:width .5s ease}
-.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
-.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-dim)}
-.legend-dot{width:10px;height:10px;border-radius:3px}
-.lcca-pill{padding:8px 14px;border-radius:8px;border:1px solid var(--border);cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:500;background:var(--surface);color:var(--text-dim);transition:all .2s}
-.lcca-pill.active{border-color:var(--border-a);background:var(--accent-dim);color:var(--accent)}
-/* Optimization */
-.opt-card{border-radius:12px;border:1px solid var(--border);background:var(--surface);padding:16px;margin-bottom:12px;transition:all .2s}
-.opt-card:hover{border-color:#2a3348}
-.opt-card h3{font-size:14px;font-weight:600;margin-bottom:4px}
-.opt-card p{font-size:12px;color:var(--text-dim);line-height:1.5}
-.opt-card .opt-icon{font-size:20px;margin-bottom:8px}
-.opt-result{border-radius:12px;border:1px solid var(--border);background:var(--surface);padding:20px;margin-top:16px;animation:slideUp .4s ease}
-.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.opt-metric{padding:10px;background:#0a0f1c;border-radius:8px;border:1px solid #1a2035}
-.opt-metric .om-label{font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.3px}
-.opt-metric .om-val{font-size:18px;font-family:var(--mono);font-weight:600;margin-top:2px}
-.opt-metric .om-sub{font-size:10px;color:var(--text-dim);margin-top:1px}
-.scenario-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #141c30}
+.comp-section{margin-top:18px}
+.comp-title{font-size:11px;font-weight:600;color:var(–text-dim);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;display:flex;justify-content:space-between;align-items:center}
+.comp-row{display:grid;grid-template-columns:72px 1fr 60px;align-items:center;gap:8px;margin-bottom:5px;padding:2px 0}
+.comp-city{font-size:11px;color:var(–text-dim)}
+.comp-city.current{color:var(–accent);font-weight:600}
+.comp-track{height:18px;background:var(–surface-d);border-radius:4px;overflow:hidden;position:relative}
+.comp-bar{height:100%;border-radius:4px;transition:width .5s var(–ease);min-width:2px;background:var(–accent);opacity:.35}
+.comp-bar.current{opacity:1;box-shadow:0 0 8px var(–accent-soft)}
+.comp-val{font-family:var(–mono);font-size:11px;color:var(–text-dim);text-align:right}
+.comp-val.current{color:var(–accent)}
+
+/* Accuracy chip */
+.acc-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:6px;background:rgba(246,173,85,0.08);border:1px solid rgba(246,173,85,0.2);font-size:10.5px;color:var(–orange);font-weight:500}
+.acc-chip-dot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:pulse 2.5s infinite}
+
+/* Footer caveat */
+.result-footer{padding:12px 18px;border-top:1px solid var(–surface-h);font-size:10.5px;color:var(–text-dim);line-height:1.6}
+
+/* Scenario comparison drawer */
+.compare-view{padding:14px;border-radius:12px;border:1px solid var(–border);background:var(–surface);animation:slideUp .35s var(–ease)}
+.compare-title{font-size:13px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.compare-col{padding:10px 12px;background:var(–surface-d);border-radius:8px;border:1px solid var(–border)}
+.compare-col-label{font-size:10px;color:var(–text-faint);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px}
+.compare-col-val{font-family:var(–mono);font-size:15px;font-weight:600;color:var(–text)}
+.compare-col-sub{font-size:10.5px;color:var(–text-dim);margin-top:2px}
+.compare-delta-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(–surface-h);font-size:12px}
+.compare-delta-row:last-child{border-bottom:none}
+.compare-delta-label{color:var(–text-mid)}
+.compare-delta-val{font-family:var(–mono);font-weight:600}
+.delta-up{color:var(–red)}
+.delta-down{color:var(–green)}
+.delta-zero{color:var(–text-dim)}
+
+/* LCCA — reused patterns */
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.metric{padding:11px 13px;background:var(–surface-d);border-radius:10px;border:1px solid var(–border)}
+.metric .m-label{font-size:10px;color:var(–text-faint);text-transform:uppercase;letter-spacing:0.3px;font-weight:600}
+.metric .m-val{font-size:20px;font-family:var(–mono);font-weight:600;margin-top:3px;letter-spacing:-0.3px}
+.metric .m-sub{font-size:10.5px;color:var(–text-dim);margin-top:2px}
+.bar-chart{display:flex;flex-direction:column;gap:3px;margin-top:10px}
+.bar-row-lc{display:grid;grid-template-columns:44px 1fr 70px;align-items:center;gap:8px}
+.bar-track-lc{height:18px;background:rgba(255,255,255,0.03);border-radius:4px;overflow:hidden;display:flex}
+.bar-seg{height:100%;transition:width .5s var(–ease)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(–text-dim)}
+.legend-dot{width:9px;height:9px;border-radius:2px}
+
+/* Optimize cards */
+.opt-card{border-radius:10px;border:1px solid var(–border);background:var(–surface);padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:all .18s var(–ease);display:flex;align-items:flex-start;gap:12px}
+.opt-card:hover{border-color:var(–border-h);background:var(–surface-h);transform:translateX(1px)}
+.opt-card-icon{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:var(–accent-soft);border:1px solid rgba(79,209,197,0.15);display:flex;align-items:center;justify-content:center;color:var(–accent)}
+.opt-card h3{font-size:13px;font-weight:600;margin-bottom:3px;letter-spacing:-0.1px}
+.opt-card p{font-size:11.5px;color:var(–text-dim);line-height:1.5}
+.opt-result{border-radius:12px;border:1px solid var(–border);background:var(–surface);padding:16px 18px;margin-top:12px;animation:slideUp .3s var(–ease)}
+
+.scenario-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(–surface-h)}
 .scenario-row:last-child{border-bottom:none}
 .scenario-label{font-size:13px;font-weight:500}
-.scenario-val{font-family:var(--mono);font-size:13px;font-weight:600}
-.savings-tag{display:inline-block;font-size:11px;padding:3px 8px;border-radius:5px;font-family:var(--mono);font-weight:600}
-.tag-save{background:rgba(104,211,145,0.12);color:var(--green)}
-.tag-cost{background:rgba(252,129,129,0.12);color:var(--red)}
-.tag-neutral{background:rgba(255,255,255,0.06);color:var(--text-dim)}
-.opt-input{width:100%;padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-family:var(--mono);font-size:14px;outline:none;transition:border-color .2s}
-.opt-input:focus{border-color:var(--border-a)}
-/* Shared utility */
-.link-btn{display:block;width:100%;padding:14px;border-radius:12px;border:1px solid rgba(79,209,197,0.2);background:rgba(79,209,197,0.04);color:var(--accent);font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer;margin-top:16px;transition:all .2s;text-align:center}
-.link-btn:hover{background:rgba(79,209,197,0.08)}
-.link-btn-orange{border-color:rgba(246,173,85,0.3);background:rgba(246,173,85,0.06);color:var(--orange)}
-.link-btn-orange:hover{background:rgba(246,173,85,0.1)}
+.scenario-val{font-family:var(–mono);font-size:13px;font-weight:600}
+.savings-tag{display:inline-block;font-size:10.5px;padding:2px 7px;border-radius:4px;font-family:var(–mono);font-weight:600;margin-top:3px}
+.tag-save{background:rgba(104,211,145,0.12);color:var(–green)}
+.tag-cost{background:rgba(252,129,129,0.12);color:var(–red)}
+.tag-neutral{background:rgba(255,255,255,0.04);color:var(–text-dim)}
+
+.opt-input{width:100%;padding:10px 13px;border-radius:8px;border:1px solid var(–border);background:var(–surface-d);color:var(–text);font-family:var(–mono);font-size:14px;outline:none;transition:border-color .18s var(–ease)}
+.opt-input:focus{border-color:var(–border-a)}
+
+/* Insight box */
+.insight{margin-top:14px;padding:12px 14px;background:var(–surface-d);border-radius:8px;border-left:2px solid var(–accent)}
+.insight-label{font-size:10px;font-weight:700;color:var(–accent);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.insight-text{font-size:12px;color:var(–text-mid);line-height:1.6}
+
+/* Link button */
+.link-btn{display:flex;width:100%;padding:13px 16px;border-radius:10px;border:1px solid var(–border);background:var(–surface);color:var(–text-mid);font-size:13px;font-weight:500;font-family:var(–sans);cursor:pointer;margin-top:10px;transition:all .18s var(–ease);align-items:center;justify-content:space-between;gap:10px}
+.link-btn:hover{border-color:var(–accent);color:var(–accent);background:var(–accent-dim)}
+.link-btn-arrow{font-family:var(–mono);font-size:14px}
+
+/* Empty states */
+.empty{text-align:center;padding:32px 20px;color:var(–text-dim)}
+.empty-icon{width:44px;height:44px;margin:0 auto 14px;border-radius:10px;background:var(–surface);border:1px solid var(–border);display:flex;align-items:center;justify-content:center;color:var(–text-faint)}
+.empty-title{font-size:14px;color:var(–text);margin-bottom:4px;font-weight:500}
+.empty-text{font-size:12px;color:var(–text-dim);line-height:1.5;max-width:300px;margin:0 auto 16px}
+
+/* Toast (save confirmation) */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);padding:10px 16px;background:var(–surface-h);border:1px solid var(–border-a);border-radius:10px;font-size:12px;color:var(–accent);box-shadow:var(–shadow-strong);z-index:1000;animation:slideUp .25s var(–ease)}
+
+/* Section label */
+.sec-lbl{font-size:10.5px;font-weight:700;color:var(–text-dim);text-transform:uppercase;letter-spacing:0.7px;margin:20px 0 10px}
+
+/* Collapsible advanced */
+.adv-toggle{display:flex;align-items:center;gap:6px;padding:8px 0;font-size:11px;color:var(–text-dim);cursor:pointer;user-select:none;font-weight:500;transition:color .18s var(–ease)}
+.adv-toggle:hover{color:var(–text-mid)}
+.adv-toggle-icon{transition:transform .18s var(–ease);font-family:var(–mono)}
+.adv-toggle.open .adv-toggle-icon{transform:rotate(90deg)}
+.adv-content{overflow:hidden;transition:max-height .3s var(–ease);max-height:0}
+.adv-content.open{max-height:600px}
 </style>
+
 </head>
 <body>
 <div class="shell">
-  <div class="logo">
-    <h1>Construction Cost Estimator</h1>
-    <p>2025 Altus Group Canadian Cost Guide</p>
+
+  <div class="hdr">
+    <div class="hdr-mark">
+      <div class="hdr-dot"></div>
+      <div>
+        <div class="hdr-title">ZEF Estimator <span>/ Canada</span></div>
+        <div class="hdr-sub">2025 Altus Cost Guide</div>
+      </div>
+    </div>
   </div>
+
+  <!-- Scenario chips: the new organizing layer -->
+
+  <div class="scenario-bar" id="scenarioBar"></div>
+
   <div class="city-bar" id="cityBar"></div>
+
   <div class="tabs">
     <button class="tab-btn active" data-tab="browse" onclick="switchTab('browse')">Browse</button>
-    <button class="tab-btn" data-tab="estimate" onclick="switchTab('estimate')">Estimate</button>
-    <button class="tab-btn" data-tab="lcca" onclick="switchTab('lcca')">Life-Cycle</button>
-    <button class="tab-btn" data-tab="optimize" onclick="switchTab('optimize')">Optimize</button>
+    <button class="tab-btn" data-tab="estimate" onclick="switchTab('estimate')">Estimate<span class="tab-badge"></span></button>
+    <button class="tab-btn" data-tab="lcca" onclick="switchTab('lcca')">Life-Cycle<span class="tab-badge"></span></button>
+    <button class="tab-btn" data-tab="optimize" onclick="switchTab('optimize')">Optimize<span class="tab-badge"></span></button>
+    <button class="tab-btn" data-tab="compare" onclick="switchTab('compare')" id="compareTab">Compare</button>
   </div>
-  <div id="browsePanel" class="fade-in">
-    <div style="margin-bottom:18px"><input type="text" class="search-input" id="searchInput" placeholder="Search building types..." oninput="renderTypeList()"></div>
-    <div id="typeList"></div>
-  </div>
+
+  <div id="browsePanel" class="fade-in"></div>
   <div id="estimatePanel" class="hidden fade-in"></div>
   <div id="lccaPanel" class="hidden fade-in"></div>
   <div id="optimizePanel" class="hidden fade-in"></div>
+  <div id="comparePanel" class="hidden fade-in"></div>
 </div>
+
 <script>
 // ═══════════════════════════════════════════════════════════
-// DATA — 2025 Altus Group Canadian Cost Guide
+// DATA (unchanged from original)
 // ═══════════════════════════════════════════════════════════
-const CITIES = [
-  {id:"tor",label:"Toronto",prov:"ON"},{id:"ott",label:"Ottawa",prov:"ON"},
-  {id:"mtl",label:"Montreal",prov:"QC"},{id:"cal",label:"Calgary",prov:"AB"},
-  {id:"edm",label:"Edmonton",prov:"AB"},{id:"van",label:"Vancouver",prov:"BC"},
-  {id:"win",label:"Winnipeg",prov:"MB"},{id:"hal",label:"Halifax",prov:"NS"},
-  {id:"stj",label:"St. John's",prov:"NL"}
+const CITIES=[{id:"tor",label:"Toronto",prov:"ON"},{id:"ott",label:"Ottawa",prov:"ON"},{id:"mtl",label:"Montreal",prov:"QC"},{id:"cal",label:"Calgary",prov:"AB"},{id:"edm",label:"Edmonton",prov:"AB"},{id:"van",label:"Vancouver",prov:"BC"},{id:"win",label:"Winnipeg",prov:"MB"},{id:"hal",label:"Halifax",prov:"NS"},{id:"stj",label:"St. John's",prov:"NL"}];
+
+const TYPES=[
+{id:"condo_12",label:"Condominium / Apartment (Up to 12 Storeys)",sector:"private",cat:"residential",rates:{van:[330,405],cal:[295,350],edm:[295,350],win:[295,350],tor:[290,390],ott:[270,345],mtl:[260,320],hal:[240,340],stj:[250,350]}},
+{id:"condo_13_39",label:"Condominium / Apartment (13–39 Storeys)",sector:"private",cat:"residential",rates:{van:[360,455],cal:[305,360],edm:[305,360],win:[305,355],tor:[295,385],ott:[310,345],mtl:[300,315],hal:[295,370],stj:[290,360]}},
+{id:"condo_40_60",label:"Condominium / Apartment (40–60 Storeys)",sector:"private",cat:"residential",rates:{van:[370,480],cal:[310,400],edm:[310,365],win:[310,365],tor:[330,410],ott:[315,365],mtl:[305,360],hal:[300,360],stj:[295,355]}},
+{id:"condo_60plus",label:"Condominium / Apartment (60+ Storeys)",sector:"private",cat:"residential",rates:{van:[370,485],cal:[355,460],edm:[350,450],win:[345,445],tor:[365,480],ott:[345,445],mtl:[330,425],hal:[320,415],stj:[315,410]}},
+{id:"townhouse_row",label:"Row Townhouse (Unfinished Basement)",sector:"private",cat:"residential",rates:{van:[205,310],cal:[185,245],edm:[180,240],win:[180,240],tor:[205,265],ott:[130,180],mtl:[135,185],hal:[140,200],stj:[150,200]}},
+{id:"townhouse_stacked",label:"3-Storey Stacked Townhouse",sector:"private",cat:"residential",rates:{van:[225,315],cal:[195,255],edm:[195,255],win:[185,255],tor:[230,270],ott:[170,205],mtl:[155,185],hal:[165,210],stj:[165,215]}},
+{id:"condo_wood",label:"Wood Frame Condo (Up to 6 Storeys)",sector:"private",cat:"residential",rates:{van:[275,365],cal:[235,345],edm:[230,345],win:[225,340],tor:[245,330],ott:[215,280],mtl:[210,275],hal:[175,220],stj:[240,310]}},
+{id:"sfr",label:"Single Family Residential (Unfinished Basement)",sector:"private",cat:"residential",rates:{van:[200,320],cal:[175,265],edm:[170,265],win:[165,250],tor:[200,275],ott:[140,225],mtl:[145,205],hal:[140,215],stj:[150,210]}},
+{id:"custom_home",label:"Custom Home (Architect-Designed)",sector:"private",cat:"residential",sourceNote:"industry",rates:{van:[425,750],cal:[325,550],edm:[325,550],win:[300,500],tor:[400,700],ott:[300,500],mtl:[275,475],hal:[275,450],stj:[275,450]}},
+{id:"seniors_ind",label:"Seniors: Independent / Supportive Living",sector:"private",cat:"residential",rates:{van:[330,420],cal:[260,350],edm:[260,355],win:[255,345],tor:[285,385],ott:[310,360],mtl:[215,325],hal:[250,325],stj:[260,335]}},
+{id:"seniors_assisted",label:"Seniors: Assisted Living Residences",sector:"private",cat:"residential",rates:{van:[315,450],cal:[295,375],edm:[295,375],win:[290,370],tor:[310,405],ott:[330,380],mtl:[245,335],hal:[270,360],stj:[280,365]}},
+{id:"seniors_complex",label:"Seniors: Complex Care Residences",sector:"private",cat:"residential",rates:{van:[410,625],cal:[335,550],edm:[335,550],win:[330,545],tor:[400,590],ott:[380,550],mtl:[365,530],hal:[375,585],stj:[400,565]}},
+{id:"office_low_b",label:"Office Under 5 Storeys (Class B)",sector:"private",cat:"commercial",rates:{van:[300,380],cal:[240,325],edm:[240,325],win:[235,320],tor:[260,355],ott:[240,310],mtl:[200,270],hal:[190,245],stj:[200,350]}},
+{id:"office_mid_b",label:"Office 6–30 Storeys (Class B)",sector:"private",cat:"commercial",rates:{van:[300,375],cal:[245,330],edm:[245,330],win:[240,325],tor:[270,380],ott:[260,340],mtl:[205,280],hal:[195,280],stj:[200,280]}},
+{id:"office_a",label:"Office 5–30 Storeys (Class A)",sector:"private",cat:"commercial",rates:{van:[345,425],cal:[270,375],edm:[270,375],win:[265,370],tor:[305,450],ott:[295,385],mtl:[265,355],hal:[215,310],stj:[215,310]}},
+{id:"office_high_a",label:"Office 31–60 Storeys (Class A)",sector:"private",cat:"commercial",rates:{van:[370,460],cal:[305,430],edm:[305,430],win:[300,425],tor:[355,510],ott:[340,460],mtl:[315,440],hal:[310,430],stj:[310,425]}},
+{id:"office_fitout_b",label:"Office Interior Fitout (Class B)",sector:"private",cat:"commercial",rates:{van:[90,150],cal:[70,120],edm:[70,120],win:[70,120],tor:[110,150],ott:[100,135],mtl:[90,130],hal:[65,110],stj:[65,105]}},
+{id:"office_fitout_a",label:"Office Interior Fitout (Class A)",sector:"private",cat:"commercial",rates:{van:[160,300],cal:[115,205],edm:[115,205],win:[110,200],tor:[160,265],ott:[125,195],mtl:[140,195],hal:[105,175],stj:[100,175]}},
+{id:"retail_strip",label:"Retail Strip Plaza",sector:"private",cat:"commercial",rates:{van:[210,300],cal:[220,300],edm:[220,300],win:[215,295],tor:[235,295],ott:[170,245],mtl:[155,225],hal:[140,190],stj:[145,190]}},
+{id:"retail_supermarket",label:"Retail Supermarket",sector:"private",cat:"commercial",rates:{van:[215,350],cal:[210,260],edm:[210,260],win:[205,260],tor:[175,350],ott:[175,260],mtl:[175,230],hal:[170,230],stj:[170,220]}},
+{id:"retail_bigbox",label:"Retail Big Box Store",sector:"private",cat:"commercial",rates:{van:[205,270],cal:[200,255],edm:[200,255],win:[195,250],tor:[165,240],ott:[175,225],mtl:[165,220],hal:[175,225],stj:[185,235]}},
+{id:"retail_mall",label:"Retail Enclosed Mall",sector:"private",cat:"commercial",rates:{van:[350,460],cal:[270,420],edm:[270,420],win:[265,415],tor:[275,480],ott:[245,315],mtl:[245,330],hal:[225,320],stj:[235,315]}},
+{id:"hotel_budget",label:"Hotel (Budget)",sector:"private",cat:"commercial",rates:{van:[240,310],cal:[240,325],edm:[240,325],win:[235,320],tor:[245,325],ott:[220,285],mtl:[195,265],hal:[215,265],stj:[225,280]}},
+{id:"hotel_suite",label:"Hotel (Suite)",sector:"private",cat:"commercial",rates:{van:[340,425],cal:[300,410],edm:[300,410],win:[295,400],tor:[345,500],ott:[290,420],mtl:[235,385],hal:[280,335],stj:[300,405]}},
+{id:"hotel_full",label:"Hotel (4-Star Full Service)",sector:"private",cat:"commercial",rates:{van:[395,560],cal:[320,435],edm:[320,435],win:[315,430],tor:[445,565],ott:[345,520],mtl:[290,455],hal:[290,370],stj:[300,435]}},
+{id:"warehouse",label:"Warehouse",sector:"private",cat:"industrial",rates:{van:[125,210],cal:[125,165],edm:[125,165],win:[120,160],tor:[80,180],ott:[120,170],mtl:[115,175],hal:[115,180],stj:[110,165]}},
+{id:"distribution",label:"Distribution Facility",sector:"private",cat:"industrial",rates:{van:[200,475],cal:[150,450],edm:[150,450],win:[140,440],tor:[145,380],ott:[140,445],mtl:[160,440],hal:[160,415],stj:[180,475]}},
+{id:"storage_urban",label:"Urban Storage Facility",sector:"private",cat:"industrial",rates:{van:[120,175],cal:[140,185],edm:[140,185],win:[135,180],tor:[95,195],ott:[105,195],mtl:[110,175],hal:[110,175],stj:[110,170]}},
+{id:"parkade_ug",label:"Parking – Underground Garage",sector:"private",cat:"parking",rates:{van:[59500,101500],cal:[56000,77000],edm:[56000,77000],win:[54250,77000],tor:[61250,99750],ott:[70000,101500],mtl:[50750,70000],hal:[50750,70000],stj:[52500,70000]},perStall:true},
+{id:"parkade_ag",label:"Parking – Above Grade Garage",sector:"private",cat:"parking",rates:{van:[45500,73500],cal:[40250,61250],edm:[40250,61250],win:[38500,59500],tor:[43750,70000],ott:[40250,57750],mtl:[36750,57750],hal:[40250,50750],stj:[42000,54250]},perStall:true},
+{id:"surface_lot",label:"Parking – Surface Lot",sector:"private",cat:"parking",rates:{van:[4300,8250],cal:[3630,8910],edm:[3630,8910],win:[3630,8910],tor:[4950,9900],ott:[3960,7920],mtl:[3630,7260],hal:[4290,7920],stj:[3300,6600]},perStall:true},
+{id:"school_elem",label:"Elementary School",sector:"public",cat:"institutional",rates:{van:[425,530],cal:[355,555],edm:[355,555],win:[330,545],tor:[450,700],ott:[360,460],mtl:[380,475],hal:[360,430],stj:[325,460]}},
+{id:"school_sec",label:"Secondary School",sector:"public",cat:"institutional",rates:{van:[445,535],cal:[395,575],edm:[395,575],win:[360,570],tor:[500,750],ott:[380,480],mtl:[400,480],hal:[365,465],stj:[350,475]}},
+{id:"uni_teaching",label:"University / College – Teaching & Lecture Hall",sector:"public",cat:"institutional",rates:{van:[750,1250],cal:[750,950],edm:[750,950],win:[550,945],tor:[900,1250],ott:[710,1015],mtl:[665,910],hal:[660,760],stj:[670,770]}},
+{id:"uni_labs",label:"University / College – Laboratories (Level 1 & 2)",sector:"public",cat:"institutional",rates:{van:[925,1400],cal:[750,1250],edm:[750,1250],win:[725,1245],tor:[1150,1600],ott:[935,1245],mtl:[900,1190],hal:[760,1100],stj:[770,1110]}},
+{id:"uni_residence",label:"University / College – Student Residence",sector:"public",cat:"residential",rates:{van:[395,580],cal:[310,420],edm:[310,420],win:[300,415],tor:[590,800],ott:[380,480],mtl:[360,455],hal:[325,400],stj:[285,375]}},
+{id:"hospital",label:"General Hospital / Acute Care",sector:"public",cat:"institutional",rates:{van:[1000,1550],cal:[950,1400],edm:[950,1400],win:[900,1390],tor:[1030,1620],ott:[950,1500],mtl:[870,1265],hal:[770,1260],stj:[800,1200]}},
+{id:"medical_clinic",label:"Medical Clinic / Treatment Centre",sector:"public",cat:"institutional",rates:{van:[550,695],cal:[375,850],edm:[375,850],win:[370,845],tor:[460,800],ott:[450,600],mtl:[360,530],hal:[410,680],stj:[400,550]}},
+{id:"airport_regional",label:"Airport Terminal – Regional",sector:"public",cat:"institutional",rates:{van:[430,550],cal:[500,750],edm:[500,750],win:[495,745],tor:[535,640],ott:[395,500],mtl:[380,470],hal:[385,480],stj:[360,500]}},
+{id:"airport_intl",label:"Airport Terminal – International",sector:"public",cat:"institutional",rates:{van:[840,1100],cal:[800,1100],edm:[800,1100],win:[795,1095],tor:[885,1175],ott:[800,985],mtl:[760,900],hal:[745,910],stj:[745,910]}},
+{id:"bus_terminal",label:"Bus Terminal / Garage",sector:"public",cat:"institutional",rates:{van:[400,510],cal:[380,525],edm:[380,525],win:[375,520],tor:[460,750],ott:[345,430],mtl:[335,395],hal:[315,405],stj:[280,375]}},
+{id:"fire_ems",label:"Fire / EMS Station",sector:"public",cat:"institutional",rates:{van:[600,865],cal:[550,715],edm:[550,715],win:[545,710],tor:[620,860],ott:[570,695],mtl:[525,605],hal:[400,490],stj:[400,500]}},
+{id:"police_local",label:"Police Station – Local Detachment",sector:"public",cat:"institutional",rates:{van:[500,640],cal:[450,545],edm:[450,545],win:[445,540],tor:[600,735],ott:[500,600],mtl:[500,545],hal:[450,550],stj:[410,475]}},
+{id:"police_regional",label:"Police Station – Regional Headquarters",sector:"public",cat:"institutional",rates:{van:[500,620],cal:[475,565],edm:[475,565],win:[470,560],tor:[620,820],ott:[470,570],mtl:[455,525],hal:[475,625],stj:[350,450]}},
+{id:"courthouse",label:"Court House",sector:"public",cat:"institutional",rates:{van:[540,750],cal:[605,925],edm:[605,925],win:[600,920],tor:[640,820],ott:[530,705],mtl:[500,660],hal:[485,585],stj:[480,550]}},
+{id:"facilities_maint",label:"Facilities Maintenance Building",sector:"public",cat:"institutional",rates:{van:[450,530],cal:[315,450],edm:[315,465],win:[310,460],tor:[600,745],ott:[485,555],mtl:[420,505],hal:[300,350],stj:[300,350]}},
+{id:"penitentiary",label:"Penitentiary / Correctional Facility",sector:"public",cat:"institutional",rates:{van:[575,720],cal:[575,750],edm:[575,750],win:[570,745],tor:[635,770],ott:[510,640],mtl:[470,580],hal:[430,595],stj:[480,595]}},
+{id:"municipal_office",label:"Municipal Office (Including Fit-Up)",sector:"public",cat:"institutional",rates:{van:[465,580],cal:[410,475],edm:[410,475],win:[405,470],tor:[445,580],ott:[375,475],mtl:[350,430],hal:[335,385],stj:[350,400]}},
+{id:"library",label:"Library",sector:"public",cat:"institutional",rates:{van:[455,800],cal:[425,800],edm:[425,800],win:[420,795],tor:[550,1100],ott:[500,850],mtl:[465,730],hal:[410,670],stj:[400,600]}},
+{id:"ice_arena",label:"Ice Arena",sector:"public",cat:"institutional",rates:{van:[395,510],cal:[375,550],edm:[375,550],win:[370,545],tor:[355,450],ott:[345,450],mtl:[340,425],hal:[345,395],stj:[340,395]}},
+{id:"aquatic",label:"Community Aquatic Facility",sector:"public",cat:"institutional",rates:{van:[560,930],cal:[550,800],edm:[550,800],win:[545,795],tor:[610,940],ott:[570,780],mtl:[525,680],hal:[650,825],stj:[510,565]}},
+{id:"rec_centre",label:"Multi-Use Recreational Centre",sector:"public",cat:"institutional",rates:{van:[545,1050],cal:[450,725],edm:[450,725],win:[445,720],tor:[670,1160],ott:[590,710],mtl:[545,640],hal:[550,675],stj:[460,585]}},
+{id:"performing_arts",label:"Performing Arts Building",sector:"public",cat:"institutional",rates:{van:[890,1150],cal:[650,1150],edm:[650,1150],win:[645,1145],tor:[940,1270],ott:[625,980],mtl:[530,930],hal:[490,635],stj:[485,620]}},
+{id:"museum",label:"Museum / Gallery",sector:"public",cat:"institutional",rates:{van:[555,900],cal:[585,1100],edm:[585,1100],win:[580,1095],tor:[660,1200],ott:[615,755],mtl:[520,705],hal:[470,615],stj:[445,620]}},
+{id:"road_local",label:"Road – Local (8m width)",sector:"infrastructure",cat:"infrastructure",rates:{van:[3000,4100],cal:[3300,3800],edm:[3300,3800],win:[3300,3800],tor:[4200,5800],ott:[3300,4400],mtl:[3200,4200],hal:[3000,3800],stj:[3400,4200]},perLM:true},
+{id:"road_arterial",label:"Road – Arterial (12m width)",sector:"infrastructure",cat:"infrastructure",rates:{van:[4000,4700],cal:[4200,4800],edm:[4200,4800],win:[4200,4800],tor:[5300,6900],ott:[4500,5500],mtl:[4400,5400],hal:[4100,4900],stj:[4300,4800]},perLM:true},
+{id:"bridge",label:"Bridge (per sq.m of deck area)",sector:"infrastructure",cat:"infrastructure",sourceNote:"industry",rates:{van:[6200,12500],cal:[5500,11000],edm:[5500,11000],win:[5200,10500],tor:[6000,12000],ott:[5500,11000],mtl:[5200,10500],hal:[5400,10800],stj:[5500,11000]},perSM:true},
+{id:"water_main",label:"Watermain",sector:"infrastructure",cat:"infrastructure",sourceNote:"industry",rates:{van:[1600,3600],cal:[1400,3200],edm:[1400,3200],win:[1300,3000],tor:[1500,3500],ott:[1400,3200],mtl:[1300,3000],hal:[1350,3100],stj:[1400,3200]},perLM:true},
+{id:"sewer",label:"Sanitary / Storm Sewer",sector:"infrastructure",cat:"infrastructure",sourceNote:"industry",rates:{van:[1900,4200],cal:[1650,3700],edm:[1650,3700],win:[1550,3500],tor:[1800,4000],ott:[1650,3700],mtl:[1550,3500],hal:[1600,3600],stj:[1650,3700]},perLM:true}
 ];
-const TYPES = [
-  // ── CONDOMINIUMS / APARTMENTS ──────────────────────────────
-  {id:"condo_12",label:"Condominium / Apartment (Up to 12 Storeys)",sector:"private",cat:"residential",
-   rates:{van:[330,405],cal:[295,350],edm:[295,350],win:[295,350],tor:[290,390],ott:[270,345],mtl:[260,320],hal:[240,340],stj:[250,350]}},
-  {id:"condo_13_39",label:"Condominium / Apartment (13–39 Storeys)",sector:"private",cat:"residential",
-   rates:{van:[360,455],cal:[305,360],edm:[305,360],win:[305,355],tor:[295,385],ott:[310,345],mtl:[300,315],hal:[295,370],stj:[290,360]}},
-  {id:"condo_40_60",label:"Condominium / Apartment (40–60 Storeys)",sector:"private",cat:"residential",
-   rates:{van:[370,480],cal:[310,400],edm:[310,365],win:[310,365],tor:[330,410],ott:[315,365],mtl:[305,360],hal:[300,360],stj:[295,355]}},
-  {id:"condo_60plus",label:"Condominium / Apartment (60+ Storeys)",sector:"private",cat:"residential",
-   rates:{van:[370,485],cal:[355,460],edm:[350,450],win:[345,445],tor:[365,480],ott:[345,445],mtl:[330,425],hal:[320,415],stj:[315,410]}},
-  // ── WOOD FRAMED RESIDENTIAL ────────────────────────────────
-  {id:"townhouse_row",label:"Row Townhouse (Unfinished Basement)",sector:"private",cat:"residential",
-   rates:{van:[205,310],cal:[185,245],edm:[180,240],win:[180,240],tor:[205,265],ott:[130,180],mtl:[135,185],hal:[140,200],stj:[150,200]}},
-  {id:"townhouse_stacked",label:"3-Storey Stacked Townhouse",sector:"private",cat:"residential",
-   rates:{van:[225,315],cal:[195,255],edm:[195,255],win:[185,255],tor:[230,270],ott:[170,205],mtl:[155,185],hal:[165,210],stj:[165,215]}},
-  {id:"condo_wood",label:"Wood Frame Condo (Up to 6 Storeys)",sector:"private",cat:"residential",
-   rates:{van:[275,365],cal:[235,345],edm:[230,345],win:[225,340],tor:[245,330],ott:[215,280],mtl:[210,275],hal:[175,220],stj:[240,310]}},
-  {id:"sfr",label:"Single Family Residential (Unfinished Basement)",sector:"private",cat:"residential",
-   rates:{van:[200,320],cal:[175,265],edm:[170,265],win:[165,250],tor:[200,275],ott:[140,225],mtl:[145,205],hal:[140,215],stj:[150,210]}},
-  // ── SENIORS HOUSING ────────────────────────────────────────
-  {id:"seniors_ind",label:"Seniors: Independent / Supportive Living",sector:"private",cat:"residential",
-   rates:{van:[330,420],cal:[260,350],edm:[260,355],win:[255,345],tor:[285,385],ott:[310,360],mtl:[215,325],hal:[250,325],stj:[260,335]}},
-  {id:"seniors_assisted",label:"Seniors: Assisted Living Residences",sector:"private",cat:"residential",
-   rates:{van:[315,450],cal:[295,375],edm:[295,375],win:[290,370],tor:[310,405],ott:[330,380],mtl:[245,335],hal:[270,360],stj:[280,365]}},
-  {id:"seniors_complex",label:"Seniors: Complex Care Residences",sector:"private",cat:"residential",
-   rates:{van:[410,625],cal:[335,550],edm:[335,550],win:[330,545],tor:[400,590],ott:[380,550],mtl:[365,530],hal:[375,585],stj:[400,565]}},
-  // ── OFFICE ─────────────────────────────────────────────────
-  {id:"office_low_b",label:"Office Under 5 Storeys (Class B)",sector:"private",cat:"commercial",
-   rates:{van:[300,380],cal:[240,325],edm:[240,325],win:[235,320],tor:[260,355],ott:[240,310],mtl:[200,270],hal:[190,245],stj:[200,350]}},
-  {id:"office_mid_b",label:"Office 6–30 Storeys (Class B)",sector:"private",cat:"commercial",
-   rates:{van:[300,375],cal:[245,330],edm:[245,330],win:[240,325],tor:[270,380],ott:[260,340],mtl:[205,280],hal:[195,280],stj:[200,280]}},
-  {id:"office_a",label:"Office 5–30 Storeys (Class A)",sector:"private",cat:"commercial",
-   rates:{van:[345,425],cal:[270,375],edm:[270,375],win:[265,370],tor:[305,450],ott:[295,385],mtl:[265,355],hal:[215,310],stj:[215,310]}},
-  {id:"office_high_a",label:"Office 31–60 Storeys (Class A)",sector:"private",cat:"commercial",
-   rates:{van:[370,460],cal:[305,430],edm:[305,430],win:[300,425],tor:[355,510],ott:[340,460],mtl:[315,440],hal:[310,430],stj:[310,425]}},
-  {id:"office_fitout_b",label:"Office Interior Fitout (Class B)",sector:"private",cat:"commercial",
-   rates:{van:[90,150],cal:[70,120],edm:[70,120],win:[70,120],tor:[110,150],ott:[100,135],mtl:[90,130],hal:[65,110],stj:[65,105]}},
-  {id:"office_fitout_a",label:"Office Interior Fitout (Class A)",sector:"private",cat:"commercial",
-   rates:{van:[160,300],cal:[115,205],edm:[115,205],win:[110,200],tor:[160,265],ott:[125,195],mtl:[140,195],hal:[105,175],stj:[100,175]}},
-  // ── RETAIL ─────────────────────────────────────────────────
-  {id:"retail_strip",label:"Retail Strip Plaza",sector:"private",cat:"commercial",
-   rates:{van:[210,300],cal:[220,300],edm:[220,300],win:[215,295],tor:[235,295],ott:[170,245],mtl:[155,225],hal:[140,190],stj:[145,190]}},
-  {id:"retail_supermarket",label:"Retail Supermarket",sector:"private",cat:"commercial",
-   rates:{van:[215,350],cal:[210,260],edm:[210,260],win:[205,260],tor:[175,350],ott:[175,260],mtl:[175,230],hal:[170,230],stj:[170,220]}},
-  {id:"retail_bigbox",label:"Retail Big Box Store",sector:"private",cat:"commercial",
-   rates:{van:[205,270],cal:[200,255],edm:[200,255],win:[195,250],tor:[165,240],ott:[175,225],mtl:[165,220],hal:[175,225],stj:[185,235]}},
-  {id:"retail_mall",label:"Retail Enclosed Mall",sector:"private",cat:"commercial",
-   rates:{van:[350,460],cal:[270,420],edm:[270,420],win:[265,415],tor:[275,480],ott:[245,315],mtl:[245,330],hal:[225,320],stj:[235,315]}},
-  // ── HOTELS ─────────────────────────────────────────────────
-  {id:"hotel_budget",label:"Hotel (Budget)",sector:"private",cat:"commercial",
-   rates:{van:[240,310],cal:[240,325],edm:[240,325],win:[235,320],tor:[245,325],ott:[220,285],mtl:[195,265],hal:[215,265],stj:[225,280]}},
-  {id:"hotel_suite",label:"Hotel (Suite)",sector:"private",cat:"commercial",
-   rates:{van:[340,425],cal:[300,410],edm:[300,410],win:[295,400],tor:[345,500],ott:[290,420],mtl:[235,385],hal:[280,335],stj:[300,405]}},
-  {id:"hotel_full",label:"Hotel (4-Star Full Service)",sector:"private",cat:"commercial",
-   rates:{van:[395,560],cal:[320,435],edm:[320,435],win:[315,430],tor:[445,565],ott:[345,520],mtl:[290,455],hal:[290,370],stj:[300,435]}},
-  // ── INDUSTRIAL ─────────────────────────────────────────────
-  {id:"warehouse",label:"Warehouse",sector:"private",cat:"industrial",
-   rates:{van:[125,210],cal:[125,165],edm:[125,165],win:[120,160],tor:[80,180],ott:[120,170],mtl:[115,175],hal:[115,180],stj:[110,165]}},
-  {id:"distribution",label:"Distribution Facility",sector:"private",cat:"industrial",
-   rates:{van:[200,475],cal:[150,450],edm:[150,450],win:[140,440],tor:[145,380],ott:[140,445],mtl:[160,440],hal:[160,415],stj:[180,475]}},
-  {id:"storage_urban",label:"Urban Storage Facility",sector:"private",cat:"industrial",
-   rates:{van:[120,175],cal:[140,185],edm:[140,185],win:[135,180],tor:[95,195],ott:[105,195],mtl:[110,175],hal:[110,175],stj:[110,170]}},
-  // ── PARKING (per stall — Altus $/sf × 350 sf/stall) ───────
-  {id:"parkade_ug",label:"Parking – Underground Garage",sector:"private",cat:"parking",
-   rates:{van:[59500,101500],cal:[56000,77000],edm:[56000,77000],win:[54250,77000],tor:[61250,99750],ott:[70000,101500],mtl:[50750,70000],hal:[50750,70000],stj:[52500,70000]},perStall:true},
-  {id:"parkade_ag",label:"Parking – Above Grade Garage",sector:"private",cat:"parking",
-   rates:{van:[45500,73500],cal:[40250,61250],edm:[40250,61250],win:[38500,59500],tor:[43750,70000],ott:[40250,57750],mtl:[36750,57750],hal:[40250,50750],stj:[42000,54250]},perStall:true},
-  {id:"surface_lot",label:"Parking – Surface Lot",sector:"private",cat:"parking",
-   rates:{van:[4300,8250],cal:[3630,8910],edm:[3630,8910],win:[3630,8910],tor:[4950,9900],ott:[3960,7920],mtl:[3630,7260],hal:[4290,7920],stj:[3300,6600]},perStall:true},
-  // ── EDUCATION ──────────────────────────────────────────────
-  {id:"school_elem",label:"Elementary School",sector:"public",cat:"institutional",
-   rates:{van:[425,530],cal:[355,555],edm:[355,555],win:[330,545],tor:[450,700],ott:[360,460],mtl:[380,475],hal:[360,430],stj:[325,460]}},
-  {id:"school_sec",label:"Secondary School",sector:"public",cat:"institutional",
-   rates:{van:[445,535],cal:[395,575],edm:[395,575],win:[360,570],tor:[500,750],ott:[380,480],mtl:[400,480],hal:[365,465],stj:[350,475]}},
-  {id:"uni_teaching",label:"University / College – Teaching & Lecture Hall",sector:"public",cat:"institutional",
-   rates:{van:[750,1250],cal:[750,950],edm:[750,950],win:[550,945],tor:[900,1250],ott:[710,1015],mtl:[665,910],hal:[660,760],stj:[670,770]}},
-  {id:"uni_labs",label:"University / College – Laboratories (Level 1 & 2)",sector:"public",cat:"institutional",
-   rates:{van:[925,1400],cal:[750,1250],edm:[750,1250],win:[725,1245],tor:[1150,1600],ott:[935,1245],mtl:[900,1190],hal:[760,1100],stj:[770,1110]}},
-  {id:"uni_residence",label:"University / College – Student Residence",sector:"public",cat:"residential",
-   rates:{van:[395,580],cal:[310,420],edm:[310,420],win:[300,415],tor:[590,800],ott:[380,480],mtl:[360,455],hal:[325,400],stj:[285,375]}},
-  // ── HEALTH CARE ────────────────────────────────────────────
-  {id:"hospital",label:"General Hospital / Acute Care",sector:"public",cat:"institutional",
-   rates:{van:[1000,1550],cal:[950,1400],edm:[950,1400],win:[900,1390],tor:[1030,1620],ott:[950,1500],mtl:[870,1265],hal:[770,1260],stj:[800,1200]}},
-  {id:"medical_clinic",label:"Medical Clinic / Treatment Centre",sector:"public",cat:"institutional",
-   rates:{van:[550,695],cal:[375,850],edm:[375,850],win:[370,845],tor:[460,800],ott:[450,600],mtl:[360,530],hal:[410,680],stj:[400,550]}},
-  // ── TRANSPORTATION ─────────────────────────────────────────
-  {id:"airport_regional",label:"Airport Terminal – Regional",sector:"public",cat:"institutional",
-   rates:{van:[430,550],cal:[500,750],edm:[500,750],win:[495,745],tor:[535,640],ott:[395,500],mtl:[380,470],hal:[385,480],stj:[360,500]}},
-  {id:"airport_intl",label:"Airport Terminal – International",sector:"public",cat:"institutional",
-   rates:{van:[840,1100],cal:[800,1100],edm:[800,1100],win:[795,1095],tor:[885,1175],ott:[800,985],mtl:[760,900],hal:[745,910],stj:[745,910]}},
-  {id:"bus_terminal",label:"Bus Terminal / Garage",sector:"public",cat:"institutional",
-   rates:{van:[400,510],cal:[380,525],edm:[380,525],win:[375,520],tor:[460,750],ott:[345,430],mtl:[335,395],hal:[315,405],stj:[280,375]}},
-  // ── GOVERNMENT ─────────────────────────────────────────────
-  {id:"fire_ems",label:"Fire / EMS Station",sector:"public",cat:"institutional",
-   rates:{van:[600,865],cal:[550,715],edm:[550,715],win:[545,710],tor:[620,860],ott:[570,695],mtl:[525,605],hal:[400,490],stj:[400,500]}},
-  {id:"police_local",label:"Police Station – Local Detachment",sector:"public",cat:"institutional",
-   rates:{van:[500,640],cal:[450,545],edm:[450,545],win:[445,540],tor:[600,735],ott:[500,600],mtl:[500,545],hal:[450,550],stj:[410,475]}},
-  {id:"police_regional",label:"Police Station – Regional Headquarters",sector:"public",cat:"institutional",
-   rates:{van:[500,620],cal:[475,565],edm:[475,565],win:[470,560],tor:[620,820],ott:[470,570],mtl:[455,525],hal:[475,625],stj:[350,450]}},
-  {id:"courthouse",label:"Court House",sector:"public",cat:"institutional",
-   rates:{van:[540,750],cal:[605,925],edm:[605,925],win:[600,920],tor:[640,820],ott:[530,705],mtl:[500,660],hal:[485,585],stj:[480,550]}},
-  {id:"facilities_maint",label:"Facilities Maintenance Building",sector:"public",cat:"institutional",
-   rates:{van:[450,530],cal:[315,450],edm:[315,465],win:[310,460],tor:[600,745],ott:[485,555],mtl:[420,505],hal:[300,350],stj:[300,350]}},
-  {id:"penitentiary",label:"Penitentiary / Correctional Facility",sector:"public",cat:"institutional",
-   rates:{van:[575,720],cal:[575,750],edm:[575,750],win:[570,745],tor:[635,770],ott:[510,640],mtl:[470,580],hal:[430,595],stj:[480,595]}},
-  {id:"municipal_office",label:"Municipal Office (Including Fit-Up)",sector:"public",cat:"institutional",
-   rates:{van:[465,580],cal:[410,475],edm:[410,475],win:[405,470],tor:[445,580],ott:[375,475],mtl:[350,430],hal:[335,385],stj:[350,400]}},
-  {id:"library",label:"Library",sector:"public",cat:"institutional",
-   rates:{van:[455,800],cal:[425,800],edm:[425,800],win:[420,795],tor:[550,1100],ott:[500,850],mtl:[465,730],hal:[410,670],stj:[400,600]}},
-  // ── RECREATION & ENTERTAINMENT ─────────────────────────────
-  {id:"ice_arena",label:"Ice Arena",sector:"public",cat:"institutional",
-   rates:{van:[395,510],cal:[375,550],edm:[375,550],win:[370,545],tor:[355,450],ott:[345,450],mtl:[340,425],hal:[345,395],stj:[340,395]}},
-  {id:"aquatic",label:"Community Aquatic Facility",sector:"public",cat:"institutional",
-   rates:{van:[560,930],cal:[550,800],edm:[550,800],win:[545,795],tor:[610,940],ott:[570,780],mtl:[525,680],hal:[650,825],stj:[510,565]}},
-  {id:"rec_centre",label:"Multi-Use Recreational Centre",sector:"public",cat:"institutional",
-   rates:{van:[545,1050],cal:[450,725],edm:[450,725],win:[445,720],tor:[670,1160],ott:[590,710],mtl:[545,640],hal:[550,675],stj:[460,585]}},
-  {id:"performing_arts",label:"Performing Arts Building",sector:"public",cat:"institutional",
-   rates:{van:[890,1150],cal:[650,1150],edm:[650,1150],win:[645,1145],tor:[940,1270],ott:[625,980],mtl:[530,930],hal:[490,635],stj:[485,620]}},
-  {id:"museum",label:"Museum / Gallery",sector:"public",cat:"institutional",
-   rates:{van:[555,900],cal:[585,1100],edm:[585,1100],win:[580,1095],tor:[660,1200],ott:[615,755],mtl:[520,705],hal:[470,615],stj:[445,620]}},
-  // ── INFRASTRUCTURE (per lin.m; bridge per sq.m) ────────────
-  // Road rates from Altus Servicing table (per metre)
-  {id:"road_local",label:"Road – Local (8m width)",sector:"infrastructure",cat:"infrastructure",
-   rates:{van:[3000,4100],cal:[3300,3800],edm:[3300,3800],win:[3300,3800],tor:[4200,5800],ott:[3300,4400],mtl:[3200,4200],hal:[3000,3800],stj:[3400,4200]},perLM:true},
-  {id:"road_arterial",label:"Road – Arterial (12m width)",sector:"infrastructure",cat:"infrastructure",
-   rates:{van:[4000,4700],cal:[4200,4800],edm:[4200,4800],win:[4200,4800],tor:[5300,6900],ott:[4500,5500],mtl:[4400,5400],hal:[4100,4900],stj:[4300,4800]},perLM:true},
-  // Bridge / utilities — estimated industry benchmarks (not in Altus public guide)
-  {id:"bridge",label:"Bridge (per sq.m of deck area)",sector:"infrastructure",cat:"infrastructure",
-   rates:{van:[6200,12500],cal:[5500,11000],edm:[5500,11000],win:[5200,10500],tor:[6000,12000],ott:[5500,11000],mtl:[5200,10500],hal:[5400,10800],stj:[5500,11000]},perSM:true},
-  {id:"water_main",label:"Watermain",sector:"infrastructure",cat:"infrastructure",
-   rates:{van:[1600,3600],cal:[1400,3200],edm:[1400,3200],win:[1300,3000],tor:[1500,3500],ott:[1400,3200],mtl:[1300,3000],hal:[1350,3100],stj:[1400,3200]},perLM:true},
-  {id:"sewer",label:"Sanitary / Storm Sewer",sector:"infrastructure",cat:"infrastructure",
-   rates:{van:[1900,4200],cal:[1650,3700],edm:[1650,3700],win:[1550,3500],tor:[1800,4000],ott:[1650,3700],mtl:[1550,3500],hal:[1600,3600],stj:[1650,3700]},perLM:true}
-];
-// Energy data — NRCan SCIEU 2019 + provincial rates
-const ENERGY = {
-  eui: { // kWh-equivalent per sf per year
-    residential:16.5, commercial:22.0, institutional:26.0, industrial:18.0, parking:3.0, infrastructure:0
-  },
-  elecRate: {tor:0.13,ott:0.13,mtl:0.085,cal:0.165,edm:0.165,van:0.095,win:0.10,hal:0.175,stj:0.14},
-  gasRate: {tor:0.035,ott:0.035,mtl:0.028,cal:0.025,edm:0.025,van:0.032,win:0.030,hal:0.04,stj:0.038},
-  elecShare: {residential:0.45,commercial:0.55,institutional:0.50,industrial:0.60,parking:0.90,infrastructure:0}
+
+// Type-aware defaults — calibrated to industry averages for each building category
+// Each entry overrides the global defaults when a type is first selected
+const TYPE_DEFAULTS = {
+  // Single family / custom — defaults include a sensible garage choice
+  sfr:           {gfa:2400, storeys:2, parkingType:"none", parkingStalls:0, garage:"double"},
+  custom_home:   {gfa:3200, storeys:2, parkingType:"none", parkingStalls:0, garage:"double"},
+  // Townhouses — unit count drives total area; garage per unit
+  townhouse_row:     {gfa:14400, storeys:3, parkingType:"none", parkingStalls:0, garage:"single", unitCount:8,  unitSize:1800},
+  townhouse_stacked: {gfa:16800, storeys:3, parkingType:"none", parkingStalls:0, garage:"none",   unitCount:12, unitSize:1400},
+  // Wood frame and condos
+  condo_wood:    {gfa:45000,  storeys:5,  parkingType:"above",       parkingStalls:60},
+  condo_12:      {gfa:120000, storeys:12, parkingType:"underground", parkingStalls:140},
+  condo_13_39:   {gfa:280000, storeys:28, parkingType:"underground", parkingStalls:300},
+  condo_40_60:   {gfa:600000, storeys:50, parkingType:"underground", parkingStalls:550},
+  condo_60plus:  {gfa:900000, storeys:70, parkingType:"underground", parkingStalls:750},
+  // Seniors housing
+  seniors_ind:       {gfa:80000,  storeys:5, parkingType:"surface",    parkingStalls:60},
+  seniors_assisted:  {gfa:90000,  storeys:5, parkingType:"surface",    parkingStalls:50},
+  seniors_complex:   {gfa:140000, storeys:6, parkingType:"underground", parkingStalls:80},
+  // Office
+  office_low_b:    {gfa:35000,   storeys:3,  parkingType:"surface",    parkingStalls:90},
+  office_mid_b:    {gfa:200000,  storeys:18, parkingType:"underground", parkingStalls:200},
+  office_a:        {gfa:350000,  storeys:22, parkingType:"underground", parkingStalls:280},
+  office_high_a:   {gfa:1200000, storeys:45, parkingType:"underground", parkingStalls:600},
+  office_fitout_b: {gfa:8000,    storeys:1,  parkingType:"none",       parkingStalls:0},
+  office_fitout_a: {gfa:8000,    storeys:1,  parkingType:"none",       parkingStalls:0},
+  // Retail
+  retail_strip:       {gfa:25000,  storeys:1, parkingType:"surface", parkingStalls:120},
+  retail_supermarket: {gfa:45000,  storeys:1, parkingType:"surface", parkingStalls:200},
+  retail_bigbox:      {gfa:130000, storeys:1, parkingType:"surface", parkingStalls:550},
+  retail_mall:        {gfa:750000, storeys:2, parkingType:"above",   parkingStalls:3000},
+  // Hotels
+  hotel_budget:  {gfa:80000,  storeys:4,  parkingType:"surface",     parkingStalls:120},
+  hotel_suite:   {gfa:120000, storeys:8,  parkingType:"underground", parkingStalls:140},
+  hotel_full:    {gfa:350000, storeys:22, parkingType:"underground", parkingStalls:300},
+  // Industrial
+  warehouse:     {gfa:80000,  storeys:1, parkingType:"surface", parkingStalls:50},
+  distribution:  {gfa:350000, storeys:1, parkingType:"surface", parkingStalls:120},
+  storage_urban: {gfa:60000,  storeys:4, parkingType:"surface", parkingStalls:20},
+  // Standalone parking (per stall)
+  parkade_ug:  {gfa:0, storeys:0, parkingType:"none", parkingStalls:200},
+  parkade_ag:  {gfa:0, storeys:0, parkingType:"none", parkingStalls:200},
+  surface_lot: {gfa:0, storeys:0, parkingType:"none", parkingStalls:200},
+  // Education
+  school_elem:    {gfa:60000,  storeys:2, parkingType:"surface", parkingStalls:80},
+  school_sec:     {gfa:180000, storeys:3, parkingType:"surface", parkingStalls:200},
+  uni_teaching:   {gfa:80000,  storeys:4, parkingType:"surface", parkingStalls:60},
+  uni_labs:       {gfa:60000,  storeys:4, parkingType:"surface", parkingStalls:40},
+  uni_residence:  {gfa:100000, storeys:8, parkingType:"surface", parkingStalls:30},
+  // Healthcare
+  hospital:        {gfa:600000, storeys:8, parkingType:"underground", parkingStalls:600},
+  medical_clinic:  {gfa:25000,  storeys:2, parkingType:"surface",     parkingStalls:80},
+  // Transportation
+  airport_regional: {gfa:80000,    storeys:2, parkingType:"surface", parkingStalls:200},
+  airport_intl:     {gfa:1500000, storeys:3, parkingType:"above",   parkingStalls:8000},
+  bus_terminal:     {gfa:60000,    storeys:2, parkingType:"surface", parkingStalls:60},
+  // Government / civic
+  fire_ems:         {gfa:12000,  storeys:1, parkingType:"surface", parkingStalls:20},
+  police_local:     {gfa:18000,  storeys:2, parkingType:"surface", parkingStalls:40},
+  police_regional:  {gfa:80000,  storeys:4, parkingType:"surface", parkingStalls:200},
+  courthouse:       {gfa:120000, storeys:4, parkingType:"surface", parkingStalls:150},
+  facilities_maint: {gfa:25000,  storeys:1, parkingType:"surface", parkingStalls:30},
+  penitentiary:     {gfa:200000, storeys:3, parkingType:"surface", parkingStalls:80},
+  municipal_office: {gfa:60000,  storeys:3, parkingType:"surface", parkingStalls:80},
+  library:          {gfa:25000,  storeys:2, parkingType:"surface", parkingStalls:40},
+  // Recreation
+  ice_arena:       {gfa:50000, storeys:1, parkingType:"surface", parkingStalls:200},
+  aquatic:         {gfa:40000, storeys:1, parkingType:"surface", parkingStalls:120},
+  rec_centre:      {gfa:80000, storeys:2, parkingType:"surface", parkingStalls:200},
+  performing_arts: {gfa:60000, storeys:2, parkingType:"surface", parkingStalls:150},
+  museum:          {gfa:50000, storeys:3, parkingType:"surface", parkingStalls:80},
+  // Infrastructure (gfa here represents linear meters or square meters)
+  road_local:    {gfa:500,  storeys:0, parkingType:"none", parkingStalls:0},
+  road_arterial: {gfa:800,  storeys:0, parkingType:"none", parkingStalls:0},
+  bridge:        {gfa:800,  storeys:0, parkingType:"none", parkingStalls:0},
+  water_main:    {gfa:1000, storeys:0, parkingType:"none", parkingStalls:0},
+  sewer:         {gfa:1000, storeys:0, parkingType:"none", parkingStalls:0}
 };
-// Maintenance rates — % of construction value per year
-const MAINT = {low:0.015,standard:0.025,high:0.04};
-// Component replacement cycles
-const REPLACEMENTS = [
-  {name:"Roofing",cycle:22,pct:0.06},{name:"HVAC Systems",cycle:18,pct:0.12},
-  {name:"Building Envelope",cycle:30,pct:0.08},{name:"Elevators",cycle:25,pct:0.05},
-  {name:"Plumbing Systems",cycle:28,pct:0.04},{name:"Electrical Systems",cycle:30,pct:0.05},
-  {name:"Interior Fitout",cycle:12,pct:0.10},{name:"Flooring",cycle:15,pct:0.03}
-];
-// ═══════════════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════════════
-let currentCity = "tor";
-let selectedType = null;
-let currentTab = "browse";
-let showLCCA = false;
-let lastEstimate = null;
-// ── Project Inputs (Session 1) ──
-let projectInputs = {
-  gfa: 50000,
-  storeys: 8,
-  floorplate: 6250,       // auto: gfa ÷ storeys
-  unitCount: 0,           // residential only
-  unitMix: {bachelor:0, one:0, two:0, three:0},
-  siteArea: 0,
-  fsr: 0,                 // auto: gfa ÷ siteArea
-  parkingType: "none",
-  parkingStalls: 0,
-  province: "ON",
-  softPct: 20,
-  quality: 50
+
+function applyTypeDefaults(scenario, typeId) {
+  const d = TYPE_DEFAULTS[typeId];
+  if (!d) return;
+  scenario.inputs.gfa = d.gfa;
+  scenario.inputs.storeys = d.storeys;
+  scenario.inputs.parkingType = d.parkingType;
+  scenario.inputs.parkingStalls = d.parkingStalls;
+  // Reset unit mix so previous selection doesn't carry over
+  scenario.inputs.unitMix = {bachelor:0, one:0, two:0, three:0};
+  // Reset site area so FSR doesn't show stale data
+  scenario.inputs.siteArea = 0;
+  // Reset garage and townhouse-specific fields
+  scenario.inputs.garage = d.garage || "none";
+  scenario.inputs.unitCount = d.unitCount || 0;
+  scenario.inputs.unitSize = d.unitSize || 1800;
+}
+
+// ─── Per-type field configuration ─────────────────────────────────────
+// Defines exactly which input groups each building type should display.
+// Replaces blanket "if residential, show X" logic with explicit per-type schema.
+//
+// Field keys:
+//   gfa       — Gross Floor Area input
+//   storeys   — Number of storeys
+//   siteArea  — Site area (unlocks FSR)
+//   unitMix   — Bachelor/1BR/2BR/3BR breakdown (multi-unit residential only)
+//   tnUnits   — Townhouse unit count + per-unit size (derives GFA)
+//   parking   — Commercial parking model (surface/above/underground + stalls)
+//   garage    — Residential garage model (none/single/double/triple)
+//   quality   — Quality slider (always shown)
+//   softCost  — Soft cost % slider (in advanced section)
+//
+// Order in the array determines render order.
+
+const TYPE_FIELDS = {
+  // ── Single homes: simple. No parking system, optional garage, no FSR.
+  sfr:           ["gfa","storeys","garage","quality","softCost"],
+  custom_home:   ["gfa","storeys","garage","quality","softCost"],
+
+  // ── Townhouses: unit count drives GFA; garage per unit; site area for FSR
+  townhouse_row:     ["tnUnits","storeys","siteArea","garage","quality","softCost"],
+  townhouse_stacked: ["tnUnits","storeys","siteArea","garage","quality","softCost"],
+
+  // ── Multi-unit residential: full treatment with unit mix
+  condo_wood:    ["gfa","storeys","siteArea","unitMix","parking","quality","softCost"],
+  condo_12:      ["gfa","storeys","siteArea","unitMix","parking","quality","softCost"],
+  condo_13_39:   ["gfa","storeys","siteArea","unitMix","parking","quality","softCost"],
+  condo_40_60:   ["gfa","storeys","siteArea","unitMix","parking","quality","softCost"],
+  condo_60plus:  ["gfa","storeys","siteArea","unitMix","parking","quality","softCost"],
+  seniors_ind:       ["gfa","storeys","siteArea","unitMix","parking","quality","softCost"],
+  seniors_assisted:  ["gfa","storeys","siteArea","unitMix","parking","quality","softCost"],
+  seniors_complex:   ["gfa","storeys","siteArea","unitMix","parking","quality","softCost"],
+  uni_residence:     ["gfa","storeys","siteArea","unitMix","parking","quality","softCost"],
+
+  // ── Office fitouts: interior only — no storeys, no site, no parking
+  office_fitout_a: ["gfa","quality","softCost"],
+  office_fitout_b: ["gfa","quality","softCost"]
+
+  // ── All other types fall through to default (gfa, storeys, siteArea, parking, quality, softCost)
 };
-// Legacy aliases kept for LCCA / Optimize reads
-Object.defineProperty(window, 'quality',    { get(){ return projectInputs.quality; },    set(v){ projectInputs.quality = v; } });
-Object.defineProperty(window, 'sqft',       { get(){ return projectInputs.gfa; },        set(v){ projectInputs.gfa = v; } });
-Object.defineProperty(window, 'parkingType',{ get(){ return projectInputs.parkingType; },set(v){ projectInputs.parkingType = v; } });
-Object.defineProperty(window, 'parkingStalls',{ get(){ return projectInputs.parkingStalls; },set(v){ projectInputs.parkingStalls = v; } });
-Object.defineProperty(window, 'softPctSlider',{ get(){ return projectInputs.softPct; },  set(v){ projectInputs.softPct = v; } });
-// LCCA state
-let lccaPeriod = 30;
-let lccaDiscount = 3.5;
-let lccaEnergyEsc = 2.5;
-let lccaMaintEsc = 2.0;
-let lccaMaintTier = "standard";
-// Optimization state
-let optTool = null; // 'threshold','parking','shape','area'
-// ═══════════════════════════════════════════════════════════
-// HELPERS
-// ═══════════════════════════════════════════════════════════
-const fmt = n => "$" + Math.round(n).toLocaleString();
-const fmtM = n => n >= 1e6 ? "$" + (n/1e6).toFixed(1) + "M" : fmt(n);
-function lerp(low, high, t) { return Math.round(low + (high - low) * (t / 100)); }
-function getUnit(type) {
-  if (type.perStall) return "/stall";
-  if (type.perLM) return "/lin.m";
-  if (type.perSM) return "/sq.m";
-  return "/sf";
-}
-function getRate(type, city, q) {
-  const r = type.rates[city];
-  return lerp(r[0], r[1], q);
-}
-// ═══════════════════════════════════════════════════════════
-// RENDER — Cities
-// ═══════════════════════════════════════════════════════════
-function renderCities() {
-  document.getElementById("cityBar").innerHTML = CITIES.map(c =>
-    `<button class="city-pill ${c.id===currentCity?'active':''}" onclick="setCity('${c.id}')">${c.label}</button>`
-  ).join("");
-}
-function setCity(id) { currentCity = id; renderCities(); renderTypeList(); if(currentTab==="estimate") renderEstimate(); }
-// ═══════════════════════════════════════════════════════════
-// RENDER — Browse Types
-// ═══════════════════════════════════════════════════════════
-function renderTypeList() {
-  const q = (document.getElementById("searchInput")?.value || "").toLowerCase();
-  const filtered = TYPES.filter(t => t.label.toLowerCase().includes(q));
-  document.getElementById("typeList").innerHTML = filtered.map(t => {
-    const r = t.rates[currentCity];
-    const unit = getUnit(t);
-    const sel = selectedType?.id === t.id ? " selected" : "";
-    const sectorCls = t.sector==="private"?"tag-private":t.sector==="public"?"tag-public":"tag-infra";
-    return `<div class="type-card${sel}" onclick="selectType('${t.id}')">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div><div class="type-name">${t.label}</div>
-        <div class="type-sector"><span class="sector-tag ${sectorCls}">${t.sector}</span> ${t.cat}</div></div>
-      </div>
-      <div class="type-range">$${r[0].toLocaleString()} — $${r[1].toLocaleString()} ${unit}</div>
-    </div>`;
-  }).join("");
-}
-function selectType(id) {
-  selectedType = TYPES.find(t => t.id === id);
-  renderTypeList();
-  switchTab("estimate");
-}
-// ═══════════════════════════════════════════════════════════
-// RENDER — Estimate
-// ═══════════════════════════════════════════════════════════
-// ── Helpers for live project input updates ──
-function piUpdate(field, val) {
-  projectInputs[field] = val;
-  // Keep derived fields in sync
-  if (field === 'gfa' || field === 'storeys') {
-    if (projectInputs.storeys > 0) {
-      projectInputs.floorplate = Math.round(projectInputs.gfa / projectInputs.storeys);
-    }
-    document.getElementById('pi-floorplate') && (document.getElementById('pi-floorplate').textContent = projectInputs.floorplate.toLocaleString() + ' sf');
+
+const DEFAULT_FIELDS = ["gfa","storeys","siteArea","parking","quality","softCost"];
+const NON_BUILDING_FIELDS = ["quality"];  // Per-stall, per-LM, per-SM types
+
+function getTypeFields(type) {
+  if (!type) return [];
+  const isBuilding = !type.perStall && !type.perLM && !type.perSM;
+  if (!isBuilding) {
+    // Per-stall types use their own simplified rendering, not field schema
+    return NON_BUILDING_FIELDS;
   }
-  if (field === 'gfa' || field === 'siteArea') {
-    projectInputs.fsr = projectInputs.siteArea > 0 ? +(projectInputs.gfa / projectInputs.siteArea).toFixed(2) : 0;
-    document.getElementById('pi-fsr') && (document.getElementById('pi-fsr').textContent = projectInputs.fsr > 0 ? 'FSR: ' + projectInputs.fsr.toFixed(2) : '');
-  }
-  if (field === 'quality') {
-    const t = selectedType;
-    if (t) {
-      const r = t.rates[currentCity];
-      const unit = getUnit(t);
-      document.getElementById('pi-q-val') && (document.getElementById('pi-q-val').textContent = projectInputs.quality + '%');
-      document.getElementById('pi-q-base') && (document.getElementById('pi-q-base').textContent = 'Base ($' + r[0].toLocaleString() + unit + ')');
-      document.getElementById('pi-q-prem') && (document.getElementById('pi-q-prem').textContent = 'Premium ($' + r[1].toLocaleString() + unit + ')');
-    }
-  }
-  if (field === 'softPct') {
-    document.getElementById('pi-soft-val') && (document.getElementById('pi-soft-val').textContent = projectInputs.softPct + '%');
-  }
-  if (['bachelor','one','two','three'].includes(field)) {
-    projectInputs.unitMix[field] = val;
-    const total = Object.values(projectInputs.unitMix).reduce((a,b)=>a+b,0);
-    projectInputs.unitCount = total;
-    document.getElementById('pi-unit-total') && (document.getElementById('pi-unit-total').textContent = 'Total: ' + total.toLocaleString() + ' units');
-  }
-}
-function piParkingType(p) {
-  projectInputs.parkingType = p;
-  const stallRow = document.getElementById('pi-stall-row');
-  if (stallRow) stallRow.style.display = p === 'none' ? 'none' : 'block';
+  return TYPE_FIELDS[type.id] || DEFAULT_FIELDS;
 }
 
-function renderEstimate() {
-  const el = document.getElementById("estimatePanel");
-  if (!selectedType) {
-    el.innerHTML = `<div style="text-align:center;padding:40px 0;color:var(--text-dim)">
-      <p>Select a building type from the Browse tab first.</p>
-      <button class="link-btn" onclick="switchTab('browse')" style="max-width:200px;margin:16px auto">Browse Types</button>
-    </div>`;
-    return;
-  }
-  const t = selectedType;
-  const r = t.rates[currentCity];
-  const unit = getUnit(t);
-  const isBuilding = !t.perStall && !t.perLM && !t.perSM;
-  const isResidential = t.cat === "residential";
-  const pi = projectInputs;
+// ─── Garage cost model ────────────────────────────────────────────────
+// Per-unit (per-home) garage cost in CAD. Scaled by city and quality.
+// Base figures reflect typical 2025 market: attached garage built into the home,
+// includes foundation, framing, insulation, garage door, basic electrical.
 
-  // ── Header ──
-  let html = `<div class="est-section">
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <div><div style="font-size:15px;font-weight:600">${t.label}</div>
-      <div style="font-size:12px;color:var(--text-dim);margin-top:2px">${CITIES.find(c=>c.id===currentCity).label}</div></div>
-    </div>
-    <button class="change-btn" onclick="switchTab('browse')">Change type</button>
-  </div>`;
+const GARAGE_BASE = {
+  none:   {sf:0,    cost:[0,0]},
+  single: {sf:240,  cost:[25000, 40000]},   // 12'×20'
+  double: {sf:480,  cost:[40000, 70000]},   // 20'×24'
+  triple: {sf:720,  cost:[65000, 110000]}   // 30'×24'
+};
 
-  // ── 1. Floor Area ──
-  if (isBuilding) {
-    const fp = pi.storeys > 0 ? Math.round(pi.gfa / pi.storeys) : 0;
-    html += `<div class="est-section">
-      <div class="est-label">Floor Area</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div>
-          <div style="font-size:10px;color:var(--text-faint);margin-bottom:4px">GFA (sq ft)</div>
-          <input type="number" class="num-input" value="${pi.gfa}" min="1000" step="1000"
-            oninput="piUpdate('gfa',+this.value)" inputmode="numeric" style="font-size:22px">
-        </div>
-        <div>
-          <div style="font-size:10px;color:var(--text-faint);margin-bottom:4px">Storeys</div>
-          <input type="number" class="num-input" value="${pi.storeys}" min="1" max="100" step="1"
-            oninput="piUpdate('storeys',+this.value)" inputmode="numeric" style="font-size:22px">
-        </div>
-      </div>
-      <div style="margin-top:8px;font-size:11px;color:var(--text-dim)">
-        Floorplate: <span id="pi-floorplate" style="font-family:var(--mono);color:var(--accent)">${fp.toLocaleString()} sf</span>
-      </div>
-    </div>`;
-  }
+// City scaling factor — mirrors the rate pattern of other building types
+const GARAGE_CITY_FACTOR = {
+  van: 1.5, tor: 1.4, cal: 1.0, edm: 1.0, ott: 0.95,
+  mtl: 0.9, win: 0.95, hal: 0.85, stj: 0.85
+};
 
-  // ── 2. Site Area (optional) ──
-  if (isBuilding) {
-    const fsr = pi.siteArea > 0 ? (pi.gfa / pi.siteArea).toFixed(2) : 0;
-    html += `<div class="est-section">
-      <div class="est-label">Site Area <span style="font-weight:400;text-transform:none;color:var(--text-faint)">(optional)</span></div>
-      <input type="number" class="num-input" value="${pi.siteArea || ''}" min="0" step="500"
-        placeholder="0" oninput="piUpdate('siteArea',+this.value)" inputmode="numeric" style="font-size:22px">
-      <div style="margin-top:6px;font-size:11px;color:var(--text-dim);min-height:16px">
-        <span id="pi-fsr" style="font-family:var(--mono);color:var(--orange)">${fsr > 0 ? 'FSR: ' + fsr : ''}</span>
-      </div>
-    </div>`;
-  }
-
-  // ── 3. Unit Mix (residential only) ──
-  if (isBuilding && isResidential) {
-    const mx = pi.unitMix;
-    const total = Object.values(mx).reduce((a,b)=>a+b,0);
-    html += `<div class="est-section">
-      <div class="est-label">Unit Mix <span style="font-weight:400;text-transform:none;color:var(--text-faint)">(optional)</span></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px">
-        ${[['bachelor','Bachelor'],['one','1 BR'],['two','2 BR'],['three','3 BR']].map(([k,lbl]) => `
-          <div style="padding:10px 12px;background:#0a0f1c;border-radius:8px;border:1px solid #1a2035">
-            <div style="font-size:10px;color:var(--text-faint);margin-bottom:4px">${lbl}</div>
-            <input type="number" style="width:100%;background:transparent;border:none;color:#fff;font-family:var(--mono);font-size:18px;font-weight:600;outline:none;-webkit-appearance:none"
-              value="${mx[k]}" min="0" step="1" oninput="piUpdate('${k}',+this.value)" inputmode="numeric">
-          </div>`).join("")}
-      </div>
-      <div style="margin-top:8px;font-size:11px;color:var(--text-dim)">
-        <span id="pi-unit-total" style="font-family:var(--mono);color:${total>0?'var(--accent)':'var(--text-faint)'}">Total: ${total.toLocaleString()} units</span>
-      </div>
-    </div>`;
-  }
-
-  // ── 4. Quality ──
-  html += `<div class="est-section">
-    <div class="slider-row">
-      <span class="est-label">Quality Level</span>
-      <span class="slider-val" id="pi-q-val">${pi.quality}%</span>
-    </div>
-    <input type="range" min="0" max="100" value="${pi.quality}" oninput="piUpdate('quality',+this.value)">
-    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-faint);margin-top:4px">
-      <span id="pi-q-base">Base ($${r[0].toLocaleString()}${unit})</span>
-      <span id="pi-q-prem">Premium ($${r[1].toLocaleString()}${unit})</span>
-    </div>
-  </div>`;
-
-  // ── 5. Parking ──
-  if (isBuilding) {
-    const pt = pi.parkingType;
-    html += `<div class="est-section">
-      <div class="est-label">Parking</div>
-      <div class="pill-group">
-        ${["none","surface","above","underground"].map(p =>
-          `<button class="pill ${pt===p?'active':''}" onclick="piParkingType('${p}');this.closest('.pill-group').querySelectorAll('.pill').forEach(b=>b.classList.remove('active'));this.classList.add('active')">${p==="none"?"None":p==="surface"?"Surface":p==="above"?"Above Grade":"Underground"}</button>`
-        ).join("")}
-      </div>
-      <div id="pi-stall-row" style="margin-top:12px;display:${pt!=='none'?'block':'none'}">
-        <div class="est-label">Number of Stalls</div>
-        <input type="number" class="num-input" value="${pi.parkingStalls||100}" min="1" step="10"
-          oninput="piUpdate('parkingStalls',+this.value)" inputmode="numeric" style="font-size:20px">
-      </div>
-    </div>`;
-
-    // ── 6. Soft Cost ──
-    html += `<div class="est-section">
-      <div class="slider-row">
-        <span class="est-label">Soft Cost Allowance</span>
-        <span class="slider-val" id="pi-soft-val">${pi.softPct}%</span>
-      </div>
-      <input type="range" min="10" max="35" value="${pi.softPct}" oninput="piUpdate('softPct',+this.value)">
-      <div style="font-size:10px;color:var(--text-faint);margin-top:4px">Design, permits, fees, project management</div>
-    </div>`;
-  }
-
-  html += `<button class="gen-btn" onclick="generateEstimate()">Generate Estimate</button>
-    <div id="resultArea" style="margin-top:20px"></div>`;
-  el.innerHTML = html;
+function computeGarageCost(garage, city, quality, unitCount = 1) {
+  const g = GARAGE_BASE[garage];
+  if (!g || garage === "none") return 0;
+  const baseCost = lerp(g.cost[0], g.cost[1], quality);
+  const cityAdjusted = baseCost * (GARAGE_CITY_FACTOR[city] || 1.0);
+  return Math.round(cityAdjusted * unitCount);
 }
-function generateEstimate() {
-  const t = selectedType;
-  if (!t) return;
-  const pi = projectInputs;
-  const r = t.rates[currentCity];
-  const rate = lerp(r[0], r[1], pi.quality);
-  const isBuilding = !t.perStall && !t.perLM && !t.perSM;
-  const area = isBuilding ? pi.gfa : (t.perStall ? pi.parkingStalls : pi.gfa);
-  const unit = getUnit(t);
-  const baseCost = rate * area;
 
-  let parkCost = 0;
-  let parkRow = "";
-  if (isBuilding && pi.parkingType !== "none") {
-    const pKey = pi.parkingType === "surface" ? "surface_lot" : pi.parkingType === "above" ? "parkade_ag" : "parkade_ug";
-    const pType = TYPES.find(x => x.id === pKey);
-    const pRate = lerp(pType.rates[currentCity][0], pType.rates[currentCity][1], pi.quality);
-    const stalls = pi.parkingStalls || 100;
-    parkCost = pRate * stalls;
-    parkRow = `<div class="result-row"><div><div class="lbl">Parking (${pi.parkingType === "surface" ? "Surface" : pi.parkingType === "above" ? "Above Grade" : "Underground"})</div><div class="sub">${stalls} stalls × $${pRate.toLocaleString()}/stall</div></div><div class="val">${fmt(parkCost)}</div></div>`;
-  }
-
-  const hardTotal = baseCost + parkCost;
-  const softPct = isBuilding ? pi.softPct : 15;
-  const softCost = hardTotal * softPct / 100;
-  const grandTotal = hardTotal + softCost;
-
-  // Per-unit row (residential only)
-  const unitCount = pi.unitMix ? Object.values(pi.unitMix).reduce((a,b)=>a+b,0) : 0;
-  let perUnitRow = "";
-  if (isBuilding && t.cat === "residential" && unitCount > 0) {
-    const costPerUnit = grandTotal / unitCount;
-    perUnitRow = `<div class="result-divider"></div>
-      <div class="result-row"><div><div class="lbl">Per Unit Cost</div><div class="sub">${unitCount} units total</div></div><div class="val" style="color:var(--accent)">${fmt(costPerUnit)}<span style="font-size:10px;font-weight:400;color:var(--text-dim)"> / unit</span></div></div>`;
-  }
-
-  // FSR row
-  let fsrRow = "";
-  if (isBuilding && pi.siteArea > 0) {
-    const fsr = (pi.gfa / pi.siteArea).toFixed(2);
-    fsrRow = `<div class="result-divider"></div>
-      <div class="result-row"><div><div class="lbl">FSR</div><div class="sub">Verify against zoning approval</div></div><div class="val" style="color:var(--orange)">${fsr}</div></div>`;
-  }
-
-  // Store for LCCA / Optimization — includes all new Session 1 fields
-  lastEstimate = {
-    type: t, city: currentCity, area, rate, baseCost, parkCost,
-    parkingType: pi.parkingType, parkingStalls: pi.parkingStalls,
-    hardTotal, softCost, softPct, grandTotal, quality: pi.quality,
-    storeys: pi.storeys, floorplate: pi.floorplate,
-    unitCount, unitMix: {...pi.unitMix},
-    siteArea: pi.siteArea, fsr: pi.siteArea > 0 ? +(pi.gfa / pi.siteArea).toFixed(2) : 0
-  };
-
-  // Cross-market comparison bars
-  let compHTML = "";
-  if (isBuilding) {
-    const allRates = CITIES.map(c => ({label: c.label, rate: lerp(t.rates[c.id][0], t.rates[c.id][1], pi.quality)}));
-    const maxRate = Math.max(...allRates.map(x => x.rate));
-    compHTML = `<div class="comp-section"><div class="comp-title">Cross-Market Comparison at ${pi.quality}% Quality</div>
-      ${allRates.map(c => {
-        const w = (c.rate / maxRate * 100).toFixed(0);
-        const isCurrent = c.label === CITIES.find(x => x.id === currentCity).label;
-        const color = isCurrent ? "var(--accent)" : "#1e2538";
-        return `<div class="comp-row"><div class="comp-city">${c.label}</div><div class="comp-track"><div class="comp-bar" style="width:${w}%;background:${color}"></div></div><div class="comp-val">$${c.rate}</div></div>`;
-      }).join("")}
-    </div>`;
-  }
-
-  const resultHTML = `<div class="result-card">
-    <div class="result-header">
-      <div class="result-total">${fmt(grandTotal)}</div>
-      <div style="font-size:12px;color:var(--text-dim);margin-top:6px">${t.label} · ${CITIES.find(c=>c.id===currentCity).label} · ${area.toLocaleString()} ${isBuilding?"sq ft":unit.replace("/","")}${pi.storeys > 0 && isBuilding ? " · " + pi.storeys + " storeys" : ""}</div>
-    </div>
-    <div class="result-body">
-      <div class="result-row"><div><div class="lbl">Building Hard Cost</div><div class="sub">${area.toLocaleString()} ${isBuilding?"sf":unit.replace("/","")} × $${rate.toLocaleString()}${unit}</div></div><div class="val">${fmt(baseCost)}</div></div>
-      ${parkRow}
-      <div class="result-divider"></div>
-      <div class="result-row"><div class="lbl" style="color:var(--text-dim)">Hard Cost Subtotal</div><div class="val val-dim">${fmt(hardTotal)}</div></div>
-      <div class="result-row"><div><div class="lbl">Soft Cost Allowance</div><div class="sub">${softPct}% of hard costs</div></div><div class="val">${fmt(softCost)}</div></div>
-      ${perUnitRow}
-      ${fsrRow}
-    </div>
-    <div class="result-footer"><p>Building, parking, and road/servicing rates sourced directly from the 2025 Altus Group Canadian Cost Guide. Bridge, watermain, and sewer rates are industry benchmark estimates. Hard costs use CIQS floor area definition — do not apply to zoning GFA without grossing up (typically 8–18%). Excludes GST/HST/QST, tariff impacts, land, site servicing, and soft costs unless added above. For initial budgeting only — consult a qualified cost professional for project-specific estimates.</p></div>
-  </div>
-  ${compHTML}
-  <button class="link-btn link-btn-orange" onclick="switchTab('lcca')">Run Life-Cycle Cost Analysis →</button>
-  <button class="link-btn" onclick="switchTab('optimize')">Explore Building Optimization →</button>`;
-  document.getElementById("resultArea").innerHTML = resultHTML;
-  document.getElementById("resultArea").scrollIntoView({behavior:"smooth"});
+function getGarageLabel(g) {
+  return {none:"None", single:"Single Car Garage", double:"Double Car Garage", triple:"Triple Car Garage"}[g] || "None";
 }
+
+const ENERGY={eui:{residential:16.5,commercial:22.0,institutional:26.0,industrial:18.0,parking:3.0,infrastructure:0},elecRate:{tor:0.13,ott:0.13,mtl:0.085,cal:0.165,edm:0.165,van:0.095,win:0.10,hal:0.175,stj:0.14},gasRate:{tor:0.035,ott:0.035,mtl:0.028,cal:0.025,edm:0.025,van:0.032,win:0.030,hal:0.04,stj:0.038},elecShare:{residential:0.45,commercial:0.55,institutional:0.50,industrial:0.60,parking:0.90,infrastructure:0}};
+const MAINT={low:0.015,standard:0.025,high:0.04};
+const REPLACEMENTS=[{name:"Roofing",cycle:22,pct:0.06},{name:"HVAC Systems",cycle:18,pct:0.12},{name:"Building Envelope",cycle:30,pct:0.08},{name:"Elevators",cycle:25,pct:0.05},{name:"Plumbing Systems",cycle:28,pct:0.04},{name:"Electrical Systems",cycle:30,pct:0.05},{name:"Interior Fitout",cycle:12,pct:0.10},{name:"Flooring",cycle:15,pct:0.03}];
+
 // ═══════════════════════════════════════════════════════════
-// RENDER — LCCA
+// STATE — scenarios are first-class
 // ═══════════════════════════════════════════════════════════
-function renderLCCA() {
-  const el = document.getElementById("lccaPanel");
-  if (!lastEstimate) {
-    el.innerHTML = `<div style="text-align:center;padding:40px 0;color:var(--text-dim)">
-      <p>Run an estimate first so the Life-Cycle Analysis can use your building data.</p>
-      <button class="link-btn" onclick="switchTab('estimate')" style="max-width:220px;margin:16px auto">Build Estimate</button>
-    </div>`;
-    return;
+const makeScenario = (name) => ({
+  name,
+  city: "tor",
+  typeId: null,
+  inputs: {
+    gfa: 50000, storeys: 8, siteArea: 0,
+    unitCount: 0, unitSize: 1800,
+    unitMix: {bachelor:0, one:0, two:0, three:0},
+    parkingType: "none", parkingStalls: 0,
+    garage: "none",  // none | single | double | triple — for homes and townhouses
+    quality: 50, softPct: 20
   }
-  const e = lastEstimate;
-  const cityLabel = CITIES.find(c=>c.id===e.city).label;
-  let html = `<div style="padding:14px;background:var(--surface);border-radius:12px;border:1px solid var(--border);margin-bottom:16px">
-    <div style="font-size:13px;font-weight:600">${e.type.label}</div>
-    <div style="font-size:11px;color:var(--text-dim);margin-top:2px">${cityLabel} · ${e.area.toLocaleString()} sf · ${fmt(e.grandTotal)} total estimate</div>
-  </div>`;
-  html += `<div class="est-section"><div class="est-label">Analysis Period (Years)</div>
-    <div class="pill-group">${[25,30,40,50].map(y=>`<button class="lcca-pill ${lccaPeriod===y?'active':''}" onclick="lccaPeriod=${y};renderLCCA()">${y}</button>`).join("")}</div></div>`;
-  html += `<div class="est-section"><div class="est-label">Maintenance Level</div>
-    <div class="pill-group">${["low","standard","high"].map(m=>`<button class="lcca-pill ${lccaMaintTier===m?'active':''}" onclick="lccaMaintTier='${m}';renderLCCA()">${m[0].toUpperCase()+m.slice(1)}</button>`).join("")}</div></div>`;
-  html += `<div class="est-section">
-    <div class="slider-row"><span class="est-label">Discount Rate</span><span class="slider-val">${lccaDiscount}%</span></div>
-    <input type="range" min="1" max="8" step="0.5" value="${lccaDiscount}" oninput="lccaDiscount=+this.value;renderLCCA()">
-  </div>`;
-  html += `<div class="est-section">
-    <div class="slider-row"><span class="est-label">Energy Escalation</span><span class="slider-val">${lccaEnergyEsc}%/yr</span></div>
-    <input type="range" min="0" max="6" step="0.5" value="${lccaEnergyEsc}" oninput="lccaEnergyEsc=+this.value;renderLCCA()">
-  </div>`;
-  html += `<button class="gen-btn" onclick="generateLCCA()">Generate Life-Cycle Analysis</button>
-    <div id="lccaResult" style="margin-top:20px"></div>`;
-  el.innerHTML = html;
-  if (showLCCA) generateLCCA();
-}
-function generateLCCA() {
-  const e = lastEstimate;
-  const cat = e.type.cat;
-  const eui = ENERGY.eui[cat] || 16.5;
-  const elecR = ENERGY.elecRate[e.city];
-  const gasR = ENERGY.gasRate[e.city];
-  const elecShare = ENERGY.elecShare[cat] || 0.5;
-  const annualEnergy = e.area * eui * (elecShare * elecR + (1 - elecShare) * gasR);
-  const annualMaint = e.hardTotal * MAINT[lccaMaintTier];
-  const dr = lccaDiscount / 100;
-  const ee = lccaEnergyEsc / 100;
-  const me = lccaMaintEsc / 100;
-  let pvEnergy = 0, pvMaint = 0, pvReplace = 0;
-  const yearlyData = [];
-  let cumConst = e.grandTotal, cumEnergy = 0, cumMaint = 0, cumReplace = 0;
-  const replacementEvents = [];
-  for (let yr = 1; yr <= lccaPeriod; yr++) {
-    const eCost = annualEnergy * Math.pow(1 + ee, yr - 1);
-    const mCost = annualMaint * Math.pow(1 + me, yr - 1);
-    const pvFactor = 1 / Math.pow(1 + dr, yr);
-    pvEnergy += eCost * pvFactor;
-    pvMaint += mCost * pvFactor;
-    let yrReplace = 0;
-    REPLACEMENTS.forEach(comp => {
-      if (yr > 0 && yr % comp.cycle === 0 && cat !== "parking" && cat !== "infrastructure") {
-        const rCost = e.hardTotal * comp.pct * Math.pow(1 + me, yr - 1);
-        yrReplace += rCost;
-        pvReplace += rCost * pvFactor;
-        replacementEvents.push({year: yr, name: comp.name, cost: rCost});
-      }
-    });
-    cumEnergy += eCost; cumMaint += mCost; cumReplace += yrReplace;
-    yearlyData.push({yr, cumTotal: cumConst + cumEnergy + cumMaint + cumReplace, cumEnergy, cumMaint, cumReplace});
-  }
-  const pvTotal = e.grandTotal + pvEnergy + pvMaint + pvReplace;
-  const costPerSf = pvTotal / e.area;
-  const opRatio = (pvEnergy + pvMaint + pvReplace) / e.grandTotal;
-  // Bar chart — sample every 5 years
-  const sampleYears = yearlyData.filter(d => d.yr % 5 === 0 || d.yr === lccaPeriod);
-  const maxCum = sampleYears[sampleYears.length - 1].cumTotal;
-  const barColors = {const:"#4fd1c5",energy:"#f6ad55",maint:"#b794f4",replace:"#fc8181"};
-  let resultHTML = `<div class="result-card">
-    <div class="result-header">
-      <div style="font-size:12px;color:var(--text-dim);margin-bottom:4px">Total Life-Cycle Cost (${lccaPeriod}yr, Present Value)</div>
-      <div class="result-total">${fmtM(pvTotal)}</div>
-    </div>
-    <div style="padding:16px 20px">
-      <div class="opt-grid">
-        <div class="lcca-metric"><div class="m-label">Construction</div><div class="m-val" style="color:var(--accent)">${fmtM(e.grandTotal)}</div><div class="m-sub">${((e.grandTotal/pvTotal)*100).toFixed(0)}% of total</div></div>
-        <div class="lcca-metric"><div class="m-label">Energy (PV)</div><div class="m-val" style="color:var(--orange)">${fmtM(pvEnergy)}</div><div class="m-sub">Year 1: ${fmt(annualEnergy)}/yr</div></div>
-        <div class="lcca-metric"><div class="m-label">Maintenance (PV)</div><div class="m-val" style="color:var(--purple)">${fmtM(pvMaint)}</div><div class="m-sub">${lccaMaintTier} tier</div></div>
-        <div class="lcca-metric"><div class="m-label">Replacements (PV)</div><div class="m-val" style="color:var(--red)">${fmtM(pvReplace)}</div><div class="m-sub">${replacementEvents.length} events</div></div>
-      </div>
-      <div style="margin-top:16px;padding:12px;background:#0a0f1c;border-radius:10px;border:1px solid #1a2035">
-        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:11px;color:var(--text-faint)">Operating:Construction Ratio</span><span style="font-family:var(--mono);font-size:13px;font-weight:600">${opRatio.toFixed(1)}x</span></div>
-        <div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--text-faint)">Total Cost/SF (PV)</span><span style="font-family:var(--mono);font-size:13px;font-weight:600">$${costPerSf.toFixed(0)}</span></div>
-      </div>
-    </div>
-    <div style="padding:0 20px 16px">
-      <div style="font-size:12px;font-weight:600;color:var(--text-dim);margin-bottom:8px">Cumulative Cost Buildup</div>
-      <div class="bar-chart">
-        ${sampleYears.map(d => {
-          const constW = (e.grandTotal / maxCum * 100).toFixed(1);
-          const eW = (d.cumEnergy / maxCum * 100).toFixed(1);
-          const mW = (d.cumMaint / maxCum * 100).toFixed(1);
-          const rW = (d.cumReplace / maxCum * 100).toFixed(1);
-          return `<div class="bar-row-lc"><div style="font-size:11px;color:var(--text-dim);font-family:var(--mono)">Yr ${d.yr}</div>
-            <div class="bar-track-lc"><div class="bar-seg" style="width:${constW}%;background:${barColors.const}"></div><div class="bar-seg" style="width:${eW}%;background:${barColors.energy}"></div><div class="bar-seg" style="width:${mW}%;background:${barColors.maint}"></div><div class="bar-seg" style="width:${rW}%;background:${barColors.replace}"></div></div>
-            <div style="font-size:10px;color:var(--text-dim);font-family:var(--mono);text-align:right">${fmtM(d.cumTotal)}</div></div>`;
-        }).join("")}
-      </div>
-      <div class="legend">
-        <div class="legend-item"><div class="legend-dot" style="background:${barColors.const}"></div>Construction</div>
-        <div class="legend-item"><div class="legend-dot" style="background:${barColors.energy}"></div>Energy</div>
-        <div class="legend-item"><div class="legend-dot" style="background:${barColors.maint}"></div>Maintenance</div>
-        <div class="legend-item"><div class="legend-dot" style="background:${barColors.replace}"></div>Replacements</div>
-      </div>
-    </div>
-    ${replacementEvents.length ? `<div style="padding:0 20px 16px"><div style="font-size:12px;font-weight:600;color:var(--text-dim);margin-bottom:8px">Replacement Schedule</div>
-      ${replacementEvents.slice(0,12).map(ev => `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #141c30;font-size:12px">
-        <div><span style="color:var(--text-dim);font-family:var(--mono)">Year ${ev.year}</span> <span style="margin-left:8px">${ev.name}</span></div>
-        <div style="font-family:var(--mono);color:var(--red)">${fmt(ev.cost)}</div></div>`).join("")}
-      ${replacementEvents.length > 12 ? `<div style="font-size:11px;color:var(--text-faint);margin-top:8px">+ ${replacementEvents.length-12} more events</div>` : ""}
-    </div>` : ""}
-    <div class="result-footer"><p>Energy benchmarks from NRCan SCIEU 2019. Provincial rates are approximate commercial blended averages. Energy escalation ${lccaEnergyEsc}%/yr, maintenance ${lccaMaintEsc}%/yr, discount rate ${lccaDiscount}%. Component cycles are industry standard estimates. For planning purposes only.</p></div>
-  </div>`;
-  document.getElementById("lccaResult").innerHTML = resultHTML;
-  document.getElementById("lccaResult").scrollIntoView({behavior:"smooth"});
-  showLCCA = true;
-}
-// ═══════════════════════════════════════════════════════════
-// RENDER — Building Optimization
-// ═══════════════════════════════════════════════════════════
-function renderOptimize() {
-  const el = document.getElementById("optimizePanel");
-  if (!optTool) {
-    // Tool selection menu
-    let html = `<div style="font-size:11px;color:var(--text-dim);margin-bottom:16px">Select an optimization tool to analyze design tradeoffs and cost implications.</div>`;
-    const tools = [
-      {id:"threshold",icon:"📐",name:"Structural Threshold Analyzer",desc:"See how building height triggers structural system changes and cost jumps. Compare low-rise wood frame versus mid-rise concrete versus high-rise steel costs."},
-      {id:"parking",icon:"🅿️",name:"Parking Mix Optimizer",desc:"Model different parking configurations — underground, above grade, surface — and compare total project cost impact across scenarios."},
-      {id:"shape",icon:"🔷",name:"Building Shape Efficiency",desc:"Analyze how building footprint shape affects cost per square foot. Compare square, rectangular, L-shaped, and irregular floorplates."},
-      {id:"area",icon:"📏",name:"CIQS vs. Zoning Floor Area",desc:"Calculate the grossing-up factor between CIQS measured floor area (used for cost estimating) and zoning GFA (used for density calculations)."}
-    ];
-    html += tools.map(t => `<div class="opt-card" onclick="optTool='${t.id}';renderOptimize()" style="cursor:pointer">
-      <div class="opt-icon">${t.icon}</div>
-      <h3>${t.name}</h3>
-      <p>${t.desc}</p>
-    </div>`).join("");
-    if (lastEstimate) {
-      html += `<div style="margin-top:8px;padding:12px;background:var(--surface);border-radius:10px;border:1px solid var(--border);font-size:12px;color:var(--text-dim)">
-        Using data from your estimate: ${lastEstimate.type.label}, ${CITIES.find(c=>c.id===lastEstimate.city).label}, ${lastEstimate.area.toLocaleString()} sf</div>`;
-    }
-    el.innerHTML = html;
-    return;
-  }
-  // Render specific tool
-  let html = `<button class="change-btn" onclick="optTool=null;renderOptimize()" style="margin-bottom:16px;margin-top:0">← All Optimization Tools</button>`;
-  if (optTool === "threshold") html += renderThreshold();
-  else if (optTool === "parking") html += renderParkingOpt();
-  else if (optTool === "shape") html += renderShapeOpt();
-  else if (optTool === "area") html += renderAreaOpt();
-  el.innerHTML = html;
-}
-// ── Structural Threshold Analyzer ──
-function renderThreshold() {
-  const city = lastEstimate?.city || currentCity;
-  const area = lastEstimate?.area || sqft;
-  const q = lastEstimate?.quality || quality;
-  const tiers = [
-    {label:"Up to 12 Storeys",id:"condo_12",system:"Wood Frame / Concrete (≤6), Post-Tension (7–12)",floors:"1–12",note:"Most economical structural system. Wood frame dominates up to 6 storeys; post-tension concrete above."},
-    {label:"13–39 Storeys",id:"condo_13_39",system:"Reinforced Concrete / Shear Wall",floors:"13–39",note:"Major cost jump at 13 storeys. Requires concrete shear walls, deeper foundations, and extended crane time."},
-    {label:"40–60 Storeys",id:"condo_40_60",system:"High-Strength Concrete / Outrigger",floors:"40–60",note:"Premium engineering: high-strength concrete mix, outrigger systems, wind tunnel testing typically required."},
-    {label:"60+ Storeys",id:"condo_60plus",system:"High-Strength Concrete / Steel Hybrid",floors:"60+",note:"Available only in Toronto and Vancouver markets per Altus. Damping systems, specialized formwork, extended schedule."}
-  ];
-  const tierData = tiers.map(t => {
-    const type = TYPES.find(x => x.id === t.id);
-    const rate = lerp(type.rates[city][0], type.rates[city][1], q);
-    const totalCost = rate * area;
-    return {...t, rate, totalCost};
-  });
-  const baseRate = tierData[0].rate;
-  const maxRate = tierData[tierData.length-1].rate;
-  let html = `<div style="font-size:15px;font-weight:600;margin-bottom:4px">Structural Threshold Analyzer</div>
-    <div style="font-size:12px;color:var(--text-dim);margin-bottom:16px">${CITIES.find(c=>c.id===city).label} · ${area.toLocaleString()} sf · ${q}% quality</div>`;
-  html += `<div class="opt-result" style="margin-top:0">`;
-  tierData.forEach((t, i) => {
-    const premium = i === 0 ? 0 : ((t.rate - baseRate) / baseRate * 100);
-    const jump = i === 0 ? null : t.rate - tierData[i-1].rate;
-    const jumpPct = i === 0 ? null : ((t.rate - tierData[i-1].rate) / tierData[i-1].rate * 100);
-    const barW = (t.rate / maxRate * 100).toFixed(0);
-    html += `<div style="padding:14px 0;${i>0?'border-top:1px solid #141c30':''}">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div><div style="font-size:13px;font-weight:600">${t.label}</div>
-        <div style="font-size:11px;color:var(--text-dim);margin-top:2px">${t.system} · Floors ${t.floors}</div></div>
-        <div style="text-align:right"><div style="font-family:var(--mono);font-size:16px;font-weight:600;color:var(--accent)">$${t.rate}/sf</div>
-        ${i > 0 ? `<div class="savings-tag tag-cost" style="margin-top:4px">+$${jump}/sf (+${jumpPct.toFixed(0)}%)</div>` : `<div class="savings-tag tag-neutral" style="margin-top:4px">Baseline</div>`}
-        </div>
-      </div>
-      <div style="margin-top:8px"><div class="comp-track"><div class="comp-bar" style="width:${barW}%;background:${i===0?'var(--green)':i===1?'var(--accent)':i===2?'var(--orange)':'var(--red)'}"></div></div></div>
-      <div style="display:flex;justify-content:space-between;margin-top:6px">
-        <div style="font-size:11px;color:var(--text-dim)">${t.note}</div>
-        <div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);white-space:nowrap;margin-left:12px">${fmtM(t.totalCost)}</div>
-      </div>
-    </div>`;
-  });
-  // Summary
-  const totalPremium = tierData[3].rate - tierData[0].rate;
-  const biggestJump = tierData[2].rate - tierData[1].rate;
-  html += `<div style="margin-top:12px;padding:12px;background:#0a0f1c;border-radius:8px;border:1px solid #1a2035">
-    <div style="font-size:12px;font-weight:600;margin-bottom:8px">Key Insight</div>
-    <div style="font-size:12px;color:var(--text-dim);line-height:1.6">The biggest cost jump occurs at the 12-to-13 storey transition (+$${biggestJump}/sf), where the structural system shifts from post-tension concrete to reinforced concrete shear walls. For a ${area.toLocaleString()} sf building, choosing 12 storeys instead of 13 saves approximately ${fmtM(biggestJump * area)} in hard costs. The full range from low-rise to supertall is $${totalPremium}/sf (+${((totalPremium/baseRate)*100).toFixed(0)}% premium).</div>
-  </div></div>`;
-  return html;
-}
-// ── Parking Mix Optimizer ──
-function renderParkingOpt() {
-  const city = lastEstimate?.city || currentCity;
-  const q = lastEstimate?.quality || quality;
-  const stalls = lastEstimate?.parkingStalls || parkingStalls || 100;
-  const scenarios = [
-    {label:"100% Underground",mix:{underground:1.0,above:0,surface:0}},
-    {label:"100% Above Grade",mix:{underground:0,above:1.0,surface:0}},
-    {label:"50/50 UG + Above",mix:{underground:0.5,above:0.5,surface:0}},
-    {label:"70 UG / 30 Surface",mix:{underground:0.7,above:0,surface:0.3}},
-    {label:"50 Above / 50 Surface",mix:{underground:0,above:0.5,surface:0.5}},
-    {label:"100% Surface",mix:{underground:0,above:0,surface:1.0}}
-  ];
-  const ugType = TYPES.find(x=>x.id==="parkade_ug");
-  const agType = TYPES.find(x=>x.id==="parkade_ag");
-  const sfType = TYPES.find(x=>x.id==="surface_lot");
-  const ugRate = lerp(ugType.rates[city][0],ugType.rates[city][1],q);
-  const agRate = lerp(agType.rates[city][0],agType.rates[city][1],q);
-  const sfRate = lerp(sfType.rates[city][0],sfType.rates[city][1],q);
-  const scenarioData = scenarios.map(s => {
-    const cost = stalls * (s.mix.underground * ugRate + s.mix.above * agRate + s.mix.surface * sfRate);
-    const perStall = cost / stalls;
-    return {...s, cost, perStall};
-  });
-  const minCost = Math.min(...scenarioData.map(s=>s.cost));
-  const maxCost = Math.max(...scenarioData.map(s=>s.cost));
-  let html = `<div style="font-size:15px;font-weight:600;margin-bottom:4px">Parking Mix Optimizer</div>
-    <div style="font-size:12px;color:var(--text-dim);margin-bottom:4px">${CITIES.find(c=>c.id===city).label} · ${stalls} stalls · ${q}% quality</div>
-    <div style="font-size:11px;color:var(--text-faint);margin-bottom:16px">UG: $${ugRate.toLocaleString()}/stall · Above: $${agRate.toLocaleString()}/stall · Surface: $${sfRate.toLocaleString()}/stall</div>`;
-  html += `<div class="opt-result" style="margin-top:0">`;
-  scenarioData.forEach((s, i) => {
-    const savings = s.cost - minCost;
-    const barW = (s.cost / maxCost * 100).toFixed(0);
-    const isMin = s.cost === minCost;
-    const isMax = s.cost === maxCost;
-    html += `<div class="scenario-row">
-      <div><div class="scenario-label">${s.label}</div>
-        <div style="font-size:10px;color:var(--text-faint);margin-top:2px">$${Math.round(s.perStall).toLocaleString()}/stall avg</div></div>
-      <div style="text-align:right"><div class="scenario-val" style="color:${isMin?'var(--green)':isMax?'var(--red)':'var(--text)'}">${fmtM(s.cost)}</div>
-        ${isMin ? `<div class="savings-tag tag-save" style="margin-top:3px">Lowest</div>` : `<div class="savings-tag tag-cost" style="margin-top:3px">+${fmtM(savings)}</div>`}
-      </div>
-    </div>`;
-  });
-  const ugTotal = stalls * ugRate;
-  const potentialSaving = ugTotal - minCost;
-  html += `<div style="margin-top:12px;padding:12px;background:#0a0f1c;border-radius:8px;border:1px solid #1a2035">
-    <div style="font-size:12px;font-weight:600;margin-bottom:8px">Key Insight</div>
-    <div style="font-size:12px;color:var(--text-dim);line-height:1.6">If your current plan is 100% underground parking, switching to a surface-only configuration saves ${fmtM(potentialSaving)} (${((potentialSaving/ugTotal)*100).toFixed(0)}% reduction). As cities reduce minimum parking requirements, optimizing the parking mix is one of the highest-impact cost levers available. Each underground stall costs ${((ugRate/sfRate)).toFixed(0)}x more than a surface stall.</div>
-  </div></div>`;
-  return html;
-}
-// ── Building Shape Efficiency ──
-function renderShapeOpt() {
-  const city = lastEstimate?.city || currentCity;
-  const area = lastEstimate?.area || sqft;
-  const rate = lastEstimate?.rate || 300;
-  // Shape efficiency modifiers based on perimeter-to-area ratios
-  // Square is baseline (1.0), other shapes have higher wall ratios
-  const shapes = [
-    {id:"square",label:"Square",ratio:1.0,perimFactor:1.0,desc:"Most efficient. Minimum perimeter for given area.",example:"40m × 40m"},
-    {id:"rect_2_1",label:"Rectangle (2:1)",ratio:1.06,perimFactor:1.06,desc:"Slight premium. Common for site constraints.",example:"56m × 28m"},
-    {id:"rect_3_1",label:"Rectangle (3:1)",ratio:1.15,perimFactor:1.15,desc:"Noticeable wall cost increase. Narrow sites.",example:"69m × 23m"},
-    {id:"lshape",label:"L-Shape",ratio:1.18,perimFactor:1.18,desc:"More exterior wall. Common for corner sites, courtyard layouts.",example:"Two wings"},
-    {id:"ushape",label:"U-Shape",ratio:1.25,perimFactor:1.25,desc:"High envelope cost. Courtyard benefit for amenity space.",example:"Three wings"},
-    {id:"tower",label:"Tower (Point Tower)",ratio:1.12,perimFactor:1.12,desc:"Compact but all-exterior. Higher wind loads at height.",example:"25m × 25m core"}
-  ];
-  // Wall/envelope typically 15-20% of construction cost
-  const envelopePct = 0.17;
-  const baseCost = rate * area;
-  const shapeData = shapes.map(s => {
-    const envelopePremium = baseCost * envelopePct * (s.perimFactor - 1);
-    const totalCost = baseCost + envelopePremium;
-    const effectiveRate = totalCost / area;
-    return {...s, envelopePremium, totalCost, effectiveRate};
-  });
-  let html = `<div style="font-size:15px;font-weight:600;margin-bottom:4px">Building Shape Efficiency</div>
-    <div style="font-size:12px;color:var(--text-dim);margin-bottom:16px">${CITIES.find(c=>c.id===city).label} · ${area.toLocaleString()} sf at $${rate}/sf · Envelope at ~17% of construction</div>`;
-  html += `<div class="opt-result" style="margin-top:0">`;
-  shapeData.forEach((s, i) => {
-    const premPct = ((s.ratio - 1) * 100).toFixed(1);
-    const barW = Math.min(100, (s.ratio / 1.30 * 100)).toFixed(0);
-    html += `<div style="padding:12px 0;${i>0?'border-top:1px solid #141c30':''}">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div><div style="font-size:13px;font-weight:600">${s.label}</div>
-        <div style="font-size:11px;color:var(--text-dim);margin-top:2px">${s.desc}</div></div>
-        <div style="text-align:right;white-space:nowrap;margin-left:12px">
-          <div style="font-family:var(--mono);font-size:14px;font-weight:600">$${Math.round(s.effectiveRate)}/sf</div>
-          ${s.envelopePremium > 0 ? `<div class="savings-tag tag-cost" style="margin-top:3px">+${fmtM(s.envelopePremium)}</div>` : `<div class="savings-tag tag-save" style="margin-top:3px">Baseline</div>`}
-        </div>
-      </div>
-      <div style="margin-top:6px"><div class="comp-track" style="height:12px"><div class="comp-bar" style="width:${barW}%;background:${s.ratio<=1.0?'var(--green)':s.ratio<=1.10?'var(--accent)':s.ratio<=1.18?'var(--orange)':'var(--red)'}"></div></div></div>
-    </div>`;
-  });
-  const worstPremium = shapeData[4].envelopePremium; // U-shape
-  html += `<div style="margin-top:12px;padding:12px;background:#0a0f1c;border-radius:8px;border:1px solid #1a2035">
-    <div style="font-size:12px;font-weight:600;margin-bottom:8px">Key Insight</div>
-    <div style="font-size:12px;color:var(--text-dim);line-height:1.6">Building shape affects cost primarily through the envelope (exterior wall and glazing), which typically represents 15-20% of construction cost. A U-shaped building costs approximately ${fmtM(worstPremium)} more than a square footprint of the same area due to the additional exterior wall. For projects where site constraints force an irregular shape, budget an extra ${((shapeData[3].ratio-1)*100).toFixed(0)}-${((shapeData[4].ratio-1)*100).toFixed(0)}% for envelope premiums.</div>
-  </div></div>`;
-  return html;
-}
-// ── CIQS vs Zoning Floor Area ──
-function renderAreaOpt() {
-  const area = lastEstimate?.area || sqft;
-  let ciqsSf = area;
-  let html = `<div style="font-size:15px;font-weight:600;margin-bottom:4px">CIQS vs. Zoning Floor Area</div>
-    <div style="font-size:12px;color:var(--text-dim);margin-bottom:16px">Calculate the grossing-up factor between measured construction area (CIQS) and zoning GFA</div>`;
-  html += `<div class="opt-result" style="margin-top:0">
-    <div class="est-section" style="margin-bottom:16px">
-      <div class="est-label">CIQS Measured Floor Area (sq ft)</div>
-      <input type="number" class="opt-input" id="ciqsInput" value="${ciqsSf}" min="1000" step="1000" oninput="updateAreaCalc()" inputmode="numeric">
-      <div style="font-size:10px;color:var(--text-faint);margin-top:4px">Total floor area per CIQS standards (includes all enclosed area measured to exterior face of walls)</div>
-    </div>`;
-  // Common grossing-up factors
-  const factors = [
-    {label:"Residential Condo",factor:1.15,note:"Balconies, mechanical penthouses, amenity counted differently"},
-    {label:"Office",factor:1.10,note:"Mechanical floors, loading docks may be excluded from zoning GFA"},
-    {label:"Mixed-Use",factor:1.18,note:"Multiple uses trigger different zoning calculations"},
-    {label:"Retail / Commercial",factor:1.08,note:"Storage, receiving areas may be excluded"},
-  ];
-  html += `<div style="font-size:12px;font-weight:600;margin-bottom:10px;color:var(--text-dim)">Common Grossing-Up Factors</div>`;
-  factors.forEach(f => {
-    const zoningGFA = Math.round(ciqsSf / f.factor);
-    const diff = ciqsSf - zoningGFA;
-    html += `<div style="padding:10px 0;border-bottom:1px solid #141c30">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div><div style="font-size:13px;font-weight:500">${f.label}</div>
-        <div style="font-size:11px;color:var(--text-dim);margin-top:2px">${f.note}</div></div>
-        <div style="text-align:right;white-space:nowrap;margin-left:12px">
-          <div style="font-family:var(--mono);font-size:13px;font-weight:600">${f.factor.toFixed(2)}x</div>
-          <div style="font-size:10px;color:var(--text-faint)">Zoning: ${zoningGFA.toLocaleString()} sf</div>
-        </div>
-      </div>
-    </div>`;
-  });
-  html += `<div style="margin-top:16px">
-    <div class="est-label">Custom Grossing-Up Factor</div>
-    <div style="display:flex;gap:10px;align-items:center;margin-top:6px">
-      <input type="number" class="opt-input" id="customFactor" value="1.15" min="1.0" max="1.5" step="0.01" oninput="updateAreaCalc()" style="max-width:120px">
-      <div style="font-size:12px;color:var(--text-dim)">→ Zoning GFA: <span id="customZoning" style="font-family:var(--mono);color:var(--accent);font-weight:600">${Math.round(ciqsSf/1.15).toLocaleString()}</span> sf</div>
-    </div>
-  </div>`;
-  html += `<div style="margin-top:16px;padding:12px;background:#0a0f1c;border-radius:8px;border:1px solid #1a2035">
-    <div style="font-size:12px;font-weight:600;margin-bottom:8px">Why This Matters</div>
-    <div style="font-size:12px;color:var(--text-dim);line-height:1.6">Cost estimating uses CIQS floor area (measured to exterior face of walls, includes all enclosed space). Zoning uses GFA which excludes certain areas depending on the municipality. When a developer says "we have 50,000 sf of GFA approved," the actual construction area they need to budget for is typically 8-18% larger. Getting this conversion wrong means underestimating construction cost from the very first feasibility calculation.</div>
-  </div></div>`;
-  return html;
-}
-function updateAreaCalc() {
-  const ciqsInput = document.getElementById("ciqsInput");
-  const factorInput = document.getElementById("customFactor");
-  const zoningSpan = document.getElementById("customZoning");
-  if (ciqsInput && factorInput && zoningSpan) {
-    const ciqsVal = parseFloat(ciqsInput.value) || 50000;
-    const factorVal = parseFloat(factorInput.value) || 1.15;
-    zoningSpan.textContent = Math.round(ciqsVal / factorVal).toLocaleString();
-  }
-}
-// ═══════════════════════════════════════════════════════════
-// TAB SWITCHING
-// ═══════════════════════════════════════════════════════════
-function switchTab(tab) {
-  currentTab = tab;
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
-  document.getElementById("browsePanel").classList.toggle("hidden", tab !== "browse");
-  document.getElementById("estimatePanel").classList.toggle("hidden", tab !== "estimate");
-  document.getElementById("lccaPanel").classList.toggle("hidden", tab !== "lcca");
-  document.getElementById("optimizePanel").classList.toggle("hidden", tab !== "optimize");
-  if (tab === "estimate") renderEstimate();
-  if (tab === "lcca") renderLCCA();
-  if (tab === "optimize") renderOptimize();
-}
-// ═══════════════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════════════
-renderCities();
-renderTypeList();
-</script>
-</body>
-</html>
