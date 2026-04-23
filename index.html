@@ -4096,6 +4096,8 @@ const GREEN_STANDARDS = [
 
   {id:"step5",     label:"BC Step Code 5 / Zero Carbon", pct:7.0,  rebate:0,    desc:"Highest BC performance tier. Approaches net-zero operations. Premium is a floor."},
 
+  {id:"tgs_t2",    label:"Toronto Green Standard Tier 2", pct:3.0,  rebate:0,    desc:"Toronto-specific voluntary stretch target. Tier 2 may unlock a Development Charge Refund (~20% of 2014 DC rate). Toronto only."},
+
   {id:"cagbc_zc",  label:"CAGBC Zero Carbon Building",   pct:10.0, rebate:0,    desc:"Operational carbon neutral. High-performance envelope + renewables. Real-world range: 8–15%+."},
 
 ];
@@ -4210,7 +4212,7 @@ function renderSustain() {
 
   // Operational energy savings vs NECB 2017 baseline
 
-  const savingsPct = {necb2017:0, necb2020:0.20, leed_s:0.25, leed_g:0.35, leed_p:0.50, step5:0.65, cagbc_zc:0.80}[sustainStandard] || 0;
+  const savingsPct = {necb2017:0, necb2020:0.20, leed_s:0.25, leed_g:0.35, leed_p:0.50, tgs_t2:0.30, step5:0.65, cagbc_zc:0.80}[sustainStandard] || 0;
 
   // Simple payback: premium / annual energy savings (rough)
 
@@ -4230,23 +4232,50 @@ function renderSustain() {
 
   const incentives = PROV_INCENTIVES[prov] || [];
 
-  // Energy code tier label
+  // City-aware standards — BC Step Code only shown for Vancouver
+  // Toronto Green Standard only shown for Toronto
+  // LEED and CAGBC ZCB are national — shown everywhere
+  const isVan = s.city === "van";
+
+  const isTor = s.city === "tor";
+
+  const cityStandards = GREEN_STANDARDS.filter(g => {
+
+    if (g.id === "step5") return isVan;  // BC Step Code 5 — BC only
+
+    if (g.id === "tgs_t2") return isTor; // TGS Tier 2 — Toronto only
+
+    return true; // NECB, LEED, CAGBC — national
+
+  });
+
+  // If current selection is no longer valid for this city, reset to necb2020
+
+  if (!cityStandards.find(g => g.id === sustainStandard)) {
+
+    sustainStandard = "necb2020";
+
+  }
+
+  // Energy code compliance tracker — city-aware labels and tiers
 
   const codeTiers = [
 
-    {id:"necb2017", label:"NECB 2017", tier:"Baseline"},
+    {id:"necb2017",  label:"NECB 2017",              tier:"Baseline"},
 
-    {id:"necb2020", label:"NECB 2020 Tier 1", tier:"Current Code"},
+    {id:"necb2020",  label:"NECB 2020 Tier 1",       tier:"Current Code"},
 
-    {id:"leed_s",   label:"LEED Silver", tier:"Above Code"},
+    {id:"leed_s",    label:"LEED Silver",             tier:"Above Code"},
 
-    {id:"leed_g",   label:"LEED Gold",   tier:"High Performance"},
+    {id:"leed_g",    label:"LEED Gold",               tier:"High Performance"},
 
-    {id:"leed_p",   label:"LEED Platinum", tier:"Near Zero"},
+    {id:"leed_p",    label:"LEED Platinum",           tier:"Near Zero"},
 
-    {id:"step5",    label:"BC Step 5 / ZCB-Performance", tier:"Zero Carbon Ready"},
+    ...(isTor ? [{id:"tgs_t2",  label:"Toronto Green Standard Tier 2", tier:"Toronto Stretch"}] : []),
 
-    {id:"cagbc_zc", label:"CAGBC ZCB", tier:"Zero Carbon"},
+    ...(isVan ? [{id:"step5",   label:"BC Step Code 5 / ZCB-Performance", tier:"BC Zero Carbon Ready"}] : []),
+
+    {id:"cagbc_zc",  label:"CAGBC Zero Carbon Building", tier:"Zero Carbon"},
 
   ];
 
@@ -4266,11 +4295,17 @@ function renderSustain() {
 
     <div class="est-section">
 
-      <div class="est-label">Energy & Carbon Standard</div>
+      <div class="est-label" style="display:flex;justify-content:space-between;align-items:center">
+
+        <span>Energy & Carbon Standard</span>
+
+        <span style="font-size:10px;color:var(--text-faint);font-weight:400;text-transform:none;letter-spacing:0">${isVan ? 'BC standards shown' : isTor ? 'Ontario + Toronto standards shown' : 'National standards shown'}</span>
+
+      </div>
 
       <div style="display:flex;flex-direction:column;gap:6px">
 
-        ${GREEN_STANDARDS.map(g => `
+        ${cityStandards.map(g => `
 
           <button onclick="sustainStandard='${g.id}';renderSustain()" style="text-align:left;padding:10px 14px;border-radius:10px;border:1px solid ${sustainStandard===g.id?'var(--border-a)':'var(--border)'};background:${sustainStandard===g.id?'var(--accent-dim)':'var(--surface)'};cursor:pointer;font-family:var(--sans);transition:all .15s">
 
