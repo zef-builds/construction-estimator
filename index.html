@@ -8,7 +8,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-<title>Construction Cost Estimator — 2025 Altus Guide</title>
+<title>Construction Cost Estimator — 2026 Altus Guide</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -540,7 +540,7 @@ input[type=range]::-moz-range-thumb{height:22px;width:22px;border-radius:50%;bac
 
         <div class="hdr-title">ZEF Estimator <span>/ Canada</span></div>
 
-        <div class="hdr-sub">2025 Altus Cost Guide</div>
+        <div class="hdr-sub">2026 Altus Cost Guide</div>
 
       </div>
 
@@ -596,123 +596,133 @@ const CITIES=[{id:"tor",label:"Toronto",prov:"ON"},{id:"ott",label:"Ottawa",prov
 
 const TYPES=[
 
-{id:"condo_12",label:"Condominium / Apartment (Up to 12 Storeys)",sector:"private",cat:"residential",rates:{van:[330,405],cal:[295,350],edm:[295,350],win:[295,350],tor:[290,390],ott:[270,345],mtl:[260,320],hal:[240,340],stj:[250,350]}},
+{id:"condo_12",label:"Condominium / Apartment (Up to 12 Storeys)",sector:"private",cat:"residential",rates:{van:[330,400],cal:[305,375],edm:[305,375],win:[305,375],tor:[245,390],ott:[260,320],mtl:[275,335],hal:[250,345],stj:[260,360]}},
 
-{id:"condo_13_39",label:"Condominium / Apartment (13–39 Storeys)",sector:"private",cat:"residential",rates:{van:[360,455],cal:[305,360],edm:[305,360],win:[305,355],tor:[295,385],ott:[310,345],mtl:[300,315],hal:[295,370],stj:[290,360]}},
+{id:"condo_13_39",label:"Condominium / Apartment (13–39 Storeys)",sector:"private",cat:"residential",rates:{van:[340,435],cal:[315,385],edm:[315,385],win:[315,380],tor:[280,350],ott:[300,330],mtl:[320,330],hal:[305,375],stj:[290,360]}},
 
-{id:"condo_40_60",label:"Condominium / Apartment (40–60 Storeys)",sector:"private",cat:"residential",rates:{van:[370,480],cal:[310,400],edm:[310,365],win:[310,365],tor:[330,410],ott:[315,365],mtl:[305,360],hal:[300,360],stj:[295,355]}},
+{id:"condo_40_60",label:"Condominium / Apartment (40–60 Storeys)",sector:"private",cat:"residential",rates:{van:[350,465],cal:[325,395],edm:[325,395],win:[325,390],tor:[320,410],ott:[310,360],mtl:[330,375],hal:[300,360],stj:[295,355]}},
 
-{id:"condo_60plus",label:"Condominium / Apartment (60+ Storeys)",sector:"private",cat:"residential",rates:{van:[370,485],cal:[355,460],edm:[350,450],win:[345,445],tor:[365,480],ott:[345,445],mtl:[330,425],hal:[320,415],stj:[315,410]}},
+{id:"condo_60plus",label:"Condominium / Apartment (60+ Storeys)",sector:"private",cat:"residential",rates:{van:[370,480],cal:[355,460],edm:[350,450],win:[345,445],tor:[350,480],ott:[345,445],mtl:[330,425],hal:[320,415],stj:[315,410]}},
 
-{id:"townhouse_row",label:"Row Townhouse (Unfinished Basement)",sector:"private",cat:"residential",rates:{van:[205,310],cal:[185,245],edm:[180,240],win:[180,240],tor:[205,265],ott:[130,180],mtl:[135,185],hal:[140,200],stj:[150,200]}},
+{id:"townhouse_row",label:"Row Townhouse (Unfinished Basement)",sector:"private",cat:"residential",rates:{van:[195,295],cal:[190,255],edm:[185,250],win:[185,250],tor:[155,265],ott:[150,190],mtl:[145,195],hal:[145,210],stj:[160,210]}},
 
-{id:"townhouse_stacked",label:"3-Storey Stacked Townhouse",sector:"private",cat:"residential",rates:{van:[225,315],cal:[195,255],edm:[195,255],win:[185,255],tor:[230,270],ott:[170,205],mtl:[155,185],hal:[165,210],stj:[165,215]}},
+{id:"townhouse_stacked",label:"3-Storey Stacked Townhouse",sector:"private",cat:"residential",rates:{van:[210,300],cal:[200,265],edm:[195,265],win:[190,260],tor:[180,270],ott:[180,220],mtl:[165,215],hal:[175,220],stj:[165,220]}},
 
-{id:"condo_wood",label:"Wood Frame Condo (Up to 6 Storeys)",sector:"private",cat:"residential",rates:{van:[275,365],cal:[235,345],edm:[230,345],win:[225,340],tor:[245,330],ott:[215,280],mtl:[210,275],hal:[175,220],stj:[240,310]}},
+{id:"condo_wood",label:"Wood Frame Condo (Up to 6 Storeys)",sector:"private",cat:"residential",rates:{van:[255,360],cal:[245,365],edm:[240,365],win:[235,360],tor:[210,330],ott:[230,290],mtl:[225,290],hal:[205,255],stj:[240,310]}},
 
-{id:"sfr",label:"Single Family Residential (Unfinished Basement)",sector:"private",cat:"residential",rates:{van:[200,320],cal:[175,265],edm:[170,265],win:[165,250],tor:[200,275],ott:[140,225],mtl:[145,205],hal:[140,215],stj:[150,210]}},
+{id:"sfr",label:"Single Family Residential (Unfinished Basement)",sector:"private",cat:"residential",rates:{van:[200,315],cal:[180,275],edm:[175,275],win:[170,260],tor:[150,275],ott:[160,230],mtl:[155,215],hal:[150,225],stj:[160,220]}},
 
-{id:"custom_home",label:"Custom Home (Architect-Designed)",sector:"private",cat:"residential",sourceNote:"industry",rates:{van:[425,750],cal:[325,550],edm:[325,550],win:[300,500],tor:[400,700],ott:[300,500],mtl:[275,475],hal:[275,450],stj:[275,450]}},
+{id:"custom_home",label:"Custom Built Single Family Residential",sector:"private",cat:"residential",rates:{van:[490,1250],cal:[495,1135],edm:[495,1135],win:[490,1095],tor:[500,1130],ott:[500,1000],mtl:[465,900],hal:[365,750],stj:[375,750]}},
 
-{id:"seniors_ind",label:"Seniors: Independent / Supportive Living",sector:"private",cat:"residential",rates:{van:[330,420],cal:[260,350],edm:[260,355],win:[255,345],tor:[285,385],ott:[310,360],mtl:[215,325],hal:[250,325],stj:[260,335]}},
+{id:"seniors_ind",label:"Seniors: Independent / Supportive Living",sector:"private",cat:"residential",rates:{van:[330,430],cal:[270,370],edm:[270,370],win:[265,365],tor:[250,385],ott:[280,340],mtl:[225,340],hal:[255,335],stj:[270,350]}},
 
-{id:"seniors_assisted",label:"Seniors: Assisted Living Residences",sector:"private",cat:"residential",rates:{van:[315,450],cal:[295,375],edm:[295,375],win:[290,370],tor:[310,405],ott:[330,380],mtl:[245,335],hal:[270,360],stj:[280,365]}},
+{id:"seniors_assisted",label:"Seniors: Assisted Living Residences",sector:"private",cat:"residential",rates:{van:[320,455],cal:[305,395],edm:[305,395],win:[300,390],tor:[290,405],ott:[320,370],mtl:[260,350],hal:[280,375],stj:[300,385]}},
 
-{id:"seniors_complex",label:"Seniors: Complex Care Residences",sector:"private",cat:"residential",rates:{van:[410,625],cal:[335,550],edm:[335,550],win:[330,545],tor:[400,590],ott:[380,550],mtl:[365,530],hal:[375,585],stj:[400,565]}},
+{id:"seniors_complex",label:"Seniors: Complex Care Residences",sector:"private",cat:"residential",rates:{van:[415,615],cal:[350,595],edm:[350,595],win:[345,590],tor:[375,590],ott:[360,540],mtl:[390,555],hal:[385,605],stj:[420,585]}},
 
-{id:"office_low_b",label:"Office Under 5 Storeys (Class B)",sector:"private",cat:"commercial",rates:{van:[300,380],cal:[240,325],edm:[240,325],win:[235,320],tor:[260,355],ott:[240,310],mtl:[200,270],hal:[190,245],stj:[200,350]}},
+{id:"office_low_b",label:"Office Under 5 Storeys (Class B)",sector:"private",cat:"commercial",rates:{van:[300,380],cal:[250,340],edm:[250,340],win:[245,335],tor:[260,355],ott:[230,300],mtl:[210,285],hal:[200,260],stj:[205,355]}},
 
-{id:"office_mid_b",label:"Office 6–30 Storeys (Class B)",sector:"private",cat:"commercial",rates:{van:[300,375],cal:[245,330],edm:[245,330],win:[240,325],tor:[270,380],ott:[260,340],mtl:[205,280],hal:[195,280],stj:[200,280]}},
+{id:"office_mid_b",label:"Office 6–30 Storeys (Class B)",sector:"private",cat:"commercial",rates:{van:[300,375],cal:[255,350],edm:[255,350],win:[250,345],tor:[270,380],ott:[240,330],mtl:[220,295],hal:[205,295],stj:[205,285]}},
 
-{id:"office_a",label:"Office 5–30 Storeys (Class A)",sector:"private",cat:"commercial",rates:{van:[345,425],cal:[270,375],edm:[270,375],win:[265,370],tor:[305,450],ott:[295,385],mtl:[265,355],hal:[215,310],stj:[215,310]}},
+{id:"office_a",label:"Office 5–30 Storeys (Class A)",sector:"private",cat:"commercial",rates:{van:[345,425],cal:[280,395],edm:[280,395],win:[275,390],tor:[305,450],ott:[290,380],mtl:[280,375],hal:[230,330],stj:[225,320]}},
 
-{id:"office_high_a",label:"Office 31–60 Storeys (Class A)",sector:"private",cat:"commercial",rates:{van:[370,460],cal:[305,430],edm:[305,430],win:[300,425],tor:[355,510],ott:[340,460],mtl:[315,440],hal:[310,430],stj:[310,425]}},
+{id:"office_high_a",label:"Office 31–60 Storeys (Class A)",sector:"private",cat:"commercial",rates:{van:[370,460],cal:[315,455],edm:[315,455],win:[310,450],tor:[355,510],ott:[340,460],mtl:[335,465],hal:[310,430],stj:[310,425]}},
 
-{id:"office_fitout_b",label:"Office Interior Fitout (Class B)",sector:"private",cat:"commercial",rates:{van:[90,150],cal:[70,120],edm:[70,120],win:[70,120],tor:[110,150],ott:[100,135],mtl:[90,130],hal:[65,110],stj:[65,105]}},
+{id:"office_fitout_b",label:"Office Interior Fitout (Class B)",sector:"private",cat:"commercial",rates:{van:[90,175],cal:[85,130],edm:[85,130],win:[80,125],tor:[110,150],ott:[100,150],mtl:[95,140],hal:[75,125],stj:[75,115]}},
 
-{id:"office_fitout_a",label:"Office Interior Fitout (Class A)",sector:"private",cat:"commercial",rates:{van:[160,300],cal:[115,205],edm:[115,205],win:[110,200],tor:[160,265],ott:[125,195],mtl:[140,195],hal:[105,175],stj:[100,175]}},
+{id:"office_fitout_a",label:"Office Interior Fitout (Class A)",sector:"private",cat:"commercial",rates:{van:[165,295],cal:[120,225],edm:[120,225],win:[115,220],tor:[160,265],ott:[150,250],mtl:[150,205],hal:[110,185],stj:[110,185]}},
 
-{id:"retail_strip",label:"Retail Strip Plaza",sector:"private",cat:"commercial",rates:{van:[210,300],cal:[220,300],edm:[220,300],win:[215,295],tor:[235,295],ott:[170,245],mtl:[155,225],hal:[140,190],stj:[145,190]}},
+{id:"retail_strip",label:"Retail Strip Plaza",sector:"private",cat:"commercial",rates:{van:[210,300],cal:[225,315],edm:[225,315],win:[220,310],tor:[220,295],ott:[170,240],mtl:[165,235],hal:[145,195],stj:[150,200]}},
 
-{id:"retail_supermarket",label:"Retail Supermarket",sector:"private",cat:"commercial",rates:{van:[215,350],cal:[210,260],edm:[210,260],win:[205,260],tor:[175,350],ott:[175,260],mtl:[175,230],hal:[170,230],stj:[170,220]}},
+{id:"retail_supermarket",label:"Retail Supermarket",sector:"private",cat:"commercial",rates:{van:[205,260],cal:[220,275],edm:[220,275],win:[215,270],tor:[165,260],ott:[180,260],mtl:[185,240],hal:[175,235],stj:[180,225]}},
 
-{id:"retail_bigbox",label:"Retail Big Box Store",sector:"private",cat:"commercial",rates:{van:[205,270],cal:[200,255],edm:[200,255],win:[195,250],tor:[165,240],ott:[175,225],mtl:[165,220],hal:[175,225],stj:[185,235]}},
+{id:"retail_bigbox",label:"Retail Big Box Store",sector:"private",cat:"commercial",rates:{van:[200,250],cal:[210,270],edm:[210,270],win:[205,265],tor:[155,240],ott:[160,220],mtl:[175,230],hal:[185,245],stj:[190,240]}},
 
-{id:"retail_mall",label:"Retail Enclosed Mall",sector:"private",cat:"commercial",rates:{van:[350,460],cal:[270,420],edm:[270,420],win:[265,415],tor:[275,480],ott:[245,315],mtl:[245,330],hal:[225,320],stj:[235,315]}},
+{id:"retail_mall",label:"Retail Enclosed Mall",sector:"private",cat:"commercial",rates:{van:[350,460],cal:[280,445],edm:[280,445],win:[275,440],tor:[260,480],ott:[245,315],mtl:[260,350],hal:[235,335],stj:[250,330]}},
 
-{id:"hotel_budget",label:"Hotel (Budget)",sector:"private",cat:"commercial",rates:{van:[240,310],cal:[240,325],edm:[240,325],win:[235,320],tor:[245,325],ott:[220,285],mtl:[195,265],hal:[215,265],stj:[225,280]}},
+{id:"hotel_budget",label:"Hotel (Budget)",sector:"private",cat:"commercial",rates:{van:[240,320],cal:[250,340],edm:[250,340],win:[245,335],tor:[235,325],ott:[220,280],mtl:[205,280],hal:[220,270],stj:[230,285]}},
 
-{id:"hotel_suite",label:"Hotel (Suite)",sector:"private",cat:"commercial",rates:{van:[340,425],cal:[300,410],edm:[300,410],win:[295,400],tor:[345,500],ott:[290,420],mtl:[235,385],hal:[280,335],stj:[300,405]}},
+{id:"hotel_suite",label:"Hotel (Suite)",sector:"private",cat:"commercial",rates:{van:[350,460],cal:[310,430],edm:[310,430],win:[305,425],tor:[325,420],ott:[290,380],mtl:[260,340],hal:[240,340],stj:[290,415]}},
 
-{id:"hotel_full",label:"Hotel (4-Star Full Service)",sector:"private",cat:"commercial",rates:{van:[395,560],cal:[320,435],edm:[320,435],win:[315,430],tor:[445,565],ott:[345,520],mtl:[290,455],hal:[290,370],stj:[300,435]}},
+{id:"hotel_full",label:"Hotel (4-Star Full Service)",sector:"private",cat:"commercial",rates:{van:[400,570],cal:[330,455],edm:[330,455],win:[325,450],tor:[365,565],ott:[340,500],mtl:[330,480],hal:[295,380],stj:[350,485]}},
 
-{id:"warehouse",label:"Warehouse",sector:"private",cat:"industrial",rates:{van:[125,210],cal:[125,165],edm:[125,165],win:[120,160],tor:[80,180],ott:[120,170],mtl:[115,175],hal:[115,180],stj:[110,165]}},
+{id:"warehouse",label:"Warehouse",sector:"private",cat:"industrial",rates:{van:[120,200],cal:[130,175],edm:[130,175],win:[125,170],tor:[75,180],ott:[120,170],mtl:[120,185],hal:[125,195],stj:[115,180]}},
 
-{id:"distribution",label:"Distribution Facility",sector:"private",cat:"industrial",rates:{van:[200,475],cal:[150,450],edm:[150,450],win:[140,440],tor:[145,380],ott:[140,445],mtl:[160,440],hal:[160,415],stj:[180,475]}},
+{id:"distribution",label:"Distribution Facility",sector:"private",cat:"industrial",rates:{van:[200,485],cal:[155,475],edm:[155,475],win:[150,470],tor:[170,480],ott:[165,445],mtl:[170,460],hal:[165,430],stj:[185,480]}},
 
-{id:"storage_urban",label:"Urban Storage Facility",sector:"private",cat:"industrial",rates:{van:[120,175],cal:[140,185],edm:[140,185],win:[135,180],tor:[95,195],ott:[105,195],mtl:[110,175],hal:[110,175],stj:[110,170]}},
+{id:"storage_urban",label:"Urban Storage Facility",sector:"private",cat:"industrial",rates:{van:[120,175],cal:[145,195],edm:[145,195],win:[140,190],tor:[90,195],ott:[105,195],mtl:[110,175],hal:[110,175],stj:[110,170]}},
 
-{id:"parkade_ug",label:"Parking – Underground Garage",sector:"private",cat:"parking",rates:{van:[59500,101500],cal:[56000,77000],edm:[56000,77000],win:[54250,77000],tor:[61250,99750],ott:[70000,101500],mtl:[50750,70000],hal:[50750,70000],stj:[52500,70000]},perStall:true},
+{id:"parkade_ug",label:"Parking – Underground Garage",sector:"private",cat:"parking",rates:{van:[65325,100500],cal:[55275,77050],edm:[55275,77050],win:[53600,75375],tor:[55275,95475],ott:[67000,93800],mtl:[51925,68675],hal:[50250,68675],stj:[51925,73700]},perStall:true},
 
-{id:"parkade_ag",label:"Parking – Above Grade Garage",sector:"private",cat:"parking",rates:{van:[45500,73500],cal:[40250,61250],edm:[40250,61250],win:[38500,59500],tor:[43750,70000],ott:[40250,57750],mtl:[36750,57750],hal:[40250,50750],stj:[42000,54250]},perStall:true},
+{id:"parkade_ag",label:"Parking – Above Grade Garage",sector:"private",cat:"parking",rates:{van:[45500,73500],cal:[42000,64750],edm:[42000,64750],win:[40250,63000],tor:[42000,70000],ott:[43750,56000],mtl:[38500,57750],hal:[42000,52500],stj:[43750,59500]},perStall:true},
 
-{id:"surface_lot",label:"Parking – Surface Lot",sector:"private",cat:"parking",rates:{van:[4300,8250],cal:[3630,8910],edm:[3630,8910],win:[3630,8910],tor:[4950,9900],ott:[3960,7920],mtl:[3630,7260],hal:[4290,7920],stj:[3300,6600]},perStall:true},
+{id:"surface_lot",label:"Parking – Surface Lot",sector:"private",cat:"parking",rates:{van:[4290,9900],cal:[3960,9900],edm:[3960,9900],win:[3960,9900],tor:[4620,9900],ott:[3960,8250],mtl:[3960,8250],hal:[4950,9900],stj:[3960,8250]},perStall:true},
 
-{id:"school_elem",label:"Elementary School",sector:"public",cat:"institutional",rates:{van:[425,530],cal:[355,555],edm:[355,555],win:[330,545],tor:[450,700],ott:[360,460],mtl:[380,475],hal:[360,430],stj:[325,460]}},
+{id:"school_elem",label:"Elementary School",sector:"public",cat:"institutional",rates:{van:[425,600],cal:[370,580],edm:[370,580],win:[345,570],tor:[385,700],ott:[340,440],mtl:[395,490],hal:[370,445],stj:[350,485]}},
 
-{id:"school_sec",label:"Secondary School",sector:"public",cat:"institutional",rates:{van:[445,535],cal:[395,575],edm:[395,575],win:[360,570],tor:[500,750],ott:[380,480],mtl:[400,480],hal:[365,465],stj:[350,475]}},
+{id:"school_sec",label:"Secondary School",sector:"public",cat:"institutional",rates:{van:[445,610],cal:[410,605],edm:[410,605],win:[375,600],tor:[440,750],ott:[360,460],mtl:[415,495],hal:[375,480],stj:[375,500]}},
 
-{id:"uni_teaching",label:"University / College – Teaching & Lecture Hall",sector:"public",cat:"institutional",rates:{van:[750,1250],cal:[750,950],edm:[750,950],win:[550,945],tor:[900,1250],ott:[710,1015],mtl:[665,910],hal:[660,760],stj:[670,770]}},
+{id:"uni_teaching",label:"University / College – Teaching & Lecture Hall",sector:"public",cat:"institutional",rates:{van:[750,1250],cal:[600,995],edm:[600,995],win:[575,990],tor:[900,1250],ott:[650,950],mtl:[690,935],hal:[665,775],stj:[680,780]}},
 
-{id:"uni_labs",label:"University / College – Laboratories (Level 1 & 2)",sector:"public",cat:"institutional",rates:{van:[925,1400],cal:[750,1250],edm:[750,1250],win:[725,1245],tor:[1150,1600],ott:[935,1245],mtl:[900,1190],hal:[760,1100],stj:[770,1110]}},
+{id:"uni_labs",label:"University / College – Laboratories (Level 1 & 2)",sector:"public",cat:"institutional",rates:{van:[925,1400],cal:[775,1315],edm:[775,1315],win:[750,1310],tor:[1150,1600],ott:[950,1250],mtl:[935,1225],hal:[770,1120],stj:[850,1200]}},
 
-{id:"uni_residence",label:"University / College – Student Residence",sector:"public",cat:"residential",rates:{van:[395,580],cal:[310,420],edm:[310,420],win:[300,415],tor:[590,800],ott:[380,480],mtl:[360,455],hal:[325,400],stj:[285,375]}},
+{id:"uni_residence",label:"University / College – Student Residence",sector:"public",cat:"residential",rates:{van:[395,580],cal:[320,440],edm:[320,440],win:[310,435],tor:[590,800],ott:[360,460],mtl:[375,470],hal:[335,425],stj:[300,390]}},
 
-{id:"hospital",label:"General Hospital / Acute Care",sector:"public",cat:"institutional",rates:{van:[1000,1550],cal:[950,1400],edm:[950,1400],win:[900,1390],tor:[1030,1620],ott:[950,1500],mtl:[870,1265],hal:[770,1260],stj:[800,1200]}},
+{id:"hospital",label:"General Hospital / Acute Care",sector:"public",cat:"institutional",rates:{van:[1000,1550],cal:[1000,1600],edm:[1000,1600],win:[945,1590],tor:[1030,1620],ott:[1000,1600],mtl:[905,1305],hal:[795,1380],stj:[850,1300]}},
 
-{id:"medical_clinic",label:"Medical Clinic / Treatment Centre",sector:"public",cat:"institutional",rates:{van:[550,695],cal:[375,850],edm:[375,850],win:[370,845],tor:[460,800],ott:[450,600],mtl:[360,530],hal:[410,680],stj:[400,550]}},
+{id:"medical_clinic",label:"Medical Clinic / Treatment Centre",sector:"public",cat:"institutional",rates:{van:[550,950],cal:[395,950],edm:[395,950],win:[390,945],tor:[460,800],ott:[475,650],mtl:[375,545],hal:[420,680],stj:[410,560]}},
 
-{id:"airport_regional",label:"Airport Terminal – Regional",sector:"public",cat:"institutional",rates:{van:[430,550],cal:[500,750],edm:[500,750],win:[495,745],tor:[535,640],ott:[395,500],mtl:[380,470],hal:[385,480],stj:[360,500]}},
+{id:"airport_regional",label:"Airport Terminal – Regional",sector:"public",cat:"institutional",rates:{van:[430,625],cal:[520,800],edm:[520,800],win:[515,795],tor:[535,640],ott:[400,500],mtl:[395,485],hal:[400,495],stj:[375,515]}},
 
-{id:"airport_intl",label:"Airport Terminal – International",sector:"public",cat:"institutional",rates:{van:[840,1100],cal:[800,1100],edm:[800,1100],win:[795,1095],tor:[885,1175],ott:[800,985],mtl:[760,900],hal:[745,910],stj:[745,910]}},
+{id:"airport_intl",label:"Airport Terminal – International",sector:"public",cat:"institutional",rates:{van:[850,1200],cal:[825,1200],edm:[825,1200],win:[820,1195],tor:[885,1175],ott:[800,1000],mtl:[790,930],hal:[775,955],stj:[800,965]}},
 
-{id:"bus_terminal",label:"Bus Terminal / Garage",sector:"public",cat:"institutional",rates:{van:[400,510],cal:[380,525],edm:[380,525],win:[375,520],tor:[460,750],ott:[345,430],mtl:[335,395],hal:[315,405],stj:[280,375]}},
+{id:"bus_terminal",label:"Bus Terminal / Garage",sector:"public",cat:"institutional",rates:{van:[400,510],cal:[395,550],edm:[395,550],win:[390,545],tor:[460,750],ott:[350,450],mtl:[350,410],hal:[325,425],stj:[300,395]}},
 
-{id:"fire_ems",label:"Fire / EMS Station",sector:"public",cat:"institutional",rates:{van:[600,865],cal:[550,715],edm:[550,715],win:[545,710],tor:[620,860],ott:[570,695],mtl:[525,605],hal:[400,490],stj:[400,500]}},
+{id:"fire_ems",label:"Fire / EMS Station",sector:"public",cat:"institutional",rates:{van:[600,865],cal:[575,750],edm:[575,750],win:[570,745],tor:[620,860],ott:[550,650],mtl:[545,623],hal:[425,515],stj:[450,550]}},
 
-{id:"police_local",label:"Police Station – Local Detachment",sector:"public",cat:"institutional",rates:{van:[500,640],cal:[450,545],edm:[450,545],win:[445,540],tor:[600,735],ott:[500,600],mtl:[500,545],hal:[450,550],stj:[410,475]}},
+{id:"police_local",label:"Police Station – Local Detachment",sector:"public",cat:"institutional",rates:{van:[550,600],cal:[500,750],edm:[500,750],win:[495,745],tor:[600,735],ott:[540,600],mtl:[520,560],hal:[460,560],stj:[460,525]}},
 
-{id:"police_regional",label:"Police Station – Regional Headquarters",sector:"public",cat:"institutional",rates:{van:[500,620],cal:[475,565],edm:[475,565],win:[470,560],tor:[620,820],ott:[470,570],mtl:[455,525],hal:[475,625],stj:[350,450]}},
+{id:"police_regional",label:"Police Station – Regional Headquarters",sector:"public",cat:"institutional",rates:{van:[500,620],cal:[495,690],edm:[495,690],win:[490,685],tor:[525,625],ott:[470,570],mtl:[475,540],hal:[485,635],stj:[400,500]}},
 
-{id:"courthouse",label:"Court House",sector:"public",cat:"institutional",rates:{van:[540,750],cal:[605,925],edm:[605,925],win:[600,920],tor:[640,820],ott:[530,705],mtl:[500,660],hal:[485,585],stj:[480,550]}},
+{id:"courthouse",label:"Court House",sector:"public",cat:"institutional",rates:{van:[540,750],cal:[630,970],edm:[630,970],win:[625,965],tor:[640,820],ott:[550,750],mtl:[520,680],hal:[495,595],stj:[500,600]}},
 
-{id:"facilities_maint",label:"Facilities Maintenance Building",sector:"public",cat:"institutional",rates:{van:[450,530],cal:[315,450],edm:[315,465],win:[310,460],tor:[600,745],ott:[485,555],mtl:[420,505],hal:[300,350],stj:[300,350]}},
+{id:"facilities_maint",label:"Facilities Maintenance Building",sector:"public",cat:"institutional",rates:{van:[450,550],cal:[325,490],edm:[325,490],win:[320,485],tor:[600,745],ott:[485,555],mtl:[440,520],hal:[305,355],stj:[350,400]}},
 
-{id:"penitentiary",label:"Penitentiary / Correctional Facility",sector:"public",cat:"institutional",rates:{van:[575,720],cal:[575,750],edm:[575,750],win:[570,745],tor:[635,770],ott:[510,640],mtl:[470,580],hal:[430,595],stj:[480,595]}},
+{id:"penitentiary",label:"Penitentiary / Correctional Facility",sector:"public",cat:"institutional",rates:{van:[575,720],cal:[600,790],edm:[600,790],win:[595,785],tor:[635,770],ott:[510,640],mtl:[490,598],hal:[450,615],stj:[500,610]}},
 
-{id:"municipal_office",label:"Municipal Office (Including Fit-Up)",sector:"public",cat:"institutional",rates:{van:[465,580],cal:[410,475],edm:[410,475],win:[405,470],tor:[445,580],ott:[375,475],mtl:[350,430],hal:[335,385],stj:[350,400]}},
+{id:"municipal_office",label:"Municipal Office (Including Fit-Up)",sector:"public",cat:"institutional",rates:{van:[450,530],cal:[425,500],edm:[425,500],win:[420,495],tor:[445,580],ott:[380,480],mtl:[365,445],hal:[345,400],stj:[375,425]}},
 
-{id:"library",label:"Library",sector:"public",cat:"institutional",rates:{van:[455,800],cal:[425,800],edm:[425,800],win:[420,795],tor:[550,1100],ott:[500,850],mtl:[465,730],hal:[410,670],stj:[400,600]}},
+{id:"library",label:"Library",sector:"public",cat:"institutional",rates:{van:[455,800],cal:[440,840],edm:[440,840],win:[435,835],tor:[550,1100],ott:[650,850],mtl:[475,750],hal:[420,685],stj:[425,625]}},
 
-{id:"ice_arena",label:"Ice Arena",sector:"public",cat:"institutional",rates:{van:[395,510],cal:[375,550],edm:[375,550],win:[370,545],tor:[355,450],ott:[345,450],mtl:[340,425],hal:[345,395],stj:[340,395]}},
+{id:"ice_arena",label:"Ice Arena",sector:"public",cat:"institutional",rates:{van:[395,510],cal:[390,595],edm:[390,595],win:[385,590],tor:[355,655],ott:[350,450],mtl:[360,445],hal:[350,400],stj:[350,410]}},
 
-{id:"aquatic",label:"Community Aquatic Facility",sector:"public",cat:"institutional",rates:{van:[560,930],cal:[550,800],edm:[550,800],win:[545,795],tor:[610,940],ott:[570,780],mtl:[525,680],hal:[650,825],stj:[510,565]}},
+{id:"aquatic",label:"Community Aquatic Facility",sector:"public",cat:"institutional",rates:{van:[560,930],cal:[580,850],edm:[580,850],win:[575,845],tor:[610,940],ott:[575,785],mtl:[545,700],hal:[660,835],stj:[550,605]}},
 
-{id:"rec_centre",label:"Multi-Use Recreational Centre",sector:"public",cat:"institutional",rates:{van:[545,1050],cal:[450,725],edm:[450,725],win:[445,720],tor:[670,1160],ott:[590,710],mtl:[545,640],hal:[550,675],stj:[460,585]}},
+{id:"rec_centre",label:"Multi-Use Recreational Centre",sector:"public",cat:"institutional",rates:{van:[600,1075],cal:[475,765],edm:[475,765],win:[470,760],tor:[670,1190],ott:[600,750],mtl:[570,660],hal:[565,695],stj:[500,625]}},
 
-{id:"performing_arts",label:"Performing Arts Building",sector:"public",cat:"institutional",rates:{van:[890,1150],cal:[650,1150],edm:[650,1150],win:[645,1145],tor:[940,1270],ott:[625,980],mtl:[530,930],hal:[490,635],stj:[485,620]}},
+{id:"performing_arts",label:"Performing Arts Building",sector:"public",cat:"institutional",rates:{van:[890,1250],cal:[680,1250],edm:[680,1250],win:[675,1245],tor:[940,1270],ott:[625,980],mtl:[550,920],hal:[505,655],stj:[495,650]}},
 
-{id:"museum",label:"Museum / Gallery",sector:"public",cat:"institutional",rates:{van:[555,900],cal:[585,1100],edm:[585,1100],win:[580,1095],tor:[660,1200],ott:[615,755],mtl:[520,705],hal:[470,615],stj:[445,620]}},
+{id:"museum",label:"Museum / Gallery",sector:"public",cat:"institutional",rates:{van:[555,1200],cal:[610,1200],edm:[610,1200],win:[605,1195],tor:[660,1200],ott:[615,755],mtl:[540,725],hal:[485,630],stj:[500,675]}},
 
-{id:"road_local",label:"Road – Local (8m width)",sector:"infrastructure",cat:"infrastructure",rates:{van:[3000,4100],cal:[3300,3800],edm:[3300,3800],win:[3300,3800],tor:[4200,5800],ott:[3300,4400],mtl:[3200,4200],hal:[3000,3800],stj:[3400,4200]},perLM:true},
+{id:"road_local",label:"Road – Local (8m width)",sector:"infrastructure",cat:"infrastructure",rates:{van:[3000,4100],cal:[3450,4000],edm:[3450,4000],win:[3450,4000],tor:[4350,6000],ott:[3300,4400],mtl:[3400,4450],hal:[3075,3900],stj:[3500,4300]},perLM:true},
 
-{id:"road_arterial",label:"Road – Arterial (12m width)",sector:"infrastructure",cat:"infrastructure",rates:{van:[4000,4700],cal:[4200,4800],edm:[4200,4800],win:[4200,4800],tor:[5300,6900],ott:[4500,5500],mtl:[4400,5400],hal:[4100,4900],stj:[4300,4800]},perLM:true},
+{id:"road_arterial",label:"Road – Arterial (12m width)",sector:"infrastructure",cat:"infrastructure",rates:{van:[4000,4700],cal:[4370,5050],edm:[4370,5050],win:[4370,5050],tor:[5300,6900],ott:[4500,5500],mtl:[4700,5670],hal:[4200,5050],stj:[4400,4900]},perLM:true},
 
 {id:"bridge",label:"Bridge (per sq.m of deck area)",sector:"infrastructure",cat:"infrastructure",sourceNote:"industry",rates:{van:[6200,12500],cal:[5500,11000],edm:[5500,11000],win:[5200,10500],tor:[6000,12000],ott:[5500,11000],mtl:[5200,10500],hal:[5400,10800],stj:[5500,11000]},perSM:true},
 
 {id:"water_main",label:"Watermain",sector:"infrastructure",cat:"infrastructure",sourceNote:"industry",rates:{van:[1600,3600],cal:[1400,3200],edm:[1400,3200],win:[1300,3000],tor:[1500,3500],ott:[1400,3200],mtl:[1300,3000],hal:[1350,3100],stj:[1400,3200]},perLM:true},
 
-{id:"sewer",label:"Sanitary / Storm Sewer",sector:"infrastructure",cat:"infrastructure",sourceNote:"industry",rates:{van:[1900,4200],cal:[1650,3700],edm:[1650,3700],win:[1550,3500],tor:[1800,4000],ott:[1650,3700],mtl:[1550,3500],hal:[1600,3600],stj:[1650,3700]},perLM:true}
+{id:"sewer",label:"Sanitary / Storm Sewer",sector:"infrastructure",cat:"infrastructure",sourceNote:"industry",rates:{van:[1900,4200],cal:[1650,3700],edm:[1650,3700],win:[1550,3500],tor:[1800,4000],ott:[1650,3700],mtl:[1550,3500],hal:[1600,3600],stj:[1650,3700]},perLM:true},
+{id:"road_arterial_9m",label:"Road – Arterial (9m width)",sector:"infrastructure",cat:"infrastructure",rates:{van:[3100,4400],cal:[3640,4200],edm:[3640,4200],win:[3640,4200],tor:[4500,6200],ott:[3400,4900],mtl:[3750,5250],hal:[3275,4325],stj:[3600,4600]},perLM:true},
+
+{id:"road_private",label:"Road – Private (6m width)",sector:"infrastructure",cat:"infrastructure",rates:{van:[2600,3000],cal:[2700,3575],edm:[2700,3575],win:[2700,3575],tor:[3000,4000],ott:[2600,3500],mtl:[2790,3675],hal:[2575,3200],stj:[2900,3400]},perLM:true},
+
+{id:"servicing_tn",label:"Site Servicing – Residential Townhouse",sector:"infrastructure",cat:"infrastructure",rates:{van:[20500,32000],cal:[20485,31750],edm:[20485,31750],win:[20485,31750],tor:[24800,35800],ott:[24800,33400],mtl:[23700,33800],hal:[20750,29250],stj:[24000,32000]},perUnit:true},
+
+{id:"servicing_ind",label:"Site Servicing – Industrial (per acre)",sector:"infrastructure",cat:"infrastructure",rates:{van:[136600,250000],cal:[145000,241500],edm:[145000,241500],win:[145000,241500],tor:[165000,252300],ott:[150000,233000],mtl:[154000,235000],hal:[130000,205000],stj:[155000,225000]},perAcre:true},
+
+{id:"servicing_comm",label:"Site Servicing – Commercial (per acre)",sector:"infrastructure",cat:"infrastructure",rates:{van:[173300,355000],cal:[175000,327500],edm:[175000,327500],win:[175000,327500],tor:[221300,370800],ott:[205000,347400],mtl:[207000,349000],hal:[177000,283000],stj:[200000,325000]},perAcre:true}
+
 
 ];
 
@@ -868,7 +878,17 @@ const TYPE_DEFAULTS = {
 
   water_main:    {gfa:1000, storeys:0, parkingType:"none", parkingStalls:0},
 
-  sewer:         {gfa:1000, storeys:0, parkingType:"none", parkingStalls:0}
+  sewer:         {gfa:1000, storeys:0, parkingType:"none", parkingStalls:0},
+
+  road_arterial_9m: {gfa:800, storeys:0, parkingType:"none", parkingStalls:0},
+
+  road_private:     {gfa:800, storeys:0, parkingType:"none", parkingStalls:0},
+
+  servicing_tn:     {gfa:10,  storeys:0, parkingType:"none", parkingStalls:0},
+
+  servicing_ind:    {gfa:5,   storeys:0, parkingType:"none", parkingStalls:0},
+
+  servicing_comm:   {gfa:5,   storeys:0, parkingType:"none", parkingStalls:0}
 
 };
 
@@ -1066,11 +1086,11 @@ function getTypeFields(type) {
 
   if (!type) return [];
 
-  const isBuilding = !type.perStall && !type.perLM && !type.perSM;
+  const isBuilding = !type.perStall && !type.perLM && !type.perSM && !type.perUnit && !type.perAcre;
 
   if (!isBuilding) {
 
-    // Per-stall types use their own simplified rendering, not field schema
+    // Per-stall/unit/acre types use their own simplified rendering, not field schema
 
     return NON_BUILDING_FIELDS;
 
@@ -1272,6 +1292,10 @@ function getUnit(type) {
 
   if (type.perSM) return "/sq.m";
 
+  if (type.perUnit) return "/unit";
+
+  if (type.perAcre) return "/acre";
+
   return "/sf";
 
 }
@@ -1308,7 +1332,7 @@ function computeEstimate(scenario) {
 
   const rate = lerp(r[0], r[1], inp.quality);
 
-  const isBuilding = !t.perStall && !t.perLM && !t.perSM;
+  const isBuilding = !t.perStall && !t.perLM && !t.perSM && !t.perUnit && !t.perAcre;
 
   const fields = getTypeFields(t);
 
@@ -1859,7 +1883,7 @@ function renderEstimate() {
 
   const unit = getUnit(t);
 
-  const isBuilding = !t.perStall && !t.perLM && !t.perSM;
+  const isBuilding = !t.perStall && !t.perLM && !t.perSM && !t.perUnit && !t.perAcre;
 
   const inp = s.inputs;
 
@@ -2753,7 +2777,7 @@ function renderEstimateDerived() {
 
   if (!t) return;
 
-  const isBuilding = !t.perStall && !t.perLM && !t.perSM;
+  const isBuilding = !t.perStall && !t.perLM && !t.perSM && !t.perUnit && !t.perAcre;
 
   if (!isBuilding) return;
 
@@ -2913,7 +2937,7 @@ function renderLiveSummary() {
 
     <div class="result-footer">
 
-      Altus Group 2025 Canadian Cost Guide. CIQS floor area definition — apply 8–18% gross-up for zoning GFA. Excludes GST/HST, tariffs, land, soft costs unless added above. Estimating bands ±15%. For feasibility only.
+      Altus Group 2026 Canadian Cost Guide. Note: 2026 rates do not include the impact of potential tariffs. CIQS floor area definition — apply 8–18% gross-up for zoning GFA. Excludes GST/HST, tariffs, land, soft costs unless added above. Estimating bands ±15%. For feasibility only.
 
     </div>
 
@@ -2935,7 +2959,7 @@ function renderCrossMarket() {
 
   if (!t) return;
 
-  const isBuilding = !t.perStall && !t.perLM && !t.perSM;
+  const isBuilding = !t.perStall && !t.perLM && !t.perSM && !t.perUnit && !t.perAcre;
 
   if (!isBuilding) { const cm = document.getElementById("crossMarket"); if (cm) cm.innerHTML = ""; return; }
 
@@ -4096,8 +4120,6 @@ const GREEN_STANDARDS = [
 
   {id:"step5",     label:"BC Step Code 5 / Zero Carbon", pct:7.0,  rebate:0,    desc:"Highest BC performance tier. Approaches net-zero operations. Premium is a floor."},
 
-  {id:"tgs_t2",    label:"Toronto Green Standard Tier 2", pct:3.0,  rebate:0,    desc:"Toronto-specific voluntary stretch target. Tier 2 may unlock a Development Charge Refund (~20% of 2014 DC rate). Toronto only."},
-
   {id:"cagbc_zc",  label:"CAGBC Zero Carbon Building",   pct:10.0, rebate:0,    desc:"Operational carbon neutral. High-performance envelope + renewables. Real-world range: 8–15%+."},
 
 ];
@@ -4212,7 +4234,7 @@ function renderSustain() {
 
   // Operational energy savings vs NECB 2017 baseline
 
-  const savingsPct = {necb2017:0, necb2020:0.20, leed_s:0.25, leed_g:0.35, leed_p:0.50, tgs_t2:0.30, step5:0.65, cagbc_zc:0.80}[sustainStandard] || 0;
+  const savingsPct = {necb2017:0, necb2020:0.20, leed_s:0.25, leed_g:0.35, leed_p:0.50, step5:0.65, cagbc_zc:0.80}[sustainStandard] || 0;
 
   // Simple payback: premium / annual energy savings (rough)
 
@@ -4232,50 +4254,23 @@ function renderSustain() {
 
   const incentives = PROV_INCENTIVES[prov] || [];
 
-  // City-aware standards — BC Step Code only shown for Vancouver
-  // Toronto Green Standard only shown for Toronto
-  // LEED and CAGBC ZCB are national — shown everywhere
-  const isVan = s.city === "van";
-
-  const isTor = s.city === "tor";
-
-  const cityStandards = GREEN_STANDARDS.filter(g => {
-
-    if (g.id === "step5") return isVan;  // BC Step Code 5 — BC only
-
-    if (g.id === "tgs_t2") return isTor; // TGS Tier 2 — Toronto only
-
-    return true; // NECB, LEED, CAGBC — national
-
-  });
-
-  // If current selection is no longer valid for this city, reset to necb2020
-
-  if (!cityStandards.find(g => g.id === sustainStandard)) {
-
-    sustainStandard = "necb2020";
-
-  }
-
-  // Energy code compliance tracker — city-aware labels and tiers
+  // Energy code tier label
 
   const codeTiers = [
 
-    {id:"necb2017",  label:"NECB 2017",              tier:"Baseline"},
+    {id:"necb2017", label:"NECB 2017", tier:"Baseline"},
 
-    {id:"necb2020",  label:"NECB 2020 Tier 1",       tier:"Current Code"},
+    {id:"necb2020", label:"NECB 2020 Tier 1", tier:"Current Code"},
 
-    {id:"leed_s",    label:"LEED Silver",             tier:"Above Code"},
+    {id:"leed_s",   label:"LEED Silver", tier:"Above Code"},
 
-    {id:"leed_g",    label:"LEED Gold",               tier:"High Performance"},
+    {id:"leed_g",   label:"LEED Gold",   tier:"High Performance"},
 
-    {id:"leed_p",    label:"LEED Platinum",           tier:"Near Zero"},
+    {id:"leed_p",   label:"LEED Platinum", tier:"Near Zero"},
 
-    ...(isTor ? [{id:"tgs_t2",  label:"Toronto Green Standard Tier 2", tier:"Toronto Stretch"}] : []),
+    {id:"step5",    label:"BC Step 5 / ZCB-Performance", tier:"Zero Carbon Ready"},
 
-    ...(isVan ? [{id:"step5",   label:"BC Step Code 5 / ZCB-Performance", tier:"BC Zero Carbon Ready"}] : []),
-
-    {id:"cagbc_zc",  label:"CAGBC Zero Carbon Building", tier:"Zero Carbon"},
+    {id:"cagbc_zc", label:"CAGBC ZCB", tier:"Zero Carbon"},
 
   ];
 
@@ -4295,17 +4290,11 @@ function renderSustain() {
 
     <div class="est-section">
 
-      <div class="est-label" style="display:flex;justify-content:space-between;align-items:center">
-
-        <span>Energy & Carbon Standard</span>
-
-        <span style="font-size:10px;color:var(--text-faint);font-weight:400;text-transform:none;letter-spacing:0">${isVan ? 'BC standards shown' : isTor ? 'Ontario + Toronto standards shown' : 'National standards shown'}</span>
-
-      </div>
+      <div class="est-label">Energy & Carbon Standard</div>
 
       <div style="display:flex;flex-direction:column;gap:6px">
 
-        ${cityStandards.map(g => `
+        ${GREEN_STANDARDS.map(g => `
 
           <button onclick="sustainStandard='${g.id}';renderSustain()" style="text-align:left;padding:10px 14px;border-radius:10px;border:1px solid ${sustainStandard===g.id?'var(--border-a)':'var(--border)'};background:${sustainStandard===g.id?'var(--accent-dim)':'var(--surface)'};cursor:pointer;font-family:var(--sans);transition:all .15s">
 
@@ -4463,7 +4452,7 @@ function renderSustain() {
 
         </div>`).join("") : `<div style="font-size:12px;color:var(--text-faint)">No specific programs catalogued for this region yet.</div>`}
 
-      <div style="font-size:10px;color:var(--text-faint);margin-top:4px">Programs current as of 2025. Verify eligibility and program availability directly with administrators before relying on these figures.</div>
+      <div style="font-size:10px;color:var(--text-faint);margin-top:4px">Programs current as of 2026. Verify eligibility and program availability directly with administrators before relying on these figures.</div>
 
     </div>
 
