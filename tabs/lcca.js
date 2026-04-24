@@ -26,7 +26,7 @@ function renderLCCA() {
       <div class="est-header-meta">
         <span>${cityLabel}</span>
         <span style="color:var(--text-faint)">·</span>
-        <span>${fmtN(est.area)} sf</span>
+        <span>${fmtN(est.area)} ${est.type.perLM ? 'lin.m' : est.type.perSM ? 'sq.m' : est.type.perUnit ? 'units' : est.type.perAcre ? 'acres' : 'sf'}</span>
         <span style="color:var(--text-faint)">·</span>
         <span>${fmtM(est.grandTotal)}</span>
       </div>

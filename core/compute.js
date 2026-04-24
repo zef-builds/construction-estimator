@@ -68,7 +68,7 @@ function computeEstimate(scenario) {
     const pKey = inp.parkingType === "surface" ? "surface_lot" : inp.parkingType === "above" ? "parkade_ag" : "parkade_ug";
     const pType = TYPES.find(x => x.id === pKey);
     const pRate = lerp(pType.rates[scenario.city][0], pType.rates[scenario.city][1], inp.quality);
-    const stalls = inp.parkingStalls || 100;
+    const stalls = inp.parkingStalls != null ? inp.parkingStalls : 100;
     parkCost = pRate * stalls;
     parkDetail = {type:inp.parkingType, rate:pRate, stalls};
   }

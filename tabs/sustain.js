@@ -17,13 +17,14 @@ function renderSustain() {
   const greenPremium = Math.round(hardCost * std.pct / 100);
   const greenTotal   = hardCost + greenPremium;
 
-  const ecIntensity  = EC_INTENSITY[s.typeId] || 370;
-  const gfaSF        = est.area;
-  const gfaM2        = gfaSF * 0.0929;
-  const totalEC      = Math.round(gfaM2 * ecIntensity);
-  const totalEC_tonnes = (totalEC / 1000).toFixed(0);
-  const carbonPrice  = CARBON_PRICE_2025;
-  const ecCostImpact = Math.round(totalEC * carbonPrice / 1000);
+  const ecIntensity    = EC_INTENSITY[s.typeId] ?? null;
+  const hasEC          = ecIntensity !== null;
+  const gfaSF          = est.area;
+  const gfaM2          = gfaSF * 0.0929;
+  const totalEC        = hasEC ? Math.round(gfaM2 * ecIntensity) : 0;
+  const totalEC_tonnes = hasEC ? (totalEC / 1000).toFixed(0) : 0;
+  const carbonPrice    = CARBON_PRICE_2025;
+  const ecCostImpact   = hasEC ? Math.round(totalEC * carbonPrice / 1000) : 0;
 
   const savingsPct = {
     necb2017:0, necb2020:0.20, leed_s:0.25, leed_g:0.35,
@@ -93,19 +94,22 @@ function renderSustain() {
 
     <div class="est-section" style="border:1px solid var(--border);border-radius:12px;padding:14px;background:var(--surface)">
       <div style="font-size:10.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.6px;font-weight:600;margin-bottom:10px">Embodied Carbon Estimator</div>
-      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-        <span style="font-size:13px;color:var(--text-mid)">Carbon Intensity</span>
-        <span style="font-family:var(--mono);font-size:12px">${ecIntensity} kgCO₂e / m²</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-        <span style="font-size:13px;color:var(--text-mid)">Total Embodied Carbon</span>
-        <span style="font-family:var(--mono);font-size:13px;font-weight:600">${Number(totalEC_tonnes).toLocaleString()} tCO₂e</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:baseline">
-        <span style="font-size:13px;color:var(--text-mid)">Carbon Cost @ $${carbonPrice}/t</span>
-        <span style="font-family:var(--mono);font-size:13px;color:var(--orange)">${fmt(ecCostImpact)}</span>
-      </div>
-      <div style="margin-top:10px;font-size:10.5px;color:var(--text-faint)">Based on typical whole-life embodied carbon (structure + envelope, A1–A5) for ${est.type.label}. Intensity in kgCO₂e/m²; converted from your GFA. Carbon cost uses the federal industrial OBPS price: $${CARBON_PRICE_2025}/t (2025) → $${CARBON_PRICE_2030}/t (2030). Note: the consumer carbon fuel charge was eliminated April 1, 2025 — this figure reflects industrial pricing exposure only.</div>
+      ${!hasEC
+        ? `<div style="font-size:12px;color:var(--text-faint)">Embodied carbon intensity data is not available for this building type.</div>`
+        : `<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+            <span style="font-size:13px;color:var(--text-mid)">Carbon Intensity</span>
+            <span style="font-family:var(--mono);font-size:12px">${ecIntensity} kgCO₂e / m²</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+            <span style="font-size:13px;color:var(--text-mid)">Total Embodied Carbon</span>
+            <span style="font-family:var(--mono);font-size:13px;font-weight:600">${Number(totalEC_tonnes).toLocaleString()} tCO₂e</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <span style="font-size:13px;color:var(--text-mid)">Carbon Cost @ $${carbonPrice}/t</span>
+            <span style="font-family:var(--mono);font-size:13px;color:var(--orange)">${fmt(ecCostImpact)}</span>
+          </div>
+          <div style="margin-top:10px;font-size:10.5px;color:var(--text-faint)">Based on typical whole-life embodied carbon (structure + envelope, A1–A5) for ${est.type.label}. Intensity in kgCO₂e/m²; converted from your GFA. Carbon cost uses the federal industrial OBPS price: $${CARBON_PRICE_2025}/t (2025) → $${CARBON_PRICE_2030}/t (2030). Note: the consumer carbon fuel charge was eliminated April 1, 2025 — this figure reflects industrial pricing exposure only.</div>`
+      }
     </div>
 
     <div class="est-section" style="border:1px solid var(--border);border-radius:12px;padding:14px;background:var(--surface)">

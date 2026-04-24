@@ -28,18 +28,18 @@ function renderCompare() {
           <div class="compare-col-label">${a.name}</div>
           <div class="compare-col-val">${fmtM(a.est.grandTotal)}</div>
           <div class="compare-col-sub">${a.est.type.label}</div>
-          <div class="compare-col-sub">${CITIES.find(c=>c.id===a.city).label} · ${fmtN(a.est.area)} sf</div>
+          <div class="compare-col-sub">${CITIES.find(c=>c.id===a.city).label} · ${fmtN(a.est.area)} ${a.est.type.perLM ? 'lin.m' : a.est.type.perSM ? 'sq.m' : a.est.type.perUnit ? 'units' : a.est.type.perAcre ? 'acres' : 'sf'}</div>
         </div>
         <div class="compare-col">
           <div class="compare-col-label">${b.name}</div>
           <div class="compare-col-val">${fmtM(b.est.grandTotal)}</div>
           <div class="compare-col-sub">${b.est.type.label}</div>
-          <div class="compare-col-sub">${CITIES.find(c=>c.id===b.city).label} · ${fmtN(b.est.area)} sf</div>
+          <div class="compare-col-sub">${CITIES.find(c=>c.id===b.city).label} · ${fmtN(b.est.area)} ${b.est.type.perLM ? 'lin.m' : b.est.type.perSM ? 'sq.m' : b.est.type.perUnit ? 'units' : b.est.type.perAcre ? 'acres' : 'sf'}</div>
         </div>
       </div>
       <div style="margin-top:10px">
         ${[
-          {label:"Rate ($/sf)", a:"$"+fmtN(a.est.rate), b:"$"+fmtN(b.est.rate), delta:b.est.rate - a.est.rate, prefix:"$"},
+         {label:"Rate ($/"+( a.est.type.perLM||b.est.type.perLM ? 'lin.m' : a.est.type.perSM||b.est.type.perSM ? 'sq.m' : 'sf')+")", a:"$"+fmtN(a.est.rate), b:"$"+fmtN(b.est.rate), delta:b.est.rate - a.est.rate, prefix:"$"},
           {label:"Hard Cost",   a:fmt(a.est.hardTotal),  b:fmt(b.est.hardTotal),  delta:b.est.hardTotal  - a.est.hardTotal,  money:true},
           {label:"Soft Cost",   a:fmt(a.est.softCost),   b:fmt(b.est.softCost),   delta:b.est.softCost   - a.est.softCost,   money:true},
           {label:"Parking Cost",a:fmt(a.est.parkCost),   b:fmt(b.est.parkCost),   delta:b.est.parkCost   - a.est.parkCost,   money:true},
@@ -88,8 +88,7 @@ function renderCompare() {
         </div>
         <div style="text-align:right;white-space:nowrap">
           <div style="font-family:var(--mono);font-size:14px;font-weight:600;color:var(--accent)">${fmtM(est.grandTotal)}</div>
-          <div style="font-size:10.5px;color:var(--text-faint);font-family:var(--mono)">$${est.rate}/sf · ${fmtN(est.area)} sf</div>
-        </div>
+          <div style="font-size:10.5px;color:var(--text-faint);font-family:var(--mono)">$${est.rate}/${est.type.perLM ? 'lin.m' : est.type.perSM ? 'sq.m' : 'sf'} · ${fmtN(est.area)} ${est.type.perLM ? 'lin.m' : est.type.perSM ? 'sq.m' : est.type.perUnit ? 'units' : est.type.perAcre ? 'acres' : 'sf'}</div>
       </div>
     </div>`;
   });
