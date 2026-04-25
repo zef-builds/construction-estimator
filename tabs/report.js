@@ -40,7 +40,7 @@ function renderReport() {
       <div class="empty-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
       <div class="empty-title">No estimates to report yet</div>
       <div class="empty-text">Create at least one estimate, then return here to preview and print a PDF report.</div>
-      <button class="link-btn" onclick="switchTab('browse')" style="max-width:200px;margin:0 auto"><span>Browse Types</span><span class="link-btn-arrow">→</span></button>
+      <button class="link-btn" onclick="switchTab('estimate')" style="max-width:240px;margin:0 auto"><span>Back to Estimate</span><span class="link-btn-arrow">→</span></button>
     </div>`;
     return;
   }
@@ -51,6 +51,7 @@ function renderReport() {
   let html = `
     <div class="report-toolbar no-print">
       <div class="report-toolbar-meta">
+        <a href="#" onclick="event.preventDefault();switchTab('estimate')" style="display:inline-block;font-size:12px;color:var(--text-dim);text-decoration:none;margin-bottom:4px">← Back to Estimate</a>
         <div class="report-toolbar-title">Report Preview</div>
         <div class="report-toolbar-sub">${valid.length} scenario${valid.length>1?"s":""} · ${today}</div>
       </div>

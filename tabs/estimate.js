@@ -529,6 +529,7 @@ function renderLiveSummary() {
   </div>
   <button class="link-btn" onclick="switchTab('lcca')"><span>Run Life-Cycle Analysis</span><span class="link-btn-arrow">→</span></button>
   <button class="link-btn" onclick="switchTab('optimize')"><span>Explore Optimization Tools</span><span class="link-btn-arrow">→</span></button>
+  <button class="link-btn" onclick="switchTab('report')"><span>Generate Report (PDF)</span><span class="link-btn-arrow">→</span></button>
   `;
 }
 

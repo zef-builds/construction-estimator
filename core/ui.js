@@ -7,6 +7,9 @@
  *          switchTab, refreshAll, renderScenarios, renderCities, setCity, updateTabBadges.
  * Depends on: scenarios, activeScenarioIdx, currentTab, hasEstimate (core/state.js),
  *             CITIES (data/building-types.js), and all tab renderers (tabs/*.js).
+ *
+ * Note: Report panel is reachable via switchTab('report') from the Estimate tab
+ *       button, even though there is no Report button in the main tab bar.
  */
 const fmt = n => "$" + Math.round(n).toLocaleString();
 
