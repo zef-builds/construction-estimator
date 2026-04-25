@@ -7,9 +7,6 @@
  *          switchTab, refreshAll, renderScenarios, renderCities, setCity, updateTabBadges.
  * Depends on: scenarios, activeScenarioIdx, currentTab, hasEstimate (core/state.js),
  *             CITIES (data/building-types.js), and all tab renderers (tabs/*.js).
- *
- * Note: Report panel is reachable via switchTab('report') from the Estimate tab
- *       button, even though there is no Report button in the main tab bar.
  */
 const fmt = n => "$" + Math.round(n).toLocaleString();
 
@@ -57,6 +54,13 @@ function updateTabBadges() {
   if (compareTab) {
     compareTab.style.display = scenarios.length > 1 ? "" : "none";
   }
+  // Show the floating PDF action button only when there's a valid estimate
+  // and we're not already on the report tab.
+  const fab = document.getElementById("pdfFab");
+  if (fab) {
+    const show = ready && currentTab !== "report";
+    fab.classList.toggle("hidden", !show);
+  }
 }
 
 function switchTab(tab) {
@@ -72,6 +76,7 @@ function switchTab(tab) {
   if (tab === "compare")  renderCompare();
   if (tab === "sustain")  renderSustain();
   if (tab === "report")   renderReport();
+  updateTabBadges();
   window.scrollTo({top:0, behavior:"smooth"});
 }
 
