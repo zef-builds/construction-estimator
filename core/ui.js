@@ -59,7 +59,7 @@ function updateTabBadges() {
 function switchTab(tab) {
   currentTab = tab;
   document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
-  ["browse","estimate","lcca","optimize","compare","sustain"].forEach(t => {
+  ["browse","estimate","lcca","optimize","compare","sustain","report"].forEach(t => {
     document.getElementById(t + "Panel").classList.toggle("hidden", tab !== t);
   });
   if (tab === "browse")   renderBrowse();
@@ -68,6 +68,7 @@ function switchTab(tab) {
   if (tab === "optimize") renderOptimize();
   if (tab === "compare")  renderCompare();
   if (tab === "sustain")  renderSustain();
+  if (tab === "report")   renderReport();
   window.scrollTo({top:0, behavior:"smooth"});
 }
 
@@ -115,6 +116,7 @@ function refreshAll() {
   if (currentTab === "optimize") renderOptimize();
   if (currentTab === "compare")  renderCompare();
   if (currentTab === "sustain")  renderSustain();
+  if (currentTab === "report")   renderReport();
   updateTabBadges();
   saveState();
 }

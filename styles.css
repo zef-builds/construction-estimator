@@ -251,4 +251,461 @@ input[type=range]::-moz-range-thumb{height:22px;width:22px;border-radius:50%;bac
 .adv-toggle-icon{transition:transform .18s var(--ease);font-family:var(--mono)}
 .adv-toggle.open .adv-toggle-icon{transform:rotate(90deg)}
 .adv-content{overflow:hidden;transition:max-height .3s var(--ease);max-height:0}
-.adv-content.open{max-height:600px}
+.adv-content.open{max-height:600px}/* ========================================================================
+   Append these rules to styles.css
+   Adds: notes/photos UI on Estimate tab, Report tab styles, print stylesheet.
+   ======================================================================== */
+
+/* --- Notes & photos block (Estimate tab) -------------------------------- */
+
+.np-section { margin-top: 22px; }
+.np-notes {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface-d);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 12.5px;
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+  transition: border-color .18s var(--ease);
+  min-height: 64px;
+}
+.np-notes:focus { border-color: var(--border-a); }
+
+.np-photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+.np-photo {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface-d);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+.np-photo img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+.np-photo-x {
+  position: absolute;
+  top: 4px; right: 4px;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s var(--ease);
+}
+.np-photo-x:hover { background: var(--red); }
+.np-photo-caption {
+  width: 100%;
+  padding: 6px 8px;
+  border: none;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 10.5px;
+  outline: none;
+}
+.np-photo-caption:focus { background: var(--surface-h); }
+
+.np-photo-add {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  border: 1px dashed var(--border-h);
+  background: var(--surface-d);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all .18s var(--ease);
+}
+.np-photo-add:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.np-photo-add-icon { font-size: 26px; line-height: 1; font-weight: 300; }
+.np-photo-add-label { font-size: 10.5px; }
+
+/* --- Report tab (on-screen preview) ------------------------------------- */
+
+.report-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  margin-bottom: 10px;
+}
+.report-toolbar-title { font-size: 13px; font-weight: 600; }
+.report-toolbar-sub { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+.report-print-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border-a);
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--sans);
+  cursor: pointer;
+  transition: all .18s var(--ease);
+}
+.report-print-btn:hover { background: rgba(79,209,197,0.2); box-shadow: 0 0 16px var(--accent-soft); }
+
+.report-hint {
+  padding: 10px 14px;
+  background: var(--surface-d);
+  border-radius: 8px;
+  border-left: 2px solid var(--accent);
+  font-size: 11.5px;
+  color: var(--text-dim);
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+.report-hint strong { color: var(--text); font-weight: 600; }
+
+/* The printable doc — styled for screen (preview), restyled by @media print */
+.report-doc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 22px 20px;
+  color: var(--text);
+}
+
+.report-cover {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--surface-h);
+  margin-bottom: 18px;
+}
+.report-cover-mark { display: flex; gap: 10px; align-items: center; }
+.report-cover-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+.report-cover-title { font-size: 15px; font-weight: 700; letter-spacing: -0.2px; }
+.report-cover-title span { color: var(--text-dim); font-weight: 400; }
+.report-cover-sub {
+  font-size: 10.5px;
+  color: var(--text-faint);
+  margin-top: 3px;
+  font-family: var(--mono);
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.report-cover-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: right;
+  font-size: 11px;
+}
+.report-cover-meta > div { display: flex; gap: 8px; justify-content: flex-end; }
+
+.report-meta-lbl {
+  font-size: 9.5px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  font-weight: 600;
+}
+.report-meta-val {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.report-section { margin-bottom: 22px; }
+.report-section-title,
+.report-block-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--surface-h);
+}
+
+.report-summary-table,
+.report-kv-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5px;
+}
+.report-summary-table th,
+.report-summary-table td,
+.report-kv-table td {
+  padding: 7px 8px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--surface-h);
+}
+.report-summary-table th {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  border-bottom: 1px solid var(--border);
+}
+.report-summary-table td.num,
+.report-summary-table th.num,
+.report-kv-table td.num-cell {
+  text-align: right;
+  font-family: var(--mono);
+  white-space: nowrap;
+}
+.report-summary-table .strong,
+.report-kv-table .strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+.report-row-sub td { color: var(--text-dim); }
+.report-row-total td {
+  border-top: 1px solid var(--border);
+  border-bottom: none;
+  padding-top: 9px;
+}
+.report-row-total td.num-cell {
+  font-size: 13px;
+  color: var(--accent);
+}
+
+.report-range-note {
+  margin-top: 10px;
+  font-size: 10.5px;
+  color: var(--text-faint);
+  font-style: italic;
+}
+
+.report-scenario {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid var(--surface-h);
+}
+.report-scenario:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+
+.report-scenario-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.report-scenario-name { font-size: 16px; font-weight: 700; letter-spacing: -0.2px; }
+.report-scenario-meta { font-size: 11.5px; color: var(--text-dim); margin-top: 3px; }
+.report-scenario-total { text-align: right; min-width: 130px; }
+.report-scenario-total-val {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-top: 3px;
+  letter-spacing: -0.4px;
+}
+.report-scenario-total-range {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-faint);
+  margin-top: 4px;
+}
+
+.report-block { margin-bottom: 18px; }
+.report-notes {
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+
+.report-lcca-note {
+  margin-top: 8px;
+  font-size: 10px;
+  color: var(--text-faint);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.report-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.report-photo {
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--surface-d);
+  border: 1px solid var(--border);
+}
+.report-photo img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+.report-photo-caption {
+  padding: 6px 8px;
+  font-size: 10.5px;
+  color: var(--text-dim);
+  border-top: 1px solid var(--border);
+}
+
+.report-disclaimer {
+  margin-top: 24px;
+  padding: 14px 16px;
+  background: var(--surface-d);
+  border-radius: 8px;
+  border-left: 2px solid var(--orange);
+}
+.report-disclaimer-title {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--orange);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.report-disclaimer-body {
+  font-size: 10.5px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+/* ========================================================================
+   PRINT STYLESHEET — what actually shows up on the PDF
+   Strips dark theme, hides all chrome, prints just #reportPanel.
+   ======================================================================== */
+@media print {
+  @page {
+    size: letter;
+    margin: 0.6in;
+  }
+
+  /* Light-theme overrides while printing */
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-h: #f5f5f7;
+    --surface-d: #fafafa;
+    --border: #d4d4d8;
+    --border-h: #a1a1aa;
+    --border-a: #4fd1c5;
+    --text: #18181b;
+    --text-mid: #3f3f46;
+    --text-dim: #52525b;
+    --text-faint: #71717a;
+    --accent: #0d8b7e; /* darker teal — readable on white */
+    --accent-dim: rgba(13,139,126,0.08);
+    --accent-soft: rgba(13,139,126,0.04);
+    --accent-glow: rgba(13,139,126,0.15);
+    --orange: #c2410c;
+  }
+
+  body {
+    background: #fff !important;
+    color: #18181b !important;
+    padding-bottom: 0 !important;
+    font-size: 10.5pt;
+  }
+
+  /* Hide everything that isn't the printable report */
+  .hdr,
+  .scenario-bar,
+  .city-bar,
+  .tabs,
+  #browsePanel,
+  #estimatePanel,
+  #lccaPanel,
+  #optimizePanel,
+  #comparePanel,
+  #sustainPanel,
+  .toast,
+  .no-print {
+    display: none !important;
+  }
+
+  .shell {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #reportPanel {
+    display: block !important;
+  }
+
+  /* Strip the doc's screen card chrome — page margin is the @page rule */
+  .report-doc {
+    background: #fff !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    color: #18181b !important;
+  }
+
+  .report-cover-dot { box-shadow: none !important; }
+  .report-cover-title,
+  .report-scenario-name,
+  .report-scenario-total-val,
+  .report-row-total td.num-cell {
+    color: #0d8b7e !important;
+  }
+  .report-summary-table th { color: #52525b !important; }
+  .report-section-title,
+  .report-block-title { color: #0d8b7e !important; }
+  .report-disclaimer { background: #fafafa !important; }
+  .report-disclaimer-title { color: #c2410c !important; }
+
+  /* Page-break control */
+  .report-page-break { page-break-before: always; break-before: page; }
+  .report-scenario { page-break-inside: avoid; }
+  .report-block { page-break-inside: avoid; }
+  .report-photo-grid { page-break-inside: avoid; }
+  .report-cover { page-break-after: avoid; }
+  table { page-break-inside: auto; }
+  tr { page-break-inside: avoid; page-break-after: auto; }
+
+  /* Make sure photos render full quality */
+  img { max-width: 100% !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  /* Force exact colors so backgrounds/highlights survive */
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+}

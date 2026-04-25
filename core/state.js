@@ -3,15 +3,21 @@
  * Owns app state: scenarios, active tab, LCCA settings, sustain standard.
  * Persists to localStorage via saveState/loadState (key: zef_estimator_v2).
  * Exposes: scenarios, activeScenarioIdx, getCurrentScenario, getCurrentType,
- *          addScenario, removeScenario, setActiveScenario, renameScenario.
+ *          addScenario, removeScenario, setActiveScenario, renameScenario,
+ *          updateScenarioNotes, addScenarioPhoto, removeScenarioPhoto,
+ *          updatePhotoCaption, MAX_PHOTOS_PER_SCENARIO.
  * Depends on: TYPES (data/building-types.js), refreshAll (core/ui.js), showToast (core/ui.js).
  */
 const STORAGE_KEY = "zef_estimator_v2";
+
+const MAX_PHOTOS_PER_SCENARIO = 3;
 
 const makeScenario = (name) => ({
   name,
   city: "tor",
   typeId: null,
+  notes: "",
+  photos: [], // array of { id, dataUrl, caption }
   inputs: {
     gfa: 50000, storeys: 8, siteArea: 0,
     unitCount: 0, unitSize: 1800,
@@ -28,6 +34,13 @@ const makeScenario = (name) => ({
     retailTier: "shell"
   }
 });
+
+// Backfill missing fields on scenarios loaded from older saved shapes.
+function migrateScenario(s) {
+  if (typeof s.notes !== "string") s.notes = "";
+  if (!Array.isArray(s.photos)) s.photos = [];
+  return s;
+}
 
 let scenarios = [makeScenario("Scenario A")];
 let activeScenarioIdx = 0;
@@ -47,7 +60,12 @@ function saveState() {
       scenarios, activeScenarioIdx, currentTab, browseCategory,
       lccaPeriod, lccaDiscount, lccaEnergyEsc, lccaMaintTier, lccaPreset
     }));
-  } catch(e) {}
+  } catch(e) {
+    // QuotaExceededError most likely — photos pushing us past 5 MB.
+    if (e && e.name === "QuotaExceededError") {
+      showToast && showToast("Storage full — remove a photo to save");
+    }
+  }
 }
 
 function loadState() {
@@ -56,7 +74,7 @@ function loadState() {
     if (!raw) return false;
     const st = JSON.parse(raw);
     if (!st.scenarios || !st.scenarios.length) return false;
-    scenarios = st.scenarios;
+    scenarios = st.scenarios.map(migrateScenario);
     activeScenarioIdx = Math.min(st.activeScenarioIdx || 0, scenarios.length - 1);
     currentTab = st.currentTab || "browse";
     browseCategory = st.browseCategory || "all";
@@ -91,6 +109,9 @@ function addScenario() {
   }
   const copy = JSON.parse(JSON.stringify(scenarios[activeScenarioIdx]));
   copy.name = nextName;
+  // Don't carry over notes & photos when duplicating — they belong to the original.
+  copy.notes = "";
+  copy.photos = [];
   scenarios.push(copy);
   activeScenarioIdx = scenarios.length - 1;
   refreshAll();
@@ -130,4 +151,43 @@ function renameScenario(i, el) {
   }
   el.addEventListener("blur", commit);
   el.addEventListener("keydown", onKey);
+}
+
+// --- Notes & photos -------------------------------------------------------
+
+function updateScenarioNotes(text) {
+  const s = getCurrentScenario();
+  s.notes = (text || "").slice(0, 2000);
+  saveState();
+}
+
+function addScenarioPhoto(dataUrl, caption) {
+  const s = getCurrentScenario();
+  if (s.photos.length >= MAX_PHOTOS_PER_SCENARIO) {
+    showToast(`Max ${MAX_PHOTOS_PER_SCENARIO} photos per scenario`);
+    return false;
+  }
+  const photo = {
+    id: "p_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
+    dataUrl,
+    caption: (caption || "").slice(0, 120)
+  };
+  s.photos.push(photo);
+  saveState();
+  return true;
+}
+
+function removeScenarioPhoto(photoId) {
+  const s = getCurrentScenario();
+  s.photos = s.photos.filter(p => p.id !== photoId);
+  saveState();
+}
+
+function updatePhotoCaption(photoId, caption) {
+  const s = getCurrentScenario();
+  const p = s.photos.find(x => x.id === photoId);
+  if (p) {
+    p.caption = (caption || "").slice(0, 120);
+    saveState();
+  }
 }

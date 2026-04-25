@@ -132,10 +132,12 @@ function renderEstimate() {
     html += `</div>`;
   }
   if (isBuilding) html += `<div id="crossMarket"></div>`;
+  html += `<div id="notesPhotosBlock"></div>`;
   panel.innerHTML = html;
   renderLiveSummary();
   renderEstimateDerived();
   renderCrossMarket();
+  renderNotesPhotos();
   updateTabBadges();
 }
 
