@@ -1,3 +1,12 @@
+/**
+ * core/compute.js
+ * Pure cost calculation engine. Takes a scenario, returns an estimate object.
+ * Handles unit/key/bed/student/NLA-driven GFA, clear height and retail tier modifiers,
+ * parking, garage, soft costs, FSR, and floorplate.
+ * Exposes: computeEstimate, computeGarageCost.
+ * Depends on: TYPES, GARAGE_BASE, GARAGE_CITY_FACTOR (data/building-types.js, data/parking.js),
+ *             lerp, getTypeFields (core/ui.js).
+ */
 function computeGarageCost(garage, city, quality, unitCount = 1) {
   const g = GARAGE_BASE[garage];
   if (!g || garage === "none") return 0;

@@ -1,3 +1,13 @@
+/**
+ * data/defaults.js
+ * Defaults, field schemas, and garage data.
+ * TYPE_DEFAULTS gives starter inputs for each building type. TYPE_FIELDS declares
+ * which input fields each type exposes in the Estimate tab. GARAGE_BASE and
+ * GARAGE_CITY_FACTOR drive detached residential garage cost.
+ * Exposes: TYPE_DEFAULTS, TYPE_FIELDS, DEFAULT_FIELDS, NON_BUILDING_FIELDS,
+ *          GARAGE_BASE, GARAGE_CITY_FACTOR, getTypeFields, getGarageLabel, applyTypeDefaults.
+ * Depends on: nothing (pure data + helpers).
+ */
 const TYPE_DEFAULTS = {
   sfr:           {gfa:2400, storeys:2, parkingType:"none", parkingStalls:0, garage:"double"},
   custom_home:   {gfa:3200, storeys:2, parkingType:"none", parkingStalls:0, garage:"double"},

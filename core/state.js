@@ -1,3 +1,11 @@
+/**
+ * core/state.js
+ * Owns app state: scenarios, active tab, LCCA settings, sustain standard.
+ * Persists to localStorage via saveState/loadState (key: zef_estimator_v2).
+ * Exposes: scenarios, activeScenarioIdx, getCurrentScenario, getCurrentType,
+ *          addScenario, removeScenario, setActiveScenario, renameScenario.
+ * Depends on: TYPES (data/building-types.js), refreshAll (core/ui.js), showToast (core/ui.js).
+ */
 const STORAGE_KEY = "zef_estimator_v2";
 
 const makeScenario = (name) => ({

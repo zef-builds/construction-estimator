@@ -1,3 +1,12 @@
+/**
+ * data/energy.js
+ * LCCA inputs. ENERGY holds EUI baselines (ekWh/sf/yr), city electricity and gas
+ * rates ($/kWh, $/sf-equivalent), and the electric/gas split by category.
+ * MAINT gives O&M cost as a fraction of replacement value. REPLACEMENTS lists
+ * major building system renewal cycles and percent of hard cost per cycle.
+ * Exposes: ENERGY, MAINT, REPLACEMENTS.
+ * Depends on: nothing (pure data).
+ */
 const ENERGY = {
   eui: {
     residential:    16.5,

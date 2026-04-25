@@ -1,3 +1,13 @@
+/**
+ * data/parking.js
+ * Stall-count suggestion logic. PARKING_RATIOS gives Canadian zoning-style
+ * ratios per type (per unit, per 1,000 sf, per key, per bed, per student).
+ * CITY_PARKING_ADJ applies a downtown reduction factor by city based on
+ * transit proximity. getParkingRatioSuggestion returns a recommended
+ * stall count for the current scenario.
+ * Exposes: PARKING_RATIOS, CITY_PARKING_ADJ, getParkingRatioSuggestion.
+ * Depends on: nothing structural (reads scenario.inputs at call time).
+ */
 const PARKING_RATIOS = {
   condo_wood:    {mode:"unit", min:0.7, max:1.0, label:"0.7–1.0 stalls/unit"},
   condo_12:      {mode:"unit", min:0.7, max:1.0, label:"0.7–1.0 stalls/unit"},

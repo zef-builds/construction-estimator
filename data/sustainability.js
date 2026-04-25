@@ -1,3 +1,14 @@
+/**
+ * data/sustainability.js
+ * Sustain tab data. EC_INTENSITY is a single whole-building embodied carbon
+ * benchmark per type (kgCO₂e/m², A1–A5; top-down, not material-level).
+ * GREEN_STANDARDS lists code/certification tiers with cost-premium percentages.
+ * PROV_INCENTIVES catalogues programs by province; CITY_PROV maps cities to
+ * provinces. CARBON_PRICE_* are federal industrial OBPS prices in $/tCO₂e.
+ * Exposes: EC_INTENSITY, GREEN_STANDARDS, PROV_INCENTIVES, CITY_PROV,
+ *          CARBON_PRICE_2025, CARBON_PRICE_2030.
+ * Depends on: nothing (pure data).
+ */
 const EC_INTENSITY = {
   sfr:280, custom_home:320, townhouse_row:270, townhouse_stacked:290,
   condo_wood:310, condo_12:370, condo_13_39:410, condo_40_60:460, condo_60plus:520,

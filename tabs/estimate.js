@@ -1,3 +1,24 @@
+/**
+ * tabs/estimate.js
+ * Estimate tab. Largest file in the app. Renders the input form for the
+ * selected building type (driven by getTypeFields), the live total summary
+ * with cost breakdown, derived chips (FSR, floorplate, units, GFA from
+ * keys/beds/students/NLA), and the cross-market rate comparison bar chart.
+ * Field renderers branch on field name: gfa, tnUnits, siteArea, unitMix,
+ * garage, parking, officeNla, clearHeight, retailTier, hotelKeys,
+ * hospitalBeds, schoolCapacity, quality, softCost.
+ * Exposes: renderEstimate, renderField, renderEstimateDerived,
+ *          renderLiveSummary, renderCrossMarket, updateInput, updateParkingType,
+ *          updateQuality, updateSoft, handleNumInput, formatNumInput,
+ *          toggleAdvanced, applyParkingRatio.
+ * Depends on: getCurrentScenario, getCurrentType (core/state.js),
+ *             computeEstimate (core/compute.js), getTypeFields,
+ *             getGarageLabel (data/defaults.js),
+ *             getParkingRatioSuggestion (data/parking.js),
+ *             CITIES, TYPES (data/building-types.js),
+ *             fmt, fmtM, fmtN, fmtRange, lerp, getUnit, switchTab,
+ *             updateTabBadges, showToast (core/ui.js).
+ */
 function updateInput(field, val) {
   const s = getCurrentScenario();
   if (["bachelor","one","two","three"].includes(field)) {

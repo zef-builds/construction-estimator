@@ -1,3 +1,13 @@
+/**
+ * data/building-types.js
+ * Master catalog. CITIES (9 Canadian markets) and TYPES (60+ building/parking/infra types).
+ * Each TYPE entry: id, label, sector (private/public/infrastructure), cat (residential/
+ * commercial/industrial/parking/institutional/infrastructure), rates by city ($/sf low–high
+ * pulled from 2026 Altus Group Canadian Cost Guide), and an optional unit flag
+ * (perStall, perLM, perSM, perUnit, perAcre) — absent means /sf and treated as a building.
+ * Exposes: CITIES, TYPES.
+ * Depends on: nothing (pure data).
+ */
 const CITIES = [
   {id:"tor",label:"Toronto",prov:"ON"},
   {id:"ott",label:"Ottawa",prov:"ON"},

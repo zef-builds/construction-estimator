@@ -1,3 +1,18 @@
+/**
+ * tabs/lcca.js
+ * Life-Cycle Cost Analysis tab. Projects energy, maintenance, and major
+ * component replacement costs over a configurable analysis period (25/30/40/50
+ * years) and discounts to present value. Three presets (conservative/standard/
+ * aggressive) plus advanced sliders for discount rate, energy escalation, and
+ * maintenance tier. Renders a stacked cumulative-cost bar chart and a
+ * replacement schedule.
+ * Exposes: renderLCCA, setLccaPreset.
+ * Depends on: getCurrentScenario (core/state.js), computeEstimate (core/compute.js),
+ *             ENERGY, MAINT, REPLACEMENTS (data/energy.js),
+ *             CITIES (data/building-types.js),
+ *             fmt, fmtM, fmtN, switchTab, toggleAdvanced (core/ui.js, tabs/estimate.js),
+ *             lccaPeriod, lccaDiscount, lccaEnergyEsc, lccaMaintTier, lccaPreset (core/state.js).
+ */
 function setLccaPreset(preset) {
   lccaPreset = preset;
   if (preset === "conservative") { lccaDiscount = 2.0; lccaEnergyEsc = 1.5; lccaMaintTier = "low"; }

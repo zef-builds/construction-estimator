@@ -1,3 +1,19 @@
+/**
+ * tabs/optimize.js
+ * Optimize tab. Tool picker plus four design-tradeoff tools that all read from
+ * the current scenario:
+ *   threshold — height-tier structural cost jumps (12 / 13–39 / 40–60 / 60+)
+ *   parking   — six underground/above/surface mix scenarios
+ *   shape     — square / rect / L / U / tower envelope premium (~17% factor)
+ *   area      — CIQS measured vs. zoning GFA grossing-up factors
+ * Each renders a comparison list with bars and a Key Insight summary.
+ * Exposes: renderOptimize, renderThreshold, renderParkingOpt, renderShapeOpt,
+ *          renderAreaOpt, updateAreaCalc.
+ * Depends on: getCurrentScenario, hasEstimate, optTool (core/state.js),
+ *             computeEstimate (core/compute.js),
+ *             TYPES, CITIES (data/building-types.js),
+ *             fmt, fmtM, fmtN, lerp (core/ui.js).
+ */
 function renderOptimize() {
   const el = document.getElementById("optimizePanel");
   const s = getCurrentScenario();

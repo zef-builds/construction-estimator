@@ -1,3 +1,19 @@
+/**
+ * tabs/sustain.js
+ * Sustain tab. Four panels:
+ *   - Energy & Carbon Standard picker (NECB 2017 → CAGBC ZCB)
+ *   - Green Premium Calculator: hard cost × standard premium % + simple payback
+ *   - Embodied Carbon Estimator: GFA × single kgCO₂e/m² benchmark × OBPS price
+ *   - Energy Code Compliance Cost Tracker: side-by-side premium for each tier
+ *   - Provincial Incentive Finder: programs filtered by city → province
+ * Embodied carbon model is top-down (one number per type), not material-level.
+ * Exposes: renderSustain.
+ * Depends on: getCurrentScenario, sustainStandard (core/state.js),
+ *             computeEstimate (core/compute.js),
+ *             EC_INTENSITY, GREEN_STANDARDS, PROV_INCENTIVES, CITY_PROV,
+ *             CARBON_PRICE_2025, CARBON_PRICE_2030 (data/sustainability.js),
+ *             fmt (core/ui.js).
+ */
 function renderSustain() {
   const panel = document.getElementById("sustainPanel");
   const s = getCurrentScenario();

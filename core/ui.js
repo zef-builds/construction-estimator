@@ -1,3 +1,13 @@
+/**
+ * core/ui.js
+ * Shared UI utilities and global render orchestration.
+ * Formatters (fmt, fmtM, fmtRange, fmtN), lerp, getUnit, toasts, tab switching,
+ * scenario chip bar, city pill bar, and refreshAll (the master re-render).
+ * Exposes: fmt, fmtM, fmtRange, fmtN, lerp, getUnit, showToast,
+ *          switchTab, refreshAll, renderScenarios, renderCities, setCity, updateTabBadges.
+ * Depends on: scenarios, activeScenarioIdx, currentTab, hasEstimate (core/state.js),
+ *             CITIES (data/building-types.js), and all tab renderers (tabs/*.js).
+ */
 const fmt = n => "$" + Math.round(n).toLocaleString();
 
 const fmtM = n => {

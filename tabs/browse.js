@@ -1,3 +1,12 @@
+/**
+ * tabs/browse.js
+ * Browse tab. Renders the search box, category pills, and the scrollable
+ * type catalog. Selecting a type applies defaults and switches to the
+ * Estimate tab.
+ * Exposes: renderBrowse, renderTypeList, setBrowseCategory, selectType, getCategories.
+ * Depends on: TYPES (data/building-types.js), browseCategory, getCurrentScenario (core/state.js),
+ *             applyTypeDefaults (data/defaults.js), getUnit, fmtN, switchTab (core/ui.js).
+ */
 function getCategories() {
   const cats = {};
   TYPES.forEach(t => { cats[t.cat] = (cats[t.cat] || 0) + 1; });

@@ -1,3 +1,15 @@
+/**
+ * tabs/compare.js
+ * Compare tab. Two view modes:
+ *   - Two scenarios: A vs B detailed delta table (rate, hard/soft/parking,
+ *     storeys, quality, units, FSR) with up/down/zero color coding.
+ *   - Three or more scenarios: compact summary list with total and rate.
+ * Empty state prompts adding a second scenario.
+ * Exposes: renderCompare.
+ * Depends on: scenarios (core/state.js), computeEstimate (core/compute.js),
+ *             CITIES (data/building-types.js),
+ *             fmt, fmtM, fmtN, addScenario (core/ui.js, core/state.js).
+ */
 function renderCompare() {
   const el = document.getElementById("comparePanel");
   const validScenarios = scenarios.filter(s => s.typeId);
