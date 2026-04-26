@@ -61,7 +61,7 @@ from reportlab.platypus import (
 # Configuration
 # ---------------------------------------------------------------------------
 
-CLAUDE_MODEL = "claude-opus-4-5-20250101"  # update to current model string
+CLAUDE_MODEL = "claude-sonnet-4-6"
 WHISPER_BIN = os.environ.get("WHISPER_BIN", "whisper-cli")
 WHISPER_MODEL = os.environ.get(
     "WHISPER_MODEL",
