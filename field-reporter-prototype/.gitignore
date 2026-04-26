@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Environment
+.env
+
+# Generated outputs
+output/*
+!output/.gitkeep
+
+# Cached transcripts and temp PDF images
+input/**/memo.txt
+input/**/_pdf_*.jpg
+
+# Local site visit data — don't commit client photos or memos
+input/*/
+!input/sample_site_visit/
+input/sample_site_visit/*.m4a
+input/sample_site_visit/*.mp3
+input/sample_site_visit/*.wav
+input/sample_site_visit/*.jpg
+input/sample_site_visit/*.jpeg
+input/sample_site_visit/*.png
+input/sample_site_visit/*.heic
+
+# OS
+.DS_Store
+Thumbs.db
