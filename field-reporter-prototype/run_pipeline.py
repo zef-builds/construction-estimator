@@ -338,7 +338,7 @@ Empty arrays are fine if there's nothing to report in a section."""
 
     message = client.messages.create(
         model=CLAUDE_MODEL,
-        max_tokens=4000
+        max_tokens=4000,
         system=system_prompt,
         messages=[{"role": "user", "content": user_msg}],
     )
