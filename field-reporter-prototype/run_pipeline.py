@@ -93,7 +93,7 @@ class PhotoAnalysis:
     filename: str
     caption: str
     observed_elements: list[str]
-    flags: list[str]  # e.g. "deficiency", "safety", "milestone"
+    flags: list[str]  # e.g. "deficiency: <description>", "safety: <description>"
 
 
 @dataclass
@@ -162,7 +162,6 @@ def prepare_image_for_vision(photo_path: Path) -> tuple[str, str]:
     if max(img.size) > MAX_PHOTO_DIM:
         img.thumbnail((MAX_PHOTO_DIM, MAX_PHOTO_DIM), Image.LANCZOS)
 
-    # Save to a temp jpeg buffer
     import io
     buf = io.BytesIO()
     img.save(buf, format="JPEG", quality=85)
@@ -187,6 +186,9 @@ def analyze_photos(
         "Respond ONLY with a JSON object — no preamble, no markdown fences."
     )
 
+    # FIX 1: flags now require a colon and specific description on every entry.
+    # Previously the template showed bare category labels ("deficiency" | "safety" etc.)
+    # which caused the model to return bare labels inconsistently on some photos.
     user_template = (
         "Project: {project}\n"
         "Address: {address}\n"
@@ -196,8 +198,15 @@ def analyze_photos(
         "{{\n"
         '  "caption": "one-sentence description (15-25 words)",\n'
         '  "observed_elements": ["short bullet", "short bullet", ...],\n'
-        '  "flags": ["deficiency" | "safety" | "milestone" | "general"]\n'
-        "}}"
+        '  "flags": [\n'
+        '    "deficiency: <specific issue observed>",\n'
+        '    "safety: <specific hazard observed>",\n'
+        '    "milestone: <specific progress achieved>",\n'
+        '    "general: <other observation>"\n'
+        '  ]\n'
+        "}}\n"
+        "Include only flag types that apply. Every flag must include a colon "
+        "and a specific description — never a bare category label."
     )
 
     for i, photo_path in enumerate(photo_paths, 1):
@@ -250,7 +259,7 @@ def analyze_photos(
                 filename=photo_path.name,
                 caption=parsed.get("caption", ""),
                 observed_elements=parsed.get("observed_elements", []),
-                flags=parsed.get("flags", ["general"]),
+                flags=parsed.get("flags", ["general: no specific flags identified"]),
             ))
         except json.JSONDecodeError as e:
             print(f"    WARN: could not parse JSON, using raw text")
@@ -258,7 +267,7 @@ def analyze_photos(
                 filename=photo_path.name,
                 caption=raw[:200],
                 observed_elements=[],
-                flags=["general"],
+                flags=["general: photo analysis could not be parsed"],
             ))
 
     return analyses
@@ -283,6 +292,10 @@ def synthesize_report(
         for p in photos
     )
 
+    # FIX 2: Added deduplication instruction — if an item appears in
+    # deficiencies, safety_notes should reference it briefly rather than
+    # restating it in full. Previously the same item appeared in both sections
+    # with nearly identical language.
     system_prompt = (
         "You are a senior construction project manager writing a progress "
         "report. Synthesize the field observations from the site walk "
@@ -291,6 +304,9 @@ def synthesize_report(
         "Distinguish clearly between what was observed, what is deficient, "
         "what is a safety concern, and what needs to happen next. "
         "Do not invent details not supported by the transcript or photos. "
+        "If an item appears in deficiencies, reference it briefly in "
+        "safety_notes rather than restating it in full — do not duplicate "
+        "content across sections. "
         "Respond ONLY with a JSON object — no preamble, no markdown fences."
     )
 
@@ -373,12 +389,12 @@ def render_pdf(
     h2 = ParagraphStyle("H2", parent=styles["Heading2"], fontSize=13, spaceAfter=8, spaceBefore=14)
     body = ParagraphStyle("Body", parent=styles["BodyText"], fontSize=10, leading=14)
     small = ParagraphStyle("Small", parent=styles["BodyText"], fontSize=8, leading=11, textColor=colors.grey)
-    caption = ParagraphStyle("Caption", parent=body, fontSize=9, leading=12, alignment=1)
+    caption_style = ParagraphStyle("Caption", parent=body, fontSize=9, leading=12, alignment=1)
 
     story: list[Any] = []
 
     # Header
-    story.append(Paragraph(f"Site Progress Report", h1))
+    story.append(Paragraph("Site Progress Report", h1))
     meta_table_data = [
         ["Project:", metadata.project_name],
         ["Address:", metadata.project_address],
@@ -423,15 +439,18 @@ def render_pdf(
             if not photo_path.exists():
                 continue
             try:
-                # Resize for the PDF too
                 img = Image.open(photo_path).convert("RGB")
                 img.thumbnail((1200, 1200), Image.LANCZOS)
                 tmp = photo_dir / f"_pdf_{p.filename}.jpg"
                 img.save(tmp, format="JPEG", quality=85)
 
-                rl_img = RLImage(str(tmp), width=4.5 * inch, height=4.5 * inch * img.size[1] / img.size[0])
+                rl_img = RLImage(
+                    str(tmp),
+                    width=4.5 * inch,
+                    height=4.5 * inch * img.size[1] / img.size[0],
+                )
                 story.append(rl_img)
-                story.append(Paragraph(p.caption, caption))
+                story.append(Paragraph(p.caption, caption_style))
                 story.append(Paragraph(
                     f"Flags: {', '.join(p.flags)}  |  {p.filename}",
                     small,
