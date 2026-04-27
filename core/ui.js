@@ -47,7 +47,7 @@ function showToast(msg) {
 
 function updateTabBadges() {
   const ready = hasEstimate();
-  document.querySelectorAll('[data-tab="estimate"], [data-tab="lcca"], [data-tab="optimize"]').forEach(btn => {
+  document.querySelectorAll('[data-tab="estimate"], [data-tab="lcca"], [data-tab="optimize"], [data-tab="feas"]').forEach(btn => {
     btn.classList.toggle("tab-ready", ready);
   });
   const compareTab = document.getElementById("compareTab");
@@ -66,13 +66,14 @@ function updateTabBadges() {
 function switchTab(tab) {
   currentTab = tab;
   document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
-  ["browse","estimate","lcca","optimize","compare","sustain","report"].forEach(t => {
+  ["browse","estimate","lcca","optimize","feas","compare","sustain","report"].forEach(t => {
     document.getElementById(t + "Panel").classList.toggle("hidden", tab !== t);
   });
   if (tab === "browse")   renderBrowse();
   if (tab === "estimate") renderEstimate();
   if (tab === "lcca")     renderLCCA();
   if (tab === "optimize") renderOptimize();
+  if (tab === "feas")     renderFeasibility();
   if (tab === "compare")  renderCompare();
   if (tab === "sustain")  renderSustain();
   if (tab === "report")   renderReport();
@@ -122,6 +123,7 @@ function refreshAll() {
   if (currentTab === "estimate") renderEstimate();
   if (currentTab === "lcca")     renderLCCA();
   if (currentTab === "optimize") renderOptimize();
+  if (currentTab === "feas")     renderFeasibility();
   if (currentTab === "compare")  renderCompare();
   if (currentTab === "sustain")  renderSustain();
   if (currentTab === "report")   renderReport();

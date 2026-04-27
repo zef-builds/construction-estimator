@@ -18,6 +18,7 @@ const makeScenario = (name) => ({
   typeId: null,
   notes: "",
   photos: [], // array of { id, dataUrl, caption }
+  feas: null, // proforma block — created lazily by tabs/feasibility.js
   inputs: {
     gfa: 50000, storeys: 8, siteArea: 0,
     unitCount: 0, unitSize: 1800,
@@ -39,6 +40,7 @@ const makeScenario = (name) => ({
 function migrateScenario(s) {
   if (typeof s.notes !== "string") s.notes = "";
   if (!Array.isArray(s.photos)) s.photos = [];
+  if (typeof s.feas === "undefined") s.feas = null;
   return s;
 }
 
@@ -109,9 +111,11 @@ function addScenario() {
   }
   const copy = JSON.parse(JSON.stringify(scenarios[activeScenarioIdx]));
   copy.name = nextName;
-  // Don't carry over notes & photos when duplicating — they belong to the original.
+  // Don't carry over notes, photos, or feas inputs when duplicating —
+  // they belong to the original scenario, not the new one.
   copy.notes = "";
   copy.photos = [];
+  copy.feas = null;
   scenarios.push(copy);
   activeScenarioIdx = scenarios.length - 1;
   refreshAll();
