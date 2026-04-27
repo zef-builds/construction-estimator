@@ -69,6 +69,11 @@ function switchTab(tab) {
   ["browse","estimate","lcca","optimize","feas","compare","sustain","report"].forEach(t => {
     document.getElementById(t + "Panel").classList.toggle("hidden", tab !== t);
   });
+  // Ensure the active tab button is visible inside the (potentially scrollable) tabs row
+  const activeBtn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
+  if (activeBtn && activeBtn.scrollIntoView) {
+    activeBtn.scrollIntoView({behavior:"smooth", block:"nearest", inline:"center"});
+  }
   if (tab === "browse")   renderBrowse();
   if (tab === "estimate") renderEstimate();
   if (tab === "lcca")     renderLCCA();

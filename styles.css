@@ -699,6 +699,7 @@ input[type=range]::-moz-range-thumb{height:22px;width:22px;border-radius:50%;bac
   .tabs,
   #browsePanel,
   #estimatePanel,
+  #feasPanel,
   #lccaPanel,
   #optimizePanel,
   #comparePanel,
@@ -754,4 +755,29 @@ input[type=range]::-moz-range-thumb{height:22px;width:22px;border-radius:50%;bac
 
   /* Force exact colors so backgrounds/highlights survive */
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+}
+/* ========================================================================
+   Tabs — mobile overflow fix
+   With 7 tabs, equal-flex distribution + nowrap labels overflows on
+   narrow viewports. Below 640px, switch the tabs row to horizontal scroll
+   with the same fade-mask pattern used by .city-bar and .cat-bar.
+   Append to the end of styles.css.
+   ======================================================================== */
+@media (max-width: 640px) {
+  .tabs {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
+            mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex: 0 0 auto;       /* stop sharing width equally — let label define width */
+    padding: 10px 12px;   /* a touch more horizontal padding so tabs don't feel cramped */
+    font-size: 12px;
+    scroll-snap-align: start;
+  }
+  .tabs { scroll-snap-type: x proximity; }
 }
