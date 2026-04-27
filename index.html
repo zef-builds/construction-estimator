@@ -46,7 +46,7 @@
 
 <!-- Floating action button: opens the PDF report preview. Hidden by default;
      shown by updateTabBadges() once a valid estimate exists. -->
-<button id="pdfFab" class="pdf-fab hidden" onclick="switchTab('report')" aria-label="Generate PDF Report" title="Generate PDF Report">
+<button id="pdfFab" class="pdf-fab hidden" onclick="trackEvent('pdf-fab-clicked');switchTab('report')" aria-label="Generate PDF Report" title="Generate PDF Report">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <polyline points="6 9 6 2 18 2 18 9"/>
     <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
@@ -85,6 +85,10 @@
   if (restored) { showToast("Session restored"); }
   refreshAll();
 </script>
+
+<!-- Analytics: GoatCounter (privacy-friendly, no cookies, no consent banner needed) -->
+<script data-goatcounter="https://zef-builds.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 
 </body>
 </html>

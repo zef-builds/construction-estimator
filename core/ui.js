@@ -4,7 +4,8 @@
  * Formatters (fmt, fmtM, fmtRange, fmtN), lerp, getUnit, toasts, tab switching,
  * scenario chip bar, city pill bar, and refreshAll (the master re-render).
  * Exposes: fmt, fmtM, fmtRange, fmtN, lerp, getUnit, showToast,
- *          switchTab, refreshAll, renderScenarios, renderCities, setCity, updateTabBadges.
+ *          switchTab, refreshAll, renderScenarios, renderCities, setCity,
+ *          updateTabBadges, trackEvent.
  * Depends on: scenarios, activeScenarioIdx, currentTab, hasEstimate (core/state.js),
  *             CITIES (data/building-types.js), and all tab renderers (tabs/*.js).
  */
@@ -45,6 +46,15 @@ function showToast(msg) {
   setTimeout(() => t.remove(), 1800);
 }
 
+// ANALYTICS: Fires a custom event to GoatCounter. Safe no-op if the script
+// hasn't loaded (or is blocked by an ad blocker), so it never breaks the app.
+// Call from anywhere with a short label, e.g. trackEvent('estimate-generated').
+function trackEvent(name) {
+  if (window.goatcounter && typeof window.goatcounter.count === "function") {
+    window.goatcounter.count({ path: name, event: true });
+  }
+}
+
 function updateTabBadges() {
   const ready = hasEstimate();
   document.querySelectorAll('[data-tab="estimate"], [data-tab="lcca"], [data-tab="optimize"], [data-tab="feas"]').forEach(btn => {
@@ -65,6 +75,7 @@ function updateTabBadges() {
 
 function switchTab(tab) {
   currentTab = tab;
+  trackEvent("tab-" + tab);  // ANALYTICS: which tabs people visit
   document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
   ["browse","estimate","lcca","optimize","feas","compare","sustain","report"].forEach(t => {
     document.getElementById(t + "Panel").classList.toggle("hidden", tab !== t);
@@ -118,6 +129,7 @@ function renderCities() {
 
 function setCity(id) {
   getCurrentScenario().city = id;
+  trackEvent("city-" + id);  // ANALYTICS: which cities people care about
   refreshAll();
 }
 

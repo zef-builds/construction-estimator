@@ -72,6 +72,7 @@ function applyFeasMarketDefaults() {
   } else if (md.kind === "hotel") {
     f.adr = md.adr; f.occ = md.occ; f.cap = md.cap;
   }
+  trackEvent && trackEvent("feasibility-defaults-applied");  // ANALYTICS
   showToast("Market defaults applied");
   renderFeasibility();
 }

@@ -21,6 +21,13 @@
  */
 function updateInput(field, val) {
   const s = getCurrentScenario();
+  // ANALYTICS: fire a one-time "estimate-generated" event the first time
+  // a user actually engages with inputs after picking a building type.
+  // We use a per-scenario flag so it doesn't fire on every keystroke.
+  if (s.typeId && !s._estimateTracked) {
+    s._estimateTracked = true;
+    trackEvent && trackEvent("estimate-engaged");
+  }
   if (["bachelor","one","two","three"].includes(field)) {
     s.inputs.unitMix[field] = val;
   } else {

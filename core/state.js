@@ -6,7 +6,8 @@
  *          addScenario, removeScenario, setActiveScenario, renameScenario,
  *          updateScenarioNotes, addScenarioPhoto, removeScenarioPhoto,
  *          updatePhotoCaption, MAX_PHOTOS_PER_SCENARIO.
- * Depends on: TYPES (data/building-types.js), refreshAll (core/ui.js), showToast (core/ui.js).
+ * Depends on: TYPES (data/building-types.js), refreshAll (core/ui.js),
+ *             showToast, trackEvent (core/ui.js).
  */
 const STORAGE_KEY = "zef_estimator_v2";
 
@@ -118,6 +119,7 @@ function addScenario() {
   copy.feas = null;
   scenarios.push(copy);
   activeScenarioIdx = scenarios.length - 1;
+  trackEvent && trackEvent("scenario-added");  // ANALYTICS
   refreshAll();
   showToast("Scenario added");
 }
@@ -126,6 +128,7 @@ function removeScenario(i) {
   if (scenarios.length <= 1) return;
   scenarios.splice(i, 1);
   if (activeScenarioIdx >= scenarios.length) activeScenarioIdx = scenarios.length - 1;
+  trackEvent && trackEvent("scenario-removed");  // ANALYTICS
   refreshAll();
 }
 
@@ -177,6 +180,7 @@ function addScenarioPhoto(dataUrl, caption) {
     caption: (caption || "").slice(0, 120)
   };
   s.photos.push(photo);
+  trackEvent && trackEvent("photo-uploaded");  // ANALYTICS
   saveState();
   return true;
 }

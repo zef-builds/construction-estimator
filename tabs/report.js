@@ -18,6 +18,7 @@
  */
 
 function printReport() {
+  trackEvent && trackEvent("pdf-print-attempted");  // ANALYTICS
   // Set a sensible filename via document.title (browsers prefill this).
   const orig = document.title;
   const stamp = new Date().toISOString().slice(0, 10);
