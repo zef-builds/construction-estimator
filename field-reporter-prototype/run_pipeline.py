@@ -349,8 +349,16 @@ Empty arrays are fine if there's nothing to report in a section."""
         if raw.startswith("json"):
             raw = raw[4:]
         raw = raw.strip()
+    # Strip any trailing fence that wasn't caught above
+    if raw.endswith("```"):
+        raw = raw[:-3].strip()
 
-    parsed = json.loads(raw)
+    try:
+        parsed = json.loads(raw)
+    except json.JSONDecodeError as e:
+        print(f"  ERROR: could not parse synthesis JSON: {e}")
+        print(f"  Raw response (first 500 chars):\n{raw[:500]}")
+        sys.exit(1)
     return ReportSections(
         summary=parsed.get("summary", ""),
         work_observed=parsed.get("work_observed", []),
