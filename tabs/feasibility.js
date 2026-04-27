@@ -21,6 +21,11 @@
  * one render function rebuilds the whole panel; inputs call setFeas() which
  * mutates scenario state and re-renders.
  *
+ * FOCUS PRESERVATION: every input has a data-feas-field attribute. Before
+ * each re-render we capture which field has focus and its caret position,
+ * then restore it after innerHTML is rewritten. Inputs use type="text" with
+ * inputmode hints rather than type="number" so caret state survives.
+ *
  * Exposes: renderFeasibility, setFeas, applyFeasMarketDefaults,
  *          setRevenueModelOverride.
  * Depends on: getCurrentScenario, getCurrentType (core/state.js),
@@ -95,11 +100,58 @@ function resolveAssetClass() {
 }
 
 // ---------------------------------------------------------------------------
+// Input helpers — single source of truth for input markup
+// ---------------------------------------------------------------------------
+// Numeric input that survives re-render. type="text" + inputmode is used
+// instead of type="number" so caret position can be saved and restored.
+// `parser` runs on the raw string before being passed to setFeas.
+//
+// Use feasNumInput for plain numbers (rates, percentages, $/sf).
+// Use feasIntInput for integer-only fields (months, occupancy, keys).
+// Use feasMoneyInput for the formatted thousands-separated land cost field.
+function feasNumInput(field, value, opts = {}) {
+  const {placeholder = "0", style = ""} = opts;
+  return `<input type="text" inputmode="decimal" data-feas-field="${field}"
+    value="${value}" placeholder="${placeholder}"
+    oninput="setFeas('${field}', parseFloat(this.value)||0)"
+    style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text);${style}">`;
+}
+
+function feasIntInput(field, value, opts = {}) {
+  const {placeholder = "0", style = ""} = opts;
+  return `<input type="text" inputmode="numeric" data-feas-field="${field}"
+    value="${value}" placeholder="${placeholder}"
+    oninput="setFeas('${field}', parseInt(this.value.replace(/[^\\d]/g,''))||0)"
+    style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text);${style}">`;
+}
+
+function feasMoneyInput(field, value, opts = {}) {
+  const {style = ""} = opts;
+  return `<input type="text" inputmode="numeric" data-feas-field="${field}"
+    value="${(+value).toLocaleString()}"
+    oninput="setFeas('${field}', parseInt(this.value.replace(/[^\\d]/g,''))||0)"
+    style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text);${style}">`;
+}
+
+// ---------------------------------------------------------------------------
 // Main render
 // ---------------------------------------------------------------------------
 function renderFeasibility() {
   const panel = document.getElementById("feasPanel");
   if (!panel) return;
+
+  // ----- Capture focus state before innerHTML is rewritten -----
+  const active = document.activeElement;
+  let focusedField = null, selStart = null, selEnd = null;
+  if (active && panel.contains(active) && active.dataset && active.dataset.feasField) {
+    focusedField = active.dataset.feasField;
+    // selectionStart only exists on text-type inputs, which is what we use
+    try {
+      selStart = active.selectionStart;
+      selEnd   = active.selectionEnd;
+    } catch (e) { /* some input types throw; ignore */ }
+  }
+
   const s = getCurrentScenario();
   if (!s.typeId) {
     panel.innerHTML = `<div class="empty">
@@ -125,6 +177,7 @@ function renderFeasibility() {
           <span style="color:var(--text-dim);font-size:11px">Pick a revenue model above to apply a proforma anyway, or use this tab with a building type that maps to apartment, office, industrial, retail, condo, townhouse, SFR, or hotel.</span>
         </div>
       </div>`;
+    restoreFeasFocus(panel, focusedField, selStart, selEnd);
     return;
   }
 
@@ -171,6 +224,27 @@ function renderFeasibility() {
     renderSourcesUses(costStack, f) +
     verdictBlock +
     renderFooter();
+
+  // ----- Restore focus after re-render -----
+  restoreFeasFocus(panel, focusedField, selStart, selEnd);
+}
+
+// Restores focus and caret position to whichever input had focus before
+// renderFeasibility rewrote the panel HTML.
+function restoreFeasFocus(panel, focusedField, selStart, selEnd) {
+  if (!focusedField) return;
+  const next = panel.querySelector(`[data-feas-field="${focusedField}"]`);
+  if (!next) return;
+  next.focus();
+  if (selStart !== null && selEnd !== null) {
+    // For money/integer inputs, the formatted value length may have changed
+    // (e.g. "5" → "5" still 1 char, but "1000" → "1,000" gains a comma).
+    // Clamp to the new value length so the caret lands sensibly.
+    const len = next.value.length;
+    const start = Math.min(selStart, len);
+    const end   = Math.min(selEnd, len);
+    try { next.setSelectionRange(start, end); } catch (e) { /* ignore */ }
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -255,43 +329,31 @@ function renderCostStack(c, f) {
     ${row("Construction subtotal", c.construction, {bold:true})}
     <div class="est-section" style="margin:10px 0 4px;padding:0">
       <div class="est-label" style="margin-bottom:4px">Land Cost ($)</div>
-      <input type="text" inputmode="numeric" value="${(+f.landCost).toLocaleString()}"
-        oninput="setFeas('landCost', parseInt(this.value.replace(/[^\\d]/g,''))||0)"
-        style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text)">
+      ${feasMoneyInput("landCost", f.landCost)}
     </div>
     <div class="est-section" style="margin:8px 0 4px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px">
       <div>
         <div class="est-label" style="margin-bottom:4px">Contingency %</div>
-        <input type="number" min="0" max="20" step="0.5" value="${f.contingencyPct}"
-          oninput="setFeas('contingencyPct', parseFloat(this.value)||0)"
-          style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text)">
+        ${feasNumInput("contingencyPct", f.contingencyPct)}
       </div>
       <div>
         <div class="est-label" style="margin-bottom:4px">Developer Fee %</div>
-        <input type="number" min="0" max="10" step="0.25" value="${f.developerFeePct}"
-          oninput="setFeas('developerFeePct', parseFloat(this.value)||0)"
-          style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text)">
+        ${feasNumInput("developerFeePct", f.developerFeePct)}
       </div>
     </div>
     <div class="est-section" style="margin:8px 0 4px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px">
       <div>
         <div class="est-label" style="margin-bottom:4px">LTC %</div>
-        <input type="number" min="0" max="85" step="1" value="${f.ltcPct}"
-          oninput="setFeas('ltcPct', parseFloat(this.value)||0)"
-          style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text)">
+        ${feasNumInput("ltcPct", f.ltcPct)}
       </div>
       <div>
         <div class="est-label" style="margin-bottom:4px">Interest Rate %</div>
-        <input type="number" min="0" max="20" step="0.25" value="${f.interestRate}"
-          oninput="setFeas('interestRate', parseFloat(this.value)||0)"
-          style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text)">
+        ${feasNumInput("interestRate", f.interestRate)}
       </div>
     </div>
     <div class="est-section" style="margin:8px 0 14px;padding:0">
       <div class="est-label" style="margin-bottom:4px">Construction Term (months)</div>
-      <input type="number" min="3" max="60" step="1" value="${f.constructionMo}"
-        oninput="setFeas('constructionMo', parseInt(this.value)||0)"
-        style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text)">
+      ${feasIntInput("constructionMo", f.constructionMo)}
     </div>
     ${row("Land",          c.land, {indent:true})}
     ${row("Contingency",   c.contingency, {indent:true})}
@@ -333,15 +395,11 @@ function renderRevenueRental(r, f, cls) {
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
       <div>
         <div class="est-label" style="margin-bottom:4px">Market Rent ($/sf NLA / yr)</div>
-        <input type="number" min="0" step="0.5" value="${f.rent}"
-          oninput="setFeas('rent', parseFloat(this.value)||0)"
-          style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text)">
+        ${feasNumInput("rent", f.rent)}
       </div>
       <div>
         <div class="est-label" style="margin-bottom:4px">Vacancy %</div>
-        <input type="number" min="0" max="50" step="0.5" value="${f.vacancy}"
-          oninput="setFeas('vacancy', parseFloat(this.value)||0)"
-          style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text)">
+        ${feasNumInput("vacancy", f.vacancy)}
       </div>
     </div>
     <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
@@ -364,6 +422,7 @@ function renderRevenueRental(r, f, cls) {
 }
 
 function renderOperatingRental(r) {
+  const f = getFeasState();
   return `<div class="est-section" style="border:1px solid var(--border);border-radius:12px;padding:14px;background:var(--surface)">
     <div style="font-size:10.5px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.6px;font-weight:600;margin-bottom:10px">Operating</div>
     <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
@@ -380,9 +439,7 @@ function renderOperatingRental(r) {
     </div>
     <div style="margin-top:10px;padding:8px 12px;border-radius:8px;background:var(--bg)">
       <div class="est-label" style="margin-bottom:4px">Operating Expense Override ($/sf NLA / yr)</div>
-      <input type="number" min="0" step="0.5" value="${getFeasState().opex}"
-        oninput="setFeas('opex', parseFloat(this.value)||0)"
-        style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-family:var(--mono);font-size:13px;color:var(--text)">
+      ${feasNumInput("opex", f.opex, {style:"background:var(--surface)"})}
     </div>
   </div>`;
 }
@@ -400,15 +457,11 @@ function renderReturnsRental(r, c, f) {
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
       <div>
         <div class="est-label" style="margin-bottom:4px">Market Cap Rate %</div>
-        <input type="number" min="0" max="20" step="0.05" value="${f.cap}"
-          oninput="setFeas('cap', parseFloat(this.value)||0)"
-          style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text)">
+        ${feasNumInput("cap", f.cap)}
       </div>
       <div>
         <div class="est-label" style="margin-bottom:4px">Target Spread (bps)</div>
-        <input type="number" min="0" max="500" step="25" value="${f.targetSpreadBps}"
-          oninput="setFeas('targetSpreadBps', parseInt(this.value)||0)"
-          style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text)">
+        ${feasIntInput("targetSpreadBps", f.targetSpreadBps)}
       </div>
     </div>
     <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
@@ -452,29 +505,21 @@ function renderRevenueForSale(r, f, cls) {
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
       <div>
         <div class="est-label" style="margin-bottom:4px">Sellout $/sf NSA</div>
-        <input type="number" min="0" step="10" value="${f.condoPsf}"
-          oninput="setFeas('condoPsf', parseFloat(this.value)||0)"
-          style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text)">
+        ${feasNumInput("condoPsf", f.condoPsf)}
       </div>
       <div>
         <div class="est-label" style="margin-bottom:4px">NSA / GFA Efficiency %</div>
-        <input type="number" min="60" max="95" step="1" value="${f.condoEfficiency}"
-          oninput="setFeas('condoEfficiency', parseFloat(this.value)||0)"
-          style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text)">
+        ${feasNumInput("condoEfficiency", f.condoEfficiency)}
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
       <div>
         <div class="est-label" style="margin-bottom:4px">Sales/Marketing/G&A %</div>
-        <input type="number" min="0" max="15" step="0.5" value="${f.condoSGA}"
-          oninput="setFeas('condoSGA', parseFloat(this.value)||0)"
-          style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text)">
+        ${feasNumInput("condoSGA", f.condoSGA)}
       </div>
       <div>
         <div class="est-label" style="margin-bottom:4px">Target Margin %</div>
-        <input type="number" min="0" max="40" step="1" value="${f.condoMargin}"
-          oninput="setFeas('condoMargin', parseFloat(this.value)||0)"
-          style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text)">
+        ${feasNumInput("condoMargin", f.condoMargin)}
       </div>
     </div>
     <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
@@ -572,15 +617,11 @@ function renderRevenueHotel(r, f, cls) {
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
       <div>
         <div class="est-label" style="margin-bottom:4px">Average Daily Rate ($)</div>
-        <input type="number" min="0" step="5" value="${f.adr}"
-          oninput="setFeas('adr', parseFloat(this.value)||0)"
-          style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text)">
+        ${feasNumInput("adr", f.adr)}
       </div>
       <div>
         <div class="est-label" style="margin-bottom:4px">Stabilized Occupancy %</div>
-        <input type="number" min="0" max="100" step="1" value="${f.occ}"
-          oninput="setFeas('occ', parseFloat(this.value)||0)"
-          style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:13px;color:var(--text)">
+        ${feasNumInput("occ", f.occ)}
       </div>
     </div>
     <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
@@ -630,21 +671,15 @@ function renderOperatingHotel(r) {
     <div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
       <div>
         <div class="est-label" style="margin-bottom:4px">GOP %</div>
-        <input type="number" min="0" max="60" step="1" value="${f.hotelGOPpct}"
-          oninput="setFeas('hotelGOPpct', parseFloat(this.value)||0)"
-          style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:12px;color:var(--text)">
+        ${feasNumInput("hotelGOPpct", f.hotelGOPpct, {style:"padding:6px 8px;border-radius:6px;font-size:12px"})}
       </div>
       <div>
         <div class="est-label" style="margin-bottom:4px">Mgmt %</div>
-        <input type="number" min="0" max="10" step="0.5" value="${f.hotelMgmtFee}"
-          oninput="setFeas('hotelMgmtFee', parseFloat(this.value)||0)"
-          style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:12px;color:var(--text)">
+        ${feasNumInput("hotelMgmtFee", f.hotelMgmtFee, {style:"padding:6px 8px;border-radius:6px;font-size:12px"})}
       </div>
       <div>
         <div class="est-label" style="margin-bottom:4px">FF&E %</div>
-        <input type="number" min="0" max="10" step="0.5" value="${f.hotelFFEReserve}"
-          oninput="setFeas('hotelFFEReserve', parseFloat(this.value)||0)"
-          style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:12px;color:var(--text)">
+        ${feasNumInput("hotelFFEReserve", f.hotelFFEReserve, {style:"padding:6px 8px;border-radius:6px;font-size:12px"})}
       </div>
     </div>
   </div>`;
